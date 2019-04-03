@@ -3,11 +3,14 @@
 == Compiling and Building
 
 To compile the Java source code, go to `got-genealogy` and run:
-...
+[source, shell]
+----
 mvn clean install
-...
+----
 
 Currently, there are no modules, so building is done by:
-...
+
+[source, shell]
+----
 mvn exec:java
-...
+----
