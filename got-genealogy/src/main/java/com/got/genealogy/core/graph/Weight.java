@@ -5,6 +5,9 @@ import java.util.Arrays;
 public class Weight<T> {
     private T weight;
 
+    public Weight() {
+    }
+
     public Weight(T weight) {
         this.weight = weight;
     }
