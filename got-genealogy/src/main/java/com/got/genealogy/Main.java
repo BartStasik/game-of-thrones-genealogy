@@ -23,7 +23,7 @@ public class Main {
 
         graph1.printGraph();
 
-        Graph<Person> graph2 = new Graph<>(true);
+        Graph<Person> graph2 = new Graph<>(false);
 
         Person a2 = new Person("a");
         Person b2 = new Person("b");
@@ -38,6 +38,8 @@ public class Main {
         graph2.addEdge(a2, b2);
         graph2.addEdge(a2, c2);
         graph2.addEdge(b2, d2);
+
+        graph2.removeVertex(c2);
 
         System.out.println();
         graph2.printGraph();

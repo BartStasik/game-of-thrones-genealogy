@@ -3,6 +3,7 @@ package com.got.genealogy.core.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Graph<Vert extends Vertex> {
 
@@ -47,12 +48,33 @@ public class Graph<Vert extends Vertex> {
         }
     }
 
-    public void printGraph() {
+    public void removeVertex(Vert vertex) {
+        int index = vertices.get(vertex);
+
+        // Remove and shift left
+        vertices.remove(vertex);
+        vertices.replaceAll((k, v) -> {
+            return v >= index ? v-1 : v;
+        });
+
+        // Remove from both axes
+        matrix.remove(index);
         for (List<Weight<Integer>> row : matrix) {
-            for (int i = 0; i < row.size(); i++) {
+            row.remove(index);
+        }
+    }
+
+    public void printGraph() {
+        for (int i = 0; i < matrix.size(); i++) {
+            for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
+                if (i == vertex.getValue()) {
+                    System.out.print(vertex.getKey().getLabel() + "  ");
+                }
+            }
+            for (int j = 0; j < matrix.get(i).size(); j++) {
                 String printValue;
-                printValue = i == row.size() - 1 ? "" : ", ";
-                System.out.print(row.get(i).getWeight() + printValue);
+                printValue = j == matrix.get(i).size() - 1 ? "" : ", ";
+                System.out.print(matrix.get(i).get(j).getWeight() + printValue);
             }
             System.out.println();
         }
