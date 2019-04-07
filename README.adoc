@@ -14,3 +14,19 @@ Currently, there are no modules, so building is done by:
 ----
 mvn exec:java
 ----
+
+== Debugging
+
+To use with a debugger, you have to build the code with `mvnDebug` and connect to remotely (default port: `8000`) from your IDE:
+
+[source, shell]
+----
+mvnDebug exec:java
+----
+
+Compile and build shorthand:
+
+[source, shell]
+----
+mvn clean install && mvnDebug exec:java
+----
