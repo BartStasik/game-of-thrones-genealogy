@@ -17,7 +17,7 @@ public class Graph<Vert extends Vertex> {
         directed = d;
     }
 
-    public void addEdge(Vert vertex1, Vertex vertex2) {
+    public void addEdge(Vert vertex1, Vert vertex2) {
         // Get index numbers of vertices
         int fromVertex = vertices.get(vertex1);
         int toVertex = vertices.get(vertex2);
