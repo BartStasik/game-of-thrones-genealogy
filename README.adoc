@@ -1,5 +1,17 @@
 = CN5121_GoT_Genealogy
 
+== Setup
+
+* Install Git
+* Install Maven
+* `(Optional)` Configure IDE to run with Maven
+
+=== Maven on Windows
+
+* Download `Binary zip archive`
+* Unpack into a directory, e.g. `C:\Program Files\Apache Software Foundation\apache-maven-3.6.0`
+* Add `bin` folder into PATH
+
 == Compiling and Building
 
 To compile the Java source code, go to `got-genealogy` and run:
