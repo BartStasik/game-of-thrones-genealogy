@@ -1,6 +1,6 @@
-package com.got.genealogy.core.person;
+package com.got.genealogy.core.family;
 
-import com.got.genealogy.core.graph.Vertex;
+import com.got.genealogy.core.graph.property.Vertex;
 
 public class Person extends Vertex {
     private String name;
@@ -9,14 +9,6 @@ public class Person extends Vertex {
 
     public Person(String label) {
         super(label);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getGender() {

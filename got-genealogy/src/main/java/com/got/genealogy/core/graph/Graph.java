@@ -1,13 +1,16 @@
 package com.got.genealogy.core.graph;
 
+import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
+import com.got.genealogy.core.graph.property.Vertex;
+import com.got.genealogy.core.graph.property.Weight;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Graph<Vert extends Vertex, Arc> {
 
-    private List<List<Weight<Arc>>> matrix;
+    private AdjacencyMatrix<Weight<Arc>> matrix;
     private HashMap<Vert, Integer> vertices;
     private boolean directed;
 
@@ -16,16 +19,14 @@ public class Graph<Vert extends Vertex, Arc> {
     }
 
     public Graph(boolean directed) {
-        matrix = new ArrayList<>();
+        matrix = new AdjacencyMatrix<>();
         vertices = new HashMap<>();
         this.directed = directed;
     }
 
-
     public void addEdge(Vert vertex1, Vert vertex2) {
         addEdge(vertex1, vertex2, new Weight<>());
     }
-
 
     public void addEdge(Vert vertex1, Vert vertex2, Weight<Arc> weight) {
         // Get index numbers of vertices
@@ -33,13 +34,11 @@ public class Graph<Vert extends Vertex, Arc> {
         int toVertex = vertices.get(vertex2);
 
         // Add outgoing edge
-        matrix.get(fromVertex)
-                .set(toVertex, weight);
+        matrix.setCell(fromVertex, toVertex, weight);
 
         if (!directed) {
             // Add incoming edge
-            matrix.get(toVertex)
-                    .set(fromVertex, weight);
+            matrix.setCell(toVertex, fromVertex, weight);
         }
     }
 
@@ -51,40 +50,66 @@ public class Graph<Vert extends Vertex, Arc> {
         // Add vertex with new index
         vertices.put(vertex, vertices.size());
         int newIndex = matrix.size();
-
         // Add new column to existing rows
-        for (List<Weight<Arc>> row : matrix) {
-            row.add(null);
-        }
-
+        matrix.addColumn(null);
         // Add new empty row
-        matrix.add(new ArrayList<>());
-
+        matrix.addRow(new ArrayList<>());
         // Fill new row
-        for (int i = 0; i <= newIndex; i++) {
-            matrix.get(newIndex)
-                    .add(null);
-        }
+        matrix.fillRow(newIndex, null);
     }
 
     public void removeVertex(Vert vertex) {
         int index = vertices.get(vertex);
-
         // Remove and shift left
         vertices.remove(vertex);
         vertices.replaceAll((k, v) -> {
             return (v >= index) ? v - 1 : v;
         });
-
         // Remove from both axes
-        matrix.remove(index);
-        for (List<Weight<Arc>> row : matrix) {
-            row.remove(index);
+        matrix.removeColumn(index);
+        matrix.removeRow(index);
+    }
+
+    public boolean visitVertex(Vert vertex) {
+        if (vertex.isVisited()) {
+            // Can use to check if visited
+            return false;
+        } else {
+            vertex.setVisited(true);
+            return true;
         }
     }
 
+    public void leaveVertex(Vert vertex) {
+        vertex.setVisited(false);
+    }
+
+    public void setAnnotation(Vert vertex, String annotation) {
+        // Can use for custom annotations
+        vertex.setAnnotation(annotation);
+    }
+
+    public String getAnnotation(Vert vertex) {
+        return vertex.getAnnotation();
+    }
+
     public void printGraph() {
+        printGraph(null);
+    }
+
+    public void printGraph(Arc nullValue) {
         int size = matrix.size();
+        // Print column labels
+        System.out.println();
+        System.out.print("   ");
+        for (int i = 0; i < size; i++) {
+            for (Map.Entry<Vert, java.lang.Integer> vertex : vertices.entrySet()) {
+                if (i == vertex.getValue()) {
+                    System.out.print(vertex.getKey().getLabel() + "  ");
+                }
+            }
+        }
+
         System.out.println();
         for (int i = 0; i < size; i++) {
             // HashMap isn't ordered, so
@@ -99,11 +124,12 @@ public class Graph<Vert extends Vertex, Arc> {
             // for this row.
             for (int j = 0; j < size; j++) {
                 String spacer = (j != size - 1) ? ", " : "";
-                Weight<Arc> weight = matrix.get(i).get(j);
-                Arc weightValue = weight != null ? weight.getWeight() : null;
+                Weight<Arc> weight = matrix.getCell(i, j);
+                Arc weightValue = weight != null ? weight.getWeight() : nullValue;
                 System.out.print(weightValue + spacer);
             }
             System.out.println();
+
         }
     }
 }

@@ -1,14 +1,22 @@
-package com.got.genealogy.core.graph;
-
-import java.util.Objects;
+package com.got.genealogy.core.graph.property;
 
 public class Vertex {
-    private boolean visited;
+    private String annotation;
     private String label;
+
+    private boolean visited;
 
     public Vertex(String label) {
         this.label = label;
         this.visited = false;
+    }
+
+    public String getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
     }
 
     public String getLabel() {

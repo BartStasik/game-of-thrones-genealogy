@@ -1,6 +1,4 @@
-package com.got.genealogy.core.graph;
-
-import java.util.Arrays;
+package com.got.genealogy.core.graph.property;
 
 public class Weight<T> {
     private T weight;
