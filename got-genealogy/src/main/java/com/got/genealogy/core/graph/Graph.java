@@ -53,7 +53,7 @@ public class Graph<Vert extends Vertex, Arc> {
         // Add new column to existing rows
         matrix.addColumn(null);
         // Add new empty row
-        matrix.addRow();
+        matrix.addRow(new ArrayList<>());
         // Fill new row
         matrix.fillRow(newIndex, null);
     }
@@ -66,12 +66,13 @@ public class Graph<Vert extends Vertex, Arc> {
             return (v >= index) ? v - 1 : v;
         });
         // Remove from both axes
-        matrix.removeRow(index);
         matrix.removeColumn(index);
+        matrix.removeRow(index);
     }
 
     public boolean visitVertex(Vert vertex) {
         if (vertex.isVisited()) {
+            // Can use to check if visited
             return false;
         } else {
             vertex.setVisited(true);
