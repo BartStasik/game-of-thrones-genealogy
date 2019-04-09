@@ -1,13 +1,15 @@
 package com.got.genealogy.core.graph;
 
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
+import com.got.genealogy.core.graph.property.Edge;
 import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
-public class Graph<Vert extends Vertex, Arc> {
+public class Graph<Vert extends Vertex, Arc extends Edge> {
 
     private AdjacencyMatrix<Weight<Arc>> matrix;
     private HashMap<Vert, Integer> vertices;
@@ -92,10 +94,19 @@ public class Graph<Vert extends Vertex, Arc> {
     }
 
     public void printGraph() {
+        // This will be moved out of Graph.
+        // Currently, only being used for
+        // testing.
         printGraph(null);
     }
 
     public void printGraph(Arc nullValue) {
+        // Trying to find a way to customise
+        // return method, i.e. getLabel().
+        printGraph(nullValue, Edge::getLabel);
+    }
+
+    public void printGraph(Arc nullValue, Function<Arc, Object> function) {
         int size = matrix.size();
         // Print column labels
         System.out.println();
@@ -107,7 +118,7 @@ public class Graph<Vert extends Vertex, Arc> {
                 }
             }
         }
-
+        // Print matrix
         System.out.println();
         for (int i = 0; i < size; i++) {
             // HashMap isn't ordered, so
@@ -123,11 +134,18 @@ public class Graph<Vert extends Vertex, Arc> {
             for (int j = 0; j < size; j++) {
                 String spacer = (j != size - 1) ? ", " : "";
                 Weight<Arc> weight = matrix.getCell(i, j);
-                Arc weightValue = weight != null ? weight.getWeight() : nullValue;
+                Object weightValue;
+                // Allow for custom operation,
+                // e.g. get something other
+                // than label.
+                if (weight != null) {
+                    weightValue = function.apply(weight.getWeight());
+                } else {
+                    weightValue = function.apply(nullValue);
+                }
                 System.out.print(weightValue + spacer);
             }
             System.out.println();
-
         }
     }
 }
