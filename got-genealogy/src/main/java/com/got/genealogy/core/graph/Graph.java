@@ -4,7 +4,6 @@ import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,7 +101,7 @@ public class Graph<Vert extends Vertex, Arc> {
         System.out.println();
         System.out.print("   ");
         for (int i = 0; i < size; i++) {
-            for (Map.Entry<Vert, java.lang.Integer> vertex : vertices.entrySet()) {
+            for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
                 if (i == vertex.getValue()) {
                     System.out.print(vertex.getKey().getLabel() + "  ");
                 }
@@ -114,7 +113,7 @@ public class Graph<Vert extends Vertex, Arc> {
             // HashMap isn't ordered, so
             // get correct vertex label
             // and print with space.
-            for (Map.Entry<Vert, java.lang.Integer> vertex : vertices.entrySet()) {
+            for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
                 if (i == vertex.getValue()) {
                     System.out.print(vertex.getKey().getLabel() + "  ");
                 }
