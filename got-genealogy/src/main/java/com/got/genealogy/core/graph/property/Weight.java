@@ -1,6 +1,7 @@
 package com.got.genealogy.core.graph.property;
 
 public class Weight<T> {
+
     private T weight;
 
     public Weight() {

@@ -6,6 +6,7 @@ import com.got.genealogy.core.family.FamilyTree;
 import com.got.genealogy.core.family.Person;
 
 public class Main {
+
     public static void main(String[] args) {
         FamilyTree graph1 = new FamilyTree(false);
 

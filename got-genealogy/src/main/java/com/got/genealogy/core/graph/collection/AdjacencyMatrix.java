@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdjacencyMatrix<E> {
+
     private List<List<E>> matrix;
 
     public AdjacencyMatrix() {

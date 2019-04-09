@@ -1,6 +1,7 @@
 package com.got.genealogy.core.graph.property;
 
 public class Edge {
+
     private String label;
 
     public Edge() {

@@ -1,6 +1,7 @@
 package com.got.genealogy.core.graph.property;
 
 public class Vertex {
+
     private String annotation;
     private String label;
 
