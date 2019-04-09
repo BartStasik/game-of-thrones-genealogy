@@ -38,6 +38,10 @@ public class AdjacencyMatrix<E> {
         matrix.set(index, value);
     }
 
+    public void addRow() {
+        addRow(new ArrayList<>());
+    }
+
     public void addRow(List<E> value) {
         matrix.add(value);
     }
