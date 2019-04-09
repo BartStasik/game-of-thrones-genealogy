@@ -7,6 +7,7 @@ import com.got.genealogy.core.graph.property.Weight;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class Graph<Vert extends Vertex, Arc extends Edge> {
@@ -23,6 +24,16 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         matrix = new AdjacencyMatrix<>();
         vertices = new HashMap<>();
         this.directed = directed;
+    }
+
+    public Arc getEdge(Vert vertex1, Vert vertex2) {
+        return getEdgeWeighted(vertex1, vertex2).getWeight();
+    }
+
+    public Weight<Arc> getEdgeWeighted(Vert vertex1, Vert vertex2) {
+        int fromVertex = vertices.get(vertex1);
+        int toVertex = vertices.get(vertex2);
+        return matrix.getCell(fromVertex, toVertex);
     }
 
     public void addEdge(Vert vertex1, Vert vertex2) {
@@ -45,6 +56,14 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
 
     public void removeEdge(Vert vertex1, Vert vertex2) {
         addEdge(vertex1, vertex2, null);
+    }
+
+    public Vert getVertex(int index) {
+        for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
+            if (vertex.getValue().equals(index)) {
+                return vertex.getKey();
+            }
+        } return null;
     }
 
     public void addVertex(Vert vertex) {

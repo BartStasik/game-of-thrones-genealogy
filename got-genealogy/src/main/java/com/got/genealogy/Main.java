@@ -63,5 +63,9 @@ public class Main {
         System.out.println("\nLeft [a]");
         graph1.leaveVertex(a);
         System.out.println("[a] visited: " + a.isVisited());
+
+        System.out.println("\nEdge [c -> d]: " + graph1.getEdge(c, d).getLabel());
+        System.out.println("Edge [c -> d]: " + graph1.getEdgeWeighted(c, d).getWeight().getLabel());
+        System.out.println("Vertex 2: " + graph1.getVertex(2).getLabel());
     }
 }
