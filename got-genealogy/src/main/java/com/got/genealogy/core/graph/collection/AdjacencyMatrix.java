@@ -61,7 +61,10 @@ public class AdjacencyMatrix<E> {
     }
 
     public List<E> getColumn(int index) {
-        return new ArrayList<>(matrix.get(index));
+        List<E> column = new ArrayList<>();
+        for (int i = 0; i < matrix.size(); i++) {
+            column.add(matrix.get(i).get(index));
+        } return column;
     }
 
     public void setColumn(int index, E value) {

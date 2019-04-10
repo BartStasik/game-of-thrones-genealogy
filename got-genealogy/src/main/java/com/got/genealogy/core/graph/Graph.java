@@ -6,14 +6,16 @@ import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
+import java.util.Set;
 import java.util.function.Function;
 
 public class Graph<Vert extends Vertex, Arc extends Edge> {
 
     private AdjacencyMatrix<Weight<Arc>> matrix;
-    private HashMap<Vert, Integer> vertices;
+    private Map<Vert, Integer> vertices;
     private boolean directed;
 
     public Graph() {
@@ -63,7 +65,8 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
             if (vertex.getValue().equals(index)) {
                 return vertex.getKey();
             }
-        } return null;
+        }
+        return null;
     }
 
     public void addVertex(Vert vertex) {
@@ -103,13 +106,36 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         vertex.setVisited(false);
     }
 
-    public void setAnnotation(Vert vertex, String annotation) {
-        // Can use for custom annotations
-        vertex.setAnnotation(annotation);
-    }
+    public Set<Vert> adjacentVertices(Vert vertex) {
+        int vertexIndex = vertices.get(vertex);
+        Set<Vert> adjacentVertices = new HashSet<>();
+        List<Weight<Arc>> row, column;
 
-    public String getAnnotation(Vert vertex) {
-        return vertex.getAnnotation();
+        row = matrix.getRow(vertexIndex);
+        column = matrix.getColumn(vertexIndex);
+
+        for (int i = 0; i < row.size(); i++) {
+            for (Map.Entry<Vert, Integer> vertexItem : vertices.entrySet()) {
+                // TODO: Replace with LinkedHashMap
+                // Get vertex with corresponding
+                // index in the HashMap.
+                if (containsAdjacent(row, vertexItem.getValue(), i)) {
+                    adjacentVertices.add(vertexItem.getKey());
+                }
+                // Matrix rows and columns have
+                // the same size. If not directed
+                // then look at column too. Column
+                // collection is null is not
+                // directed.
+                if (directed && containsAdjacent(column, vertexItem.getValue(), i)) {
+                    // TODO: Need to check if adjacent
+                    // still counts, regardless of
+                    // direction.
+                    adjacentVertices.add(vertexItem.getKey());
+                }
+            }
+        }
+        return adjacentVertices;
     }
 
     public void printGraph() {
@@ -132,6 +158,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         System.out.print("   ");
         for (int i = 0; i < size; i++) {
             for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
+                // TODO: Replace with LinkedHashMap
                 if (i == vertex.getValue()) {
                     System.out.print(vertex.getKey().getLabel() + "  ");
                 }
@@ -166,5 +193,33 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
             }
             System.out.println();
         }
+    }
+
+    /**
+     * Shortcut, used in adjacentVertices.
+     * Works only if weights collection
+     * matches the number of existing
+     * vertices.
+     *
+     * @param weights        list of weights,
+     *                       the order of which
+     *                       should match that
+     *                       of the matrix.
+     * @param vertexPosition position of vertex.
+     * @param index          used to get position
+     *                       from weights and to
+     *                       compare against row
+     *                       or column position.
+     * @return a boolean after comparing
+     * row/column position with position
+     * in weights.
+     */
+    private boolean containsAdjacent(List<Weight<Arc>> weights,
+                                     int vertexPosition,
+                                     int index) {
+        if (weights.size() == vertices.size()) {
+            return weights.get(index) != null && vertexPosition == index;
+        }
+        return false;
     }
 }
