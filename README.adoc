@@ -29,6 +29,8 @@ mvn exec:java
 
 == Debugging
 
+IMPORTANT: You can also debug directly from the IDE.
+
 To use with a debugger, you have to build the code with `mvnDebug` and connect to it remotely (default port: `8000`) from your IDE:
 
 [source, shell]
