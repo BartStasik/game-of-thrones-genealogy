@@ -1,25 +1,26 @@
 package com.got.genealogy;
 
-import com.got.genealogy.core.family.Relation;
+import com.got.genealogy.core.family.person.Relation;
+import com.got.genealogy.core.graph.Graph;
+import com.got.genealogy.core.graph.property.Edge;
+import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
-import com.got.genealogy.core.family.FamilyTree;
-import com.got.genealogy.core.family.Person;
 
 import java.util.Set;
 
-public class Main {
+public class TestGraph {
 
     public static void main(String[] args) {
-        FamilyTree graph1 = new FamilyTree(false);
+        Graph<Vertex, Edge> graph1 = new Graph<>(false);
 
-        Person a = new Person("a");
-        Person b = new Person("b");
-        Person c = new Person("c");
-        Person d = new Person("d");
+        Vertex a = new Vertex("a");
+        Vertex b = new Vertex("b");
+        Vertex c = new Vertex("c");
+        Vertex d = new Vertex("d");
 
         // Makes it more readable when
         // null is replaced with 0.
-        Relation defaultNull = new Relation("0");
+        Edge defaultNull = new Edge("0");
 
         graph1.addVertex(a);
         graph1.addVertex(b);
@@ -27,11 +28,11 @@ public class Main {
         graph1.addVertex(d);
 
         graph1.addEdge(a, b,
-                new Weight<>(new Relation("1")));
+                new Weight<>(new Edge("1")));
         graph1.addEdge(a, c,
-                new Weight<>(new Relation("2")));
+                new Weight<>(new Edge("2")));
         graph1.addEdge(b, d,
-                new Weight<>(new Relation("3")));
+                new Weight<>(new Edge("3")));
 
         System.out.println("\n\nGraph 1");
         graph1.printGraph(defaultNull);
@@ -72,12 +73,12 @@ public class Main {
         System.out.println("Edge [c -> d]: " + graph1.getEdgeWeighted(c, d).getWeight().getLabel());
         System.out.println("Vertex 2: " + graph1.getVertex(2).getLabel());
 
-        Set<Person> adjacentToD = graph1.adjacentVertices(d);
+        Set<Vertex> adjacentToD = graph1.adjacentVertices(d);
         System.out.print("\n[d] adjacent vertices <expected: b, c>: ");
         adjacentToD.forEach((e) -> System.out.print(e.getLabel() + ", "));
         System.out.println();
 
-        FamilyTree graph2 = new FamilyTree(true);
+        Graph<Vertex, Edge> graph2 = new Graph<>();
 
         graph2.addVertex(a);
         graph2.addVertex(b);
@@ -85,11 +86,11 @@ public class Main {
         graph2.addVertex(d);
 
         graph2.addEdge(a, b,
-                new Weight<>(new Relation("1")));
+                new Weight<>(new Edge("1")));
         graph2.addEdge(a, c,
-                new Weight<>(new Relation("1")));
+                new Weight<>(new Edge("1")));
         graph2.addEdge(d, a,
-                new Weight<>(new Relation("1")));
+                new Weight<>(new Edge("1")));
 
         graph2.printGraph(defaultNull);
 
@@ -97,11 +98,11 @@ public class Main {
         System.out.println("Edge [a -> c]: " + graph2.getEdge(a, c).getLabel());
         System.out.println("Edge [d -> a]: " + graph2.getEdge(d, a).getLabel());
 
-        Set<Person> adjacentToA = graph2.adjacentVertices(a);
+        Set<Vertex> adjacentToA = graph2.adjacentVertices(a);
         System.out.print("\n[a] adjacent vertices <expected: b, c, d>: ");
         adjacentToA.forEach((e) -> System.out.print(e.getLabel() + ", "));
 
-        Set<Person> adjacentToD2 = graph2.adjacentVertices(d);
+        Set<Vertex> adjacentToD2 = graph2.adjacentVertices(d);
         System.out.print("\n[d] adjacent vertices <expected: a>: ");
         adjacentToD2.forEach((e) -> System.out.print(e.getLabel() + ", "));
 

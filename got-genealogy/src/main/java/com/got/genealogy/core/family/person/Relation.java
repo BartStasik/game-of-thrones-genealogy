@@ -1,4 +1,4 @@
-package com.got.genealogy.core.family;
+package com.got.genealogy.core.family.person;
 
 import com.got.genealogy.core.graph.property.Edge;
 
