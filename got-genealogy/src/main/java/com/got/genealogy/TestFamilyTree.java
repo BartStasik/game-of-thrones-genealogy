@@ -4,6 +4,7 @@ import com.got.genealogy.core.family.FamilyTree;
 import com.got.genealogy.core.family.person.Gender;
 import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
+import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Weight;
 
@@ -98,9 +99,28 @@ public class TestFamilyTree {
         // Both mother and father are
         // 6 characters long.
         printGraph(family);
+
+        System.out.println();
+
+        printList(family.adjacencyListWeighted());
     }
 
-    public static void printGraph(FamilyTree graph) {
+    private static void printList(AdjacencyList<Person, Relation> list) {
+        list.getList()
+                .forEach((k, v) -> {
+                    // Set<WeightedVertex>
+                    System.out.print(k.getLabel() + " : { ");
+                    v.forEach((e) -> {
+                        // WeightedVertex
+                        System.out.printf("[%s:%s], ",
+                                e.getKey().getLabel(),
+                                e.getValue().getLabel());
+                    });
+                    System.out.println(" }");
+                });
+    }
+
+    private static void printGraph(FamilyTree graph) {
         AdjacencyMatrix<Weight<Relation>> matrix = graph.adjacencyMatrix();
         Map<Person, Integer> vertices = graph.vertices();
 

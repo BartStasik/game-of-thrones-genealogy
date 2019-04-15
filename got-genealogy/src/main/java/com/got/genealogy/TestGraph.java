@@ -150,7 +150,7 @@ public class TestGraph {
         printGraph(graph, null);
     }
 
-    public static void printGraph(Graph<Vertex, Edge> graph,
+    private static void printGraph(Graph<Vertex, Edge> graph,
                            Edge nullValue) {
         // Trying to find a way to customise
         // return method, i.e. getLabel().
@@ -163,7 +163,7 @@ public class TestGraph {
         });
     }
 
-    public static void printGraph(Graph<Vertex, Edge> graph,
+    private static void printGraph(Graph<Vertex, Edge> graph,
                            Edge nullValue,
                            Function<Edge, Object> function) {
         AdjacencyMatrix<Weight<Edge>> matrix = graph.adjacencyMatrix();
