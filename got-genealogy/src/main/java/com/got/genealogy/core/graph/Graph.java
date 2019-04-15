@@ -69,6 +69,15 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return null;
     }
 
+    public Vert getVertex(String label) {
+        for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
+            if (vertex.getKey().getLabel().equals(label)) {
+                return vertex.getKey();
+            }
+        }
+        return null;
+    }
+
     public void addVertex(Vert vertex) {
         // Add vertex with new index
         vertices.put(vertex, vertices.size());
