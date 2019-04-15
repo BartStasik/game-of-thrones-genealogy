@@ -44,7 +44,8 @@ public class AdjacencyList<Vert extends Vertex, Arc extends Edge> {
     public void setWeightedVertex(Vert keyVertex, Vert adjacentVertex, Arc edge) {
         WeightedVertex<Vert, Arc> weightedVertex = getWeightedVertex(keyVertex, adjacentVertex);
         if (weightedVertex != null) {
-            removeWeightedVertex(keyVertex, adjacentVertex);
+            list.get(keyVertex)
+                    .remove(weightedVertex);
             addWeightedVertex(keyVertex, adjacentVertex, edge);
         }
     }
