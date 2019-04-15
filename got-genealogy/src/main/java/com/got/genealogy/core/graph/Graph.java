@@ -120,7 +120,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public boolean isAdjacent(Vert vertex1, Vert vertex2) {
-        return adjacentVertices(vertex1).contains(vertex2);
+        return getEdge(vertex1, vertex2) != null;
     }
 
     public Set<Vert> adjacentVertices(Vert vertex) {
