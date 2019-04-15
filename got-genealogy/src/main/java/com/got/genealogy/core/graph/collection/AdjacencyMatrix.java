@@ -5,6 +5,7 @@ import java.util.List;
 
 public class AdjacencyMatrix<E> {
 
+    // TODO: Set
     private List<List<E>> matrix;
 
     public AdjacencyMatrix() {
