@@ -1,15 +1,6 @@
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.application.Application;
+import java.io.IOException;
 
 public class InterfaceController extends AnchorPane {
-
-	@FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private ImageView daenerysTargaryen;
@@ -25,16 +16,6 @@ public class InterfaceController extends AnchorPane {
 
     @FXML
     private Button sort;
-
-    @FXML
-    void initialize() {
-        assert daenerysTargaryen != null : "fx:id=\"daenerysTargaryen\" was not injected: check your FXML file 'characters.fxml'.";
-        assert johnSnow != null : "fx:id=\"johnSnow\" was not injected: check your FXML file 'characters.fxml'.";
-        assert cerseiLanister != null : "fx:id=\"cerseiLanister\" was not injected: check your FXML file 'characters.fxml'.";
-        assert nedStark != null : "fx:id=\"nedStark\" was not injected: check your FXML file 'characters.fxml'.";
-        assert sort != null : "fx:id=\"sort\" was not injected: check your FXML file 'characters.fxml'.";
-
-    }
     
     //Constructor
     public InterfaceController {
@@ -64,9 +45,3 @@ public class InterfaceController extends AnchorPane {
     }
     
 }
-
-
-
-
-
-//public static void main(String[] args) { launch(args); }

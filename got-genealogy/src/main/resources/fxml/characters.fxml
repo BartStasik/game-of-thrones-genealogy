@@ -14,8 +14,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1080.0" styleClass="face-bg" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
-      <URL value="@fonts/stylesheet.css" />
-      <URL value="@styles.css" />
+      <URL value="@../fonts/stylesheet.css" />
+      <URL value="@../styles.css" />
    </stylesheets>
    <children>
       <GridPane alignment="BOTTOM_CENTER" disable="true" layoutX="57.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="128.0">
@@ -37,7 +37,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@faces/face_03.png" />
+                  <Image url="@../faces/face_03.png" />
                </image>
                <viewport>
                   <Rectangle2D />
@@ -45,137 +45,137 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
-                  <Image url="@faces/face_05.png" />
+                  <Image url="@../faces/face_05.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
-                  <Image url="@faces/face_173.png" />
+                  <Image url="@../faces/face_173.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
-                  <Image url="@faces/face_17.png" />
+                  <Image url="@../faces/face_17.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@faces/face_19.png" />
+                  <Image url="@../faces/face_19.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
-                  <Image url="@faces/face_21.png" />
+                  <Image url="@../faces/face_21.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
                <image>
-                  <Image url="@faces/face_50.png" />
+                  <Image url="@../faces/face_50.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <image>
-                  <Image url="@faces/face_52.png" />
+                  <Image url="@../faces/face_52.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <image>
-                  <Image url="@faces/face_53.png" />
+                  <Image url="@../faces/face_53.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
-                  <Image url="@faces/face_07.png" />
+                  <Image url="@../faces/face_07.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                <image>
-                  <Image url="@faces/face_09.png" />
+                  <Image url="@../faces/face_09.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                <image>
-                  <Image url="@faces/face_11.png" />
+                  <Image url="@../faces/face_11.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                <image>
-                  <Image url="@faces/face_13.png" />
+                  <Image url="@../faces/face_13.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
-                  <Image url="@faces/face_23.png" />
+                  <Image url="@../faces/face_23.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <image>
-                  <Image url="@faces/face_25.png" />
+                  <Image url="@../faces/face_25.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <image>
-                  <Image url="@faces/face_40.png" />
+                  <Image url="@../faces/face_40.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <image>
-                  <Image url="@faces/face_42.png" />
+                  <Image url="@../faces/face_42.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                <image>
-                  <Image url="@faces/face_43.png" />
+                  <Image url="@../faces/face_43.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
-                  <Image url="@faces/face_44.png" />
+                  <Image url="@../faces/face_44.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
-                  <Image url="@faces/face_45.png" />
+                  <Image url="@../faces/face_45.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <image>
-                  <Image url="@faces/face_46.png" />
+                  <Image url="@../faces/face_46.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <image>
-                  <Image url="@faces/face_47.png" />
+                  <Image url="@../faces/face_47.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <image>
-                  <Image url="@faces/face_48.png" />
+                  <Image url="@../faces/face_48.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <image>
-                  <Image url="@faces/face_49.png" />
+                  <Image url="@../faces/face_49.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <image>
-                  <Image url="@faces/face_67.png" />
+                  <Image url="@../faces/face_67.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <image>
-                  <Image url="@faces/face_68.png" />
+                  <Image url="@../faces/face_68.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <image>
-                  <Image url="@faces/face_69.png" />
+                  <Image url="@../faces/face_69.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <image>
-                  <Image url="@faces/face_72.png" />
+                  <Image url="@../faces/face_72.png" />
                </image>
             </ImageView>
          </children>
