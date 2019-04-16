@@ -8,7 +8,10 @@ import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Weight;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.got.genealogy.core.family.person.Gender.FEMALE;
@@ -103,6 +106,15 @@ public class TestFamilyTree {
         System.out.println();
 
         printList(family.adjacencyListWeighted());
+
+        System.out.println();
+        List<Person> people = new ArrayList<>(family.vertices().keySet());
+        people.forEach((e) -> System.out.println(e.getLabel()));
+
+        Collections.sort(people);
+        System.out.println();
+        people.forEach((e) -> System.out.println(e.getLabel()));
+
     }
 
     private static void printList(AdjacencyList<Person, Relation> list) {

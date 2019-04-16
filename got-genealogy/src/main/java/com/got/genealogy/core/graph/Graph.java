@@ -37,9 +37,12 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public Weight<Arc> getEdgeWeighted(Vert vertex1, Vert vertex2) {
-        int fromVertex = vertices.get(vertex1);
-        int toVertex = vertices.get(vertex2);
-        return matrix.getCell(fromVertex, toVertex);
+        if (existingVertex(vertex1, vertex2)) {
+            int fromVertex = vertices.get(vertex1);
+            int toVertex = vertices.get(vertex2);
+            return matrix.getCell(fromVertex, toVertex);
+        }
+        return null;
     }
 
     public void addEdge(Vert vertex1, Vert vertex2) {
@@ -47,16 +50,16 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public void addEdge(Vert vertex1, Vert vertex2, Weight<Arc> weight) {
-        // Get index numbers of vertices
-        int fromVertex = vertices.get(vertex1);
-        int toVertex = vertices.get(vertex2);
-
-        // Add outgoing edge
-        matrix.setCell(fromVertex, toVertex, weight);
-
-        if (!directed) {
-            // Add incoming edge
-            matrix.setCell(toVertex, fromVertex, weight);
+        if (existingVertex(vertex1, vertex2)) {
+            // Get index numbers of vertices
+            int fromVertex = vertices.get(vertex1);
+            int toVertex = vertices.get(vertex2);
+            // Add outgoing edge
+            matrix.setCell(fromVertex, toVertex, weight);
+            if (!directed) {
+                // Add incoming edge
+                matrix.setCell(toVertex, fromVertex, weight);
+            }
         }
     }
 
@@ -83,27 +86,31 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public void addVertex(Vert vertex) {
-        // Add vertex with new index
-        vertices.put(vertex, vertices.size());
-        int newIndex = matrix.size();
-        // Add new column to existing rows
-        matrix.addColumn(null);
-        // Add new empty row
-        matrix.addRow();
-        // Fill new row
-        matrix.fillRow(newIndex, null);
+        if (!existingVertex(vertex)) {
+            // Add vertex with new index
+            vertices.put(vertex, vertices.size());
+            int newIndex = matrix.size();
+            // Add new column to existing rows
+            matrix.addColumn(null);
+            // Add new empty row
+            matrix.addRow();
+            // Fill new row
+            matrix.fillRow(newIndex, null);
+        }
     }
 
     public void removeVertex(Vert vertex) {
-        int index = vertices.get(vertex);
-        // Remove and shift left
-        vertices.remove(vertex);
-        vertices.replaceAll((k, v) -> {
-            return (v >= index) ? v - 1 : v;
-        });
-        // Remove from both axes
-        matrix.removeRow(index);
-        matrix.removeColumn(index);
+        if (existingVertex(vertex)) {
+            Integer index = vertices.get(vertex);
+            // Remove and shift left
+            vertices.remove(vertex);
+            vertices.replaceAll((k, v) -> {
+                return (v >= index) ? v - 1 : v;
+            });
+            // Remove from both axes
+            matrix.removeRow(index);
+            matrix.removeColumn(index);
+        }
     }
 
     public boolean visitVertex(Vert vertex) {
@@ -124,34 +131,37 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public Set<Vert> adjacentVertices(Vert vertex) {
-        int vertexIndex = vertices.get(vertex);
-        Set<Vert> adjacentVertices = new HashSet<>();
-        List<Weight<Arc>> row, column;
+        if (existingVertex(vertex)) {
+            int vertexIndex = vertices.get(vertex);
+            Set<Vert> adjacentVertices = new HashSet<>();
+            List<Weight<Arc>> row, column;
 
-        row = matrix.getRow(vertexIndex);
-        column = matrix.getColumn(vertexIndex);
+            row = matrix.getRow(vertexIndex);
+            column = matrix.getColumn(vertexIndex);
 
-        for (int i = 0; i < row.size(); i++) {
-            for (Map.Entry<Vert, Integer> vertexItem : vertices.entrySet()) {
-                // TODO: Replace with LinkedHashMap
-                // Get vertex with corresponding
-                // index in the HashMap.
-                if (containsAdjacent(row, vertexItem.getValue(), i)) {
-                    adjacentVertices.add(vertexItem.getKey());
-                }
-                // Matrix rows and columns have
-                // the same size. If not directed
-                // then look at column too. Column
-                // collection is null is not
-                // directed.
-                if (directed && containsAdjacent(column, vertexItem.getValue(), i)) {
-                    // Adjacent if incoming or
-                    // outgoing from vertex.
-                    adjacentVertices.add(vertexItem.getKey());
+            for (int i = 0; i < row.size(); i++) {
+                for (Map.Entry<Vert, Integer> vertexItem : vertices.entrySet()) {
+                    // TODO: Replace with LinkedHashMap
+                    // Get vertex with corresponding
+                    // index in the HashMap.
+                    if (containsAdjacent(row, vertexItem.getValue(), i)) {
+                        adjacentVertices.add(vertexItem.getKey());
+                    }
+                    // Matrix rows and columns have
+                    // the same size. If not directed
+                    // then look at column too. Column
+                    // collection is null is not
+                    // directed.
+                    if (directed && containsAdjacent(column, vertexItem.getValue(), i)) {
+                        // Adjacent if incoming or
+                        // outgoing from vertex.
+                        adjacentVertices.add(vertexItem.getKey());
+                    }
                 }
             }
+            return adjacentVertices;
         }
-        return adjacentVertices;
+        return null;
     }
 
     public AdjacencyList<Vert, Arc> adjacencyListWeighted() {
@@ -163,7 +173,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
             List<Weight<Arc>> row = matrix.getRow(vertexIndex);
             Set<WeightedVertex<Vert, Arc>> adjacentVertices = new HashSet<>();
             // Get edge and add to set
-            for(Map.Entry<Vert, Integer> vertexItem : vertices.entrySet()) {
+            for (Map.Entry<Vert, Integer> vertexItem : vertices.entrySet()) {
                 Vert adjacentVertex = vertexItem.getKey();
                 Arc weight = getEdge(vertex, adjacentVertex);
                 if (weight != null) {
@@ -184,6 +194,15 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
 
     public Map<Vert, Integer> vertices() {
         return vertices;
+    }
+
+    private boolean existingVertex(Vert vertex) {
+        boolean b = vertices.get(vertex) != null;
+        return b;
+    }
+
+    private boolean existingVertex(Vert vertex1, Vert vertex2) {
+        return existingVertex(vertex1) && existingVertex(vertex2);
     }
 
     /**
