@@ -1,0 +1,49 @@
+.main-bg {
+	-fx-background-image: url('bg.jpg');
+	-fx-background-size: cover;
+	-fx-background-position: center center;
+}
+
+.face-bg {
+	-fx-background-image: url('dark-blue-bg.jpg');
+	-fx-background-size: cover;
+	-fx-background-position: center center;
+}
+
+.button {
+    -fx-background-color: rgba(0,0,0,0.3);
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+    /*-fx-font-family: "Montserrat ExtraBold";*/
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-border-insets: 5;
+    -fx-width:100%;
+}
+.ice-button {
+	-fx-background-image: url('button-bg.jpg');
+	-fx-background-size: cover;
+	-fx-border-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-font-size: 18px;
+}
+
+
+.h1 {
+	-fx-font-family: "Times New Roman";
+    -fx-font-size: 48px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #ffffff;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+    -fx-border-insets: 5;
+    -fx-background-color: rgba(0,0,0,0.3);
+    
+}
+
+.list-view, .regular-cell:filled:even {
+	-fx-background-color: transparent!important;
+}
