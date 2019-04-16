@@ -29,6 +29,8 @@ public class TestGraph {
 
         graph1.addVertex(a);
         graph1.addVertex(b);
+        // Shouldn't accept [b] 2nd time
+        graph1.addVertex(b);
         graph1.addVertex(c);
         graph1.addVertex(d);
 
@@ -126,6 +128,17 @@ public class TestGraph {
 
         System.out.println("\n<result>");
         printList(list);
+
+        Vertex nf = new Vertex("nf");
+        Vertex fn = new Vertex("fn");
+
+        System.out.println("\n\nNon-existent vertex test:");
+        System.out.println("[non-existent]: " + graph2.getVertex("non-existent"));
+        System.out.println("[<index 9999>]: " + graph2.getVertex(9999));
+        System.out.println("Edge [nf -> fn]: " + graph2.getEdge(nf, fn));
+        graph2.addEdge(nf, fn);
+
+        printGraph(graph2, defaultNull);
     }
 
     private static void printList(AdjacencyList<Vertex, Edge> list) {

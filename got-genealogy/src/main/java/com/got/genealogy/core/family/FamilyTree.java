@@ -16,8 +16,7 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     public Person getPerson(String name) {
-        getVertex(name);
-        return null;
+        return getVertex(name);
     }
 
     public void addPerson(String name) {
