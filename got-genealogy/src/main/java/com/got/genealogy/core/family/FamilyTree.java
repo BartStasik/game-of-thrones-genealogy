@@ -6,12 +6,6 @@ import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.Graph;
 import com.got.genealogy.core.graph.property.Weight;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
-import static com.got.genealogy.core.family.person.Gender.MALE;
-import static com.got.genealogy.core.family.person.Gender.FEMALE;
 import static com.got.genealogy.core.family.person.Gender.UNSPECIFIED;
 
 

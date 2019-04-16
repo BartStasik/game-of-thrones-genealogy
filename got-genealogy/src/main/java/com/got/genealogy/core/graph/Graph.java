@@ -1,16 +1,17 @@
 package com.got.genealogy.core.graph;
 
+import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Edge;
 import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
+import com.got.genealogy.core.graph.property.WeightedVertex;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 
 public class Graph<Vert extends Vertex, Arc extends Edge> {
 
@@ -29,6 +30,9 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public Arc getEdge(Vert vertex1, Vert vertex2) {
+        if (getEdgeWeighted(vertex1, vertex2) == null) {
+            return null;
+        }
         return getEdgeWeighted(vertex1, vertex2).getWeight();
     }
 
@@ -115,6 +119,10 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         vertex.setVisited(false);
     }
 
+    public boolean isAdjacent(Vert vertex1, Vert vertex2) {
+        return getEdge(vertex1, vertex2) != null;
+    }
+
     public Set<Vert> adjacentVertices(Vert vertex) {
         int vertexIndex = vertices.get(vertex);
         Set<Vert> adjacentVertices = new HashSet<>();
@@ -137,9 +145,8 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
                 // collection is null is not
                 // directed.
                 if (directed && containsAdjacent(column, vertexItem.getValue(), i)) {
-                    // TODO: Need to check if adjacent
-                    // still counts, regardless of
-                    // direction.
+                    // Adjacent if incoming or
+                    // outgoing from vertex.
                     adjacentVertices.add(vertexItem.getKey());
                 }
             }
@@ -147,61 +154,36 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return adjacentVertices;
     }
 
-    public void printGraph() {
-        // This will be moved out of Graph.
-        // Currently, only being used for
-        // testing.
-        printGraph(null);
-    }
-
-    public void printGraph(Arc nullValue) {
-        // Trying to find a way to customise
-        // return method, i.e. getLabel().
-        printGraph(nullValue, Edge::getLabel);
-    }
-
-    public void printGraph(Arc nullValue, Function<Arc, Object> function) {
-        int size = matrix.size();
-        // Print column labels
-        System.out.println();
-        System.out.print("   ");
-        for (int i = 0; i < size; i++) {
-            for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
-                // TODO: Replace with LinkedHashMap
-                if (i == vertex.getValue()) {
-                    System.out.print(vertex.getKey().getLabel() + "  ");
-                }
-            }
-        }
-        // Print matrix
-        System.out.println();
-        for (int i = 0; i < size; i++) {
-            // HashMap isn't ordered, so
-            // get correct vertex label
-            // and print with space.
-            for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
-                if (i == vertex.getValue()) {
-                    System.out.print(vertex.getKey().getLabel() + "  ");
-                }
-            }
-            // Print weights for vertices,
-            // for this row.
-            for (int j = 0; j < size; j++) {
-                String spacer = (j != size - 1) ? ", " : "";
-                Weight<Arc> weight = matrix.getCell(i, j);
-                Object weightValue;
-                // Allow for custom operation,
-                // e.g. get something other
-                // than label.
+    public AdjacencyList<Vert, Arc> adjacencyListWeighted() {
+        AdjacencyList<Vert, Arc> adjacencyList = new AdjacencyList<>();
+        // For each vertex, check adjacent
+        // vertices and attach a weight to
+        // them
+        vertices.forEach((vertex, vertexIndex) -> {
+            List<Weight<Arc>> row = matrix.getRow(vertexIndex);
+            Set<WeightedVertex<Vert, Arc>> adjacentVertices = new HashSet<>();
+            // Get edge and add to set
+            for(Map.Entry<Vert, Integer> vertexItem : vertices.entrySet()) {
+                Vert adjacentVertex = vertexItem.getKey();
+                Arc weight = getEdge(vertex, adjacentVertex);
                 if (weight != null) {
-                    weightValue = function.apply(weight.getWeight());
-                } else {
-                    weightValue = function.apply(nullValue);
+                    adjacentVertices.add(
+                            new WeightedVertex<>(
+                                    adjacentVertex,
+                                    weight));
                 }
-                System.out.print(weightValue + spacer);
             }
-            System.out.println();
-        }
+            adjacencyList.put(vertex, adjacentVertices);
+        });
+        return adjacencyList;
+    }
+
+    public AdjacencyMatrix<Weight<Arc>> adjacencyMatrix() {
+        return matrix;
+    }
+
+    public Map<Vert, Integer> vertices() {
+        return vertices;
     }
 
     /**

@@ -2,11 +2,16 @@ package com.got.genealogy;
 
 import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.Graph;
+import com.got.genealogy.core.graph.collection.AdjacencyList;
+import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Edge;
 import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
+import com.got.genealogy.core.graph.property.WeightedVertex;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 public class TestGraph {
 
@@ -35,27 +40,27 @@ public class TestGraph {
                 new Weight<>(new Edge("3")));
 
         System.out.println("\n\nGraph 1");
-        graph1.printGraph(defaultNull);
+        printGraph(graph1, defaultNull);
 
         graph1.removeVertex(c);
 
         System.out.println("\n\nRemoved vertex [c]");
-        graph1.printGraph(defaultNull);
+        printGraph(graph1, defaultNull);
 
         graph1.addVertex(c);
 
         System.out.println("\n\nAdded vertex [c]");
-        graph1.printGraph(defaultNull);
+        printGraph(graph1, defaultNull);
 
         graph1.removeEdge(a, b);
 
         System.out.println("\n\nRemoved edge [a -> b]");
-        graph1.printGraph(defaultNull);
+        printGraph(graph1, defaultNull);
 
         graph1.addEdge(c, d, new Weight<>(new Relation("4")));
 
         System.out.println("\n\nAdded edge [c -> d]");
-        graph1.printGraph(defaultNull);
+        printGraph(graph1, defaultNull);
 
         System.out.println("\n\nGet [a] annotation: " + a.getAnnotation());
         a.setAnnotation("A");
@@ -92,7 +97,9 @@ public class TestGraph {
         graph2.addEdge(d, a,
                 new Weight<>(new Edge("1")));
 
-        graph2.printGraph(defaultNull);
+        System.out.println("\n\nGraph 2");
+
+        printGraph(graph1, defaultNull);
 
         System.out.println("\nEdge [a -> b]: " + graph2.getEdge(a, b).getLabel());
         System.out.println("Edge [a -> c]: " + graph2.getEdge(a, c).getLabel());
@@ -107,5 +114,102 @@ public class TestGraph {
         adjacentToD2.forEach((e) -> System.out.print(e.getLabel() + ", "));
 
         System.out.println();
+
+        System.out.println("\n\nGraph 1 Adjacency List");
+        AdjacencyList<Vertex, Edge> list = graph1.adjacencyListWeighted();
+
+        System.out.println("\n<expected>");
+        System.out.println("a : {}");
+        System.out.println("b : { [d:3] }");
+        System.out.println("c : { [d:4] }");
+        System.out.println("d : { [b:3], [c:4] }");
+
+        System.out.println("\n<result>");
+        printList(list);
     }
+
+    private static void printList(AdjacencyList<Vertex, Edge> list) {
+        list.getList()
+                .forEach((k, v) -> {
+                    // Set<WeightedVertex>
+                    System.out.print(k.getLabel() + " : { ");
+                    v.forEach((e) -> {
+                        // WeightedVertex
+                        System.out.printf("[%s:%s], ",
+                                e.getKey().getLabel(),
+                                e.getValue().getLabel());
+                    });
+                    System.out.println(" }");
+                });
+    }
+
+    private static void printGraph(Graph<Vertex, Edge> graph) {
+        // This will be moved out of Graph.
+        // Currently, only being used for
+        // testing.
+        printGraph(graph, null);
+    }
+
+    private static void printGraph(Graph<Vertex, Edge> graph,
+                           Edge nullValue) {
+        // Trying to find a way to customise
+        // return method, i.e. getLabel().
+        printGraph(graph, nullValue, arc -> {
+            if (arc == null) {
+                return arc;
+            } else {
+                return arc.getLabel();
+            }
+        });
+    }
+
+    private static void printGraph(Graph<Vertex, Edge> graph,
+                           Edge nullValue,
+                           Function<Edge, Object> function) {
+        AdjacencyMatrix<Weight<Edge>> matrix = graph.adjacencyMatrix();
+        Map<Vertex, Integer> vertices = graph.vertices();
+
+        int size = matrix.size();
+        // Print column labels
+        System.out.println();
+        System.out.print("   ");
+        for (int i = 0; i < size; i++) {
+            for (Map.Entry<Vertex, Integer> vertex : vertices.entrySet()) {
+                // TODO: Replace with LinkedHashMap
+                if (i == vertex.getValue()) {
+                    System.out.print(vertex.getKey().getLabel() + "  ");
+                }
+            }
+        }
+        // Print matrix
+        System.out.println();
+        for (int i = 0; i < size; i++) {
+            // HashMap isn't ordered, so
+            // get correct vertex label
+            // and print with space.
+            for (Map.Entry<Vertex, Integer> vertex : vertices.entrySet()) {
+                if (i == vertex.getValue()) {
+                    System.out.print(vertex.getKey().getLabel() + "  ");
+                }
+            }
+            // Print weights for vertices,
+            // for this row.
+            for (int j = 0; j < size; j++) {
+                String spacer = (j != size - 1) ? ", " : "";
+                Weight<Edge> weight = matrix.getCell(i, j);
+                Object weightValue;
+                // Allow for custom operation,
+                // e.g. get something other
+                // than label.
+                if (weight != null) {
+                    weightValue = function.apply(weight.getWeight());
+                } else {
+                    weightValue = function.apply(nullValue);
+                }
+                System.out.print(weightValue + spacer);
+            }
+            System.out.println();
+        }
+    }
+
 }
