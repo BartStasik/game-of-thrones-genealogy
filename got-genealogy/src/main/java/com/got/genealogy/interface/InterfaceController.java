@@ -1,47 +1,14 @@
-import java.io.IOException;
-
-public class InterfaceController extends AnchorPane {
-
-    @FXML
-    private ImageView daenerysTargaryen;
-
-    @FXML
-    private ImageView johnSnow;
-
-    @FXML
-    private ImageView cerseiLanister;
-
-    @FXML
-    private ImageView nedStark;
-
-    @FXML
-    private Button sort;
+package interface;
+ 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.text.Text;
+ 
+public class FXMLExampleController {
+    @FXML private Text actiontarget;
     
-    //Constructor
-    public InterfaceController {
-
-    	//FXML Loader
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../../../../../res/characters.fxml"));
-    	loader.setController(this);
-    	loader.setRoot(this);
-       
-    	try {
-    		loader.load();
-    	} catch (IOException ex) {
-    		Logger.getlogger(getClass().getName()).log(Level.SEVER, " FXML can't be loaded!", ex);
-    	}
-
+    @FXML protected void handleSubmitButtonAction(ActionEvent event) {
+        //actiontarget.setText("Sign in button pressed");
     }
 
-    private void initialize() {
-    	
-    	//start 
-    	start.setOnAction(a -> {
-    		statusLabel.setText("Status : [Running]");
-    		
-    		//method
-    		
-    	}
-    }
-    
 }
