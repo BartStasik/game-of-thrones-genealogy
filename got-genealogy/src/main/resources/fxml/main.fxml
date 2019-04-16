@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.1489971346704871, 0.3452722063037249" orientation="VERTICAL" prefWidth="160.0" style="-fx-background-color: #000;" styleClass="face-bg">
@@ -47,7 +46,7 @@
                   <TextField layoutX="464.0" layoutY="126.0" prefHeight="31.0" prefWidth="305.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
                   <Label layoutX="86.0" layoutY="98.0" text="Enter Character 1" />
                   <Label layoutX="464.0" layoutY="97.0" text="Enter Character 2" />
-                  <Button layoutX="819.0" layoutY="125.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="174.0" styleClass="ice-button" text="SUBMIT" />
+                  <Button fx:id="submitHistory" layoutX="819.0" layoutY="125.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="174.0" styleClass="ice-button" text="SUBMIT" />
                   <Label contentDisplay="CENTER" layoutX="419.0" layoutY="117.0" prefHeight="54.0" prefWidth="45.0" styleClass="h2" text="+" textAlignment="CENTER" />
                </children>
             </AnchorPane>

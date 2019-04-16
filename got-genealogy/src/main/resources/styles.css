@@ -58,6 +58,20 @@
     -fx-text-fill: #ffffff!important;
 }
 
+.h3 {
+	-fx-font-family: "Times New Roman";
+    -fx-font-size: 48px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #ffffff;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+    -fx-border-insets: 5;
+    -fx-background-color: rgba(255,255,0,0.3);
+    
+}
+
 .label {
 	-fx-font-family: "Times New Roman";
 	-fx-text-fill: #ffffff!important;
