@@ -8,15 +8,17 @@ import javafx.stage.Stage;
 
 public class MainLoader extends Application
 {
-	
+	//Load the FXML interface file and set the scene
 	@Override
     public void start(Stage primaryStage) throws Exception{
 		Parent root = FXMLLoader.load(getClass().getResource("interface.fxml"));
+//		Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+//		Parent root = FXMLLoader.load(getClass().getResource("popup.fxml"));
+//		Parent root = FXMLLoader.load(getClass().getResource("profile.fxml"));
         primaryStage.setTitle("Game Of Thrones Genealogy");
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setScene(new Scene(root, 1080, 700));
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
