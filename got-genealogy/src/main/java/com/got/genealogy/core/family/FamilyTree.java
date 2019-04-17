@@ -49,7 +49,7 @@ public class FamilyTree extends Graph<Person, Relation> {
 
         if (!(person1 == null) && !(person2 == null)) {
             // TODO: Need some sort of Object -> Relation
-            // processor, e.g. String -> Relation
+            // FileProcessor, e.g. String -> Relation
             addRelation(person1, person2, relation);
         }
     }

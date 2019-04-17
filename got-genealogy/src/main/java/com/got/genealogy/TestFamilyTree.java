@@ -22,7 +22,7 @@ public class TestFamilyTree {
 
     public static void main(String[] args) {
         // Should eventually be in the
-        // file processor or controller file?
+        // file FileProcessor or controller file?
         FamilyTree family = new FamilyTree();
 
         HashMap<String, Gender> names = new HashMap<>();

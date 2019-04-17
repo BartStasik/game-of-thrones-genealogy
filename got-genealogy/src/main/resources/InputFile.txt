@@ -1,0 +1,17 @@
+Eddard Stark, man
+Eddard Stark, father, Arya Stark
+Catelyn Tully, woman
+Arya Stark, woman
+Eddard Stark, father, Robb Stark
+Eddard Stark, father, Sansa Stark
+Eddard Stark, father, Bran Stark
+Eddard Stark, father, Rickon Stark
+Catelyn Tully, mother, Arya Stark
+Catelyn Tully, mother, Robb Stark
+Catelyn Tully, mother, Sansa Stark
+Catelyn Tully, mother, Bran Stark
+Catelyn Tully, mother, Rickon Stark
+Rickard Stark, father, Eddard Stark
+Rickard Stark, father, Lyanna Stark
+Lyanna Stark, mother, Jon Snow
+Rhaegar Targaryen, father, Jon Snow
