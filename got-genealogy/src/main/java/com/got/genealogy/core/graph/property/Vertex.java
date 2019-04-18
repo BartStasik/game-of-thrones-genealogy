@@ -1,6 +1,6 @@
 package com.got.genealogy.core.graph.property;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex> {
 
     private String annotation;
     private String label;
@@ -34,5 +34,11 @@ public class Vertex {
 
     public void setVisited(boolean visited) {
         this.visited = visited;
+    }
+
+    @Override
+    public int compareTo(Vertex vertex) {
+        String label = vertex.getLabel();
+        return getLabel().compareTo(label);
     }
 }

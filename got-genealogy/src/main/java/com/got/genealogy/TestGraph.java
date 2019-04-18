@@ -7,7 +7,6 @@ import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Edge;
 import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
-import com.got.genealogy.core.graph.property.WeightedVertex;
 
 import java.util.Map;
 import java.util.Set;
@@ -69,11 +68,11 @@ public class TestGraph {
         System.out.println("Set [a] annotation: " + a.getAnnotation());
 
         System.out.println("\n\n[a] visited: " + a.isVisited());
-        graph1.visitVertex(a);
+        a.setVisited(true);
         System.out.println("\nVisited [a]");
         System.out.println("[a] visited: " + a.isVisited());
         System.out.println("\nLeft [a]");
-        graph1.leaveVertex(a);
+        a.setVisited(false);
         System.out.println("[a] visited: " + a.isVisited());
 
         System.out.println("\nEdge [c -> d]: " + graph1.getEdge(c, d).getLabel());
@@ -179,8 +178,8 @@ public class TestGraph {
     private static void printGraph(Graph<Vertex, Edge> graph,
                            Edge nullValue,
                            Function<Edge, Object> function) {
-        AdjacencyMatrix<Weight<Edge>> matrix = graph.adjacencyMatrix();
-        Map<Vertex, Integer> vertices = graph.vertices();
+        AdjacencyMatrix<Weight<Edge>> matrix = graph.getAdjacencyMatrix();
+        Map<Vertex, Integer> vertices = graph.getVertices();
 
         int size = matrix.size();
         // Print column labels
