@@ -108,13 +108,17 @@ public class TestFamilyTree {
         printList(family.adjacencyListWeighted());
 
         System.out.println();
-        List<Person> people = new ArrayList<>(family.vertices().keySet());
+        List<Person> people = new ArrayList<>(family.getVertices().keySet());
         people.forEach((e) -> System.out.println(e.getLabel()));
 
         Collections.sort(people);
         System.out.println();
         people.forEach((e) -> System.out.println(e.getLabel()));
 
+        System.out.println();
+        int[] coordinates = family.calculateRelationCoords(family.getPerson("Rhaegar Targaryen"), family.getPerson("Rickon Stark"));
+        System.out.printf("[%s, %s, %s]", coordinates[0], coordinates[1], coordinates[2]);
+        System.out.println();
     }
 
     private static void printList(AdjacencyList<Person, Relation> list) {
@@ -133,8 +137,8 @@ public class TestFamilyTree {
     }
 
     private static void printGraph(FamilyTree graph) {
-        AdjacencyMatrix<Weight<Relation>> matrix = graph.adjacencyMatrix();
-        Map<Person, Integer> vertices = graph.vertices();
+        AdjacencyMatrix<Weight<Relation>> matrix = graph.getAdjacencyMatrix();
+        Map<Person, Integer> vertices = graph.getVertices();
 
         int size = matrix.size();
         // Print column labels

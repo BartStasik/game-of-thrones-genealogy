@@ -7,11 +7,14 @@ import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
 import com.got.genealogy.core.graph.property.WeightedVertex;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class Graph<Vert extends Vertex, Arc extends Edge> {
 
@@ -29,11 +32,32 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         this.directed = directed;
     }
 
+    public AdjacencyMatrix<Weight<Arc>> getAdjacencyMatrix() {
+        return matrix;
+    }
+
+    public Map<Vert, Integer> getVertices() {
+        return vertices;
+    }
+
+    public Arc getEdge(String label1, String label2) {
+        Vert vertex1 = getVertex(label1);
+        Vert vertex2 = getVertex(label2);
+        return getEdge(vertex1, vertex2);
+    }
+
     public Arc getEdge(Vert vertex1, Vert vertex2) {
-        if (getEdgeWeighted(vertex1, vertex2) == null) {
-            return null;
+        Weight<Arc> edge = getEdgeWeighted(vertex1, vertex2);
+        if (edge != null) {
+            return edge.getWeight();
         }
-        return getEdgeWeighted(vertex1, vertex2).getWeight();
+        return null;
+    }
+
+    public Weight<Arc> getEdgeWeighted(String label1, String label2) {
+        Vert vertex1 = getVertex(label1);
+        Vert vertex2 = getVertex(label2);
+        return getEdgeWeighted(vertex1, vertex2);
     }
 
     public Weight<Arc> getEdgeWeighted(Vert vertex1, Vert vertex2) {
@@ -113,19 +137,6 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         }
     }
 
-    public boolean visitVertex(Vert vertex) {
-        if (vertex.isVisited()) {
-            return false;
-        } else {
-            vertex.setVisited(true);
-            return true;
-        }
-    }
-
-    public void leaveVertex(Vert vertex) {
-        vertex.setVisited(false);
-    }
-
     public boolean isAdjacent(Vert vertex1, Vert vertex2) {
         return getEdge(vertex1, vertex2) != null;
     }
@@ -164,11 +175,21 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return null;
     }
 
+    /**
+     * Convert the AdjacencyMatrix into
+     * an AdjacencyList, with weighted
+     * vertices, to store the weight
+     * between connected nodes.
+     * Only looking at rows in matrix.
+     *
+     * @return AdjacencyList of vertices
+     * adjacent to weighted vertices.
+     */
     public AdjacencyList<Vert, Arc> adjacencyListWeighted() {
         AdjacencyList<Vert, Arc> adjacencyList = new AdjacencyList<>();
         // For each vertex, check adjacent
         // vertices and attach a weight to
-        // them
+        // them.
         vertices.forEach((vertex, vertexIndex) -> {
             List<Weight<Arc>> row = matrix.getRow(vertexIndex);
             Set<WeightedVertex<Vert, Arc>> adjacentVertices = new HashSet<>();
@@ -188,17 +209,155 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return adjacencyList;
     }
 
-    public AdjacencyMatrix<Weight<Arc>> adjacencyMatrix() {
-        return matrix;
+    /**
+     * Use DFS traversal to see if any
+     * path exists between two vertices.
+     *
+     * @param vertex1 Starting vertex.
+     * @param vertex2 Goal vertex.
+     * @return Boolean after running DFS
+     * traversal.
+     */
+    public boolean pathExistsBetween(Vert vertex1, Vert vertex2) {
+        return depthFirstTraversal(vertex1).contains(vertex2);
     }
 
-    public Map<Vert, Integer> vertices() {
-        return vertices;
+    /**
+     * Depth-first traversal of the graph
+     * from a starting vertex.
+     *
+     * @param vertex Starting vertex.
+     * @return ArrayList of vertices,
+     * in order of the path.
+     */
+    public List<Vert> depthFirstTraversal(Vert vertex) {
+        Stack<Vert> stack = new Stack<>();
+        List<Vert> path = new ArrayList<>();
+        // Un-visit all vertices before
+        // traversing. Push starting
+        // vertex onto the stack.
+        vertices.forEach((k, v) -> k.setVisited(false));
+        stack.push(vertex);
+        while (!stack.empty()) {
+            Vert topVertex = stack.pop();
+            if (!topVertex.isVisited()) {
+                path.add(topVertex);
+                topVertex.setVisited(true);
+                // Safely iterate over
+                // adjacent vertices
+                // (regardless of direction)
+                // and push unvisited onto
+                // stack.
+                Iterator<Vert> adjacentVertices = adjacentVertices(topVertex).iterator();
+                while (adjacentVertices.hasNext()) {
+                    Vert adjacentVertex = adjacentVertices.next();
+                    if (!adjacentVertex.isVisited()) {
+                        // Push unvisited neighbour
+                        stack.push(adjacentVertex);
+                    }
+                }
+            }
+        }
+        return path;
+    }
+
+    /**
+     * Use an inner class to initialise
+     * a shortestPath ArrayList and update
+     * its contents based on the result
+     * from a recursive relative-traversal
+     * method.
+     *
+     * @param vertex1 Starting point, for
+     *                graph traversal.
+     * @param vertex2 Goal vertex, to reach
+     *                after traversing all
+     *                relatives of vertex1.
+     * @return Return the shortestPath
+     * of the inner class,
+     * after graph traversal.
+     */
+    public List<Vert> getShortestUnweightedPath(Vert vertex1, Vert vertex2) {
+        // Need to use an inner class, to use
+        // with the adjacentVertices() method
+        // from the inherited Graph class.
+        class PathProcessor {
+            // Can directly access shortestPath
+            // outside this nested class.
+            private List<Vert> shortestPath = new ArrayList<>();
+
+            /**
+             * Prepare an empty directed path list and
+             * call processAllPaths to update the
+             * shortestPath.
+             *
+             * @param vertex1   Starting point for
+             *                  graph traversal.
+             * @param vertex2   Goal vertex, to reach
+             *                  after traversing.
+             */
+            private PathProcessor(Vert vertex1, Vert vertex2) {
+                List<Vert> tempPath = new ArrayList<>();
+                tempPath.add(vertex1);
+                processAllPaths(vertex1, vertex2, tempPath);
+            }
+
+            /**
+             * Recursive path processor. Goes
+             * through all possible paths from
+             * vertex1 to vertex2 and updates the
+             * shortestPath if a shortest path exists.
+             *
+             * @param vertex1   Starting point for
+             *                  for graph traversal.
+             *                  Every relative of
+             *                  initial vertex is
+             *                  recursively traversed.
+             * @param vertex2   Goal vertex, to reach
+             *                  after traversing.
+             *                  Unvisited when reached,
+             *                  to search for other
+             *                  possible paths.
+             * @param currentPath   Path-so-far tracker.
+             */
+            private void processAllPaths(Vert vertex1,
+                                         Vert vertex2,
+                                         List<Vert> currentPath) {
+                vertex1.setVisited(true);
+                if (vertex1.equals(vertex2)) {
+                    // Need to un-visit node to
+                    // look for other possible paths.
+                    vertex1.setVisited(false);
+                    boolean shorterPath = currentPath.size() < this.shortestPath.size();
+                    boolean emptyGlobalPath = this.shortestPath.size() == 0;
+
+                    if (shorterPath || emptyGlobalPath) {
+                        // Update shortest path variable
+                        this.shortestPath = new ArrayList<>(currentPath);
+                    }
+                }
+                // Get all relatives and
+                // traverse graph over all
+                // unvisited relatives.
+                Iterator<Vert> adjacentVertices = adjacentVertices(vertex1).iterator();
+                while (adjacentVertices.hasNext()) {
+                    Vert adjacentVertex = adjacentVertices.next();
+                    if (!adjacentVertex.isVisited()) {
+                        currentPath.add(adjacentVertex);
+                        // Recursively traverse neighbours
+                        processAllPaths(adjacentVertex, vertex2, currentPath);
+                        currentPath.remove(adjacentVertex);
+                    }
+                }
+                vertex1.setVisited(false);
+            }
+        }
+        return new PathProcessor(vertex1, vertex2).shortestPath;
     }
 
     private boolean existingVertex(Vert vertex) {
-        boolean b = vertices.get(vertex) != null;
-        return b;
+        // Todo: check if can have same strings
+        return vertices.get(vertex) != null;
     }
 
     private boolean existingVertex(Vert vertex1, Vert vertex2) {
@@ -220,9 +379,9 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      *                       from weights and to
      *                       compare against row
      *                       or column position.
-     * @return a boolean after comparing
-     * row/column position with position
-     * in weights.
+     * @return a boolean after comparing the row
+     * or column position with its position in
+     * a list of weights.
      */
     private boolean containsAdjacent(List<Weight<Arc>> weights,
                                      int vertexPosition,

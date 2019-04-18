@@ -6,6 +6,11 @@ import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.Graph;
 import com.got.genealogy.core.graph.property.Weight;
 
+import java.util.List;
+
+import static com.got.genealogy.core.family.Direction.DOWN;
+import static com.got.genealogy.core.family.Direction.NONE;
+import static com.got.genealogy.core.family.Direction.UP;
 import static com.got.genealogy.core.family.person.Gender.UNSPECIFIED;
 
 
@@ -39,6 +44,10 @@ public class FamilyTree extends Graph<Person, Relation> {
         addVertex(person);
     }
 
+    public Relation getRelation(String name1, String name2) {
+        return getEdge(name1, name2);
+    }
+
     public Relation getRelation(Person person1, Person person2) {
         return getEdge(person1, person2);
     }
@@ -46,7 +55,9 @@ public class FamilyTree extends Graph<Person, Relation> {
     public void addRelation(String name1, String name2, Relation relation) {
         Person person1 = getVertex(name1);
         Person person2 = getVertex(name2);
-
+        // TODO: Prevent acyclic
+        // TODO: Prevent invalid, i.e. two people
+        // are parents of each other
         if (!(person1 == null) && !(person2 == null)) {
             // TODO: Need some sort of Object -> Relation
             // processor, e.g. String -> Relation
@@ -59,4 +70,114 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
 
+    /**
+     * 3D coordinate calculator, based on the shortest
+     * path between two vertices.
+     *
+     * @param person1
+     * @param person2
+     * @return
+     */
+    public int[] calculateRelationCoords(Person person1, Person person2) {
+        List<Person> path = getShortestUnweightedPath(person1, person2);
+        // Check for empty path
+        if (path.size() <= 0) {
+            return null;
+        }
+        Direction previousDirection = NONE;
+        Person previousPerson = path.get(0);
+        boolean step = false;
+
+        // x
+        int height = 0;
+
+        // y
+        int generation = 0;
+        int minGeneration = 0;
+        int maxGeneration = 0;
+
+        // z
+        int stepCount = 0;
+
+        // Debugging print
+        path.forEach((e) -> System.out.print(e.getLabel() + " -> "));
+
+        for (int i = 1; i < path.size(); i++) {
+            Relation edge = getEdge(previousPerson, path.get(i));
+            if (edge == null) {
+                // Direction: up
+                if (previousDirection.equals(DOWN)) {
+                    // Change in direction. DOWN -> UP:
+                    // Share child, but aren't related.
+                    stepCount++;
+                    step = true;
+                }
+                // Increment y-axis.
+                generation++;
+                maxGeneration = getMaxInt(generation, maxGeneration);
+                previousDirection = UP;
+            } else {
+                // Direction: down
+                if (previousDirection.equals(UP) && step) {
+                    // Change in direction. UP -> DOWN:
+                    // Share parent, but when step relation
+                    // has been detected between person1
+                    // and the current person, increment
+                    // stepCount (z-axis).
+                    stepCount++;
+                }
+                // Decrement y-axis.
+                generation--;
+                minGeneration = getMinInt(generation, minGeneration);
+                previousDirection = DOWN;
+            }
+            // Calculate height, based on the
+            // range of generations traversed
+            // so far (x-axis).
+            height = maxGeneration - minGeneration;
+            previousPerson = path.get(i);
+        }
+
+        return new int[]{height, generation, stepCount};
+    }
+
+    /**
+     * Shortcut, determining the difference
+     * between two integers and returning
+     * the smaller value.
+     *
+     * @param newInt    New integer.
+     * @param oldInt    Old integer.
+     * @return          Return the smaller
+     *                  integer value.
+     */
+    private int getMinInt(int newInt, int oldInt) {
+        if (oldInt < newInt) {
+            return oldInt;
+        }
+        return newInt;
+    }
+
+    /**
+     * Shortcut, determining the difference
+     * between two integers and returning
+     * the larger value.
+     *
+     * @param newInt    New integer.
+     * @param oldInt    Old integer.
+     * @return          Return the larger
+     *                  integer value.
+     */
+    private int getMaxInt(int newInt, int oldInt) {
+        if (oldInt > newInt) {
+            return oldInt;
+        }
+        return newInt;
+    }
+}
+
+enum Direction {
+    UP,
+    DOWN,
+    NONE
 }

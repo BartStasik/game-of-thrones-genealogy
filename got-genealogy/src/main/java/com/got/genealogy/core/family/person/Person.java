@@ -2,7 +2,7 @@ package com.got.genealogy.core.family.person;
 
 import com.got.genealogy.core.graph.property.Vertex;
 
-public class Person extends Vertex implements Comparable<Person> {
+public class Person extends Vertex {
     private Gender gender;
     private boolean alive;
 
@@ -32,11 +32,5 @@ public class Person extends Vertex implements Comparable<Person> {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
-    }
-
-    @Override
-    public int compareTo(Person person) {
-        String label = person.getLabel();
-        return getLabel().compareTo(label);
     }
 }
