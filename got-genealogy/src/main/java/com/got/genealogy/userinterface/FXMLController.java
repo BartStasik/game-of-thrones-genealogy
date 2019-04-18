@@ -1,4 +1,4 @@
-package com.got.genealogy;
+package com.got.genealogy.userinterface;
 
 
 import javafx.event.ActionEvent;
