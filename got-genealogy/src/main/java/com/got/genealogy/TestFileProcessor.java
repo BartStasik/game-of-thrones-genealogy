@@ -31,8 +31,8 @@ public class TestFileProcessor {
 
 
     private static void printGraph(FamilyTree graph) {
-        AdjacencyMatrix<Weight<Relation>> matrix = graph.adjacencyMatrix();
-        Map<Person, Integer> vertices = graph.vertices();
+        AdjacencyMatrix<Weight<Relation>> matrix = graph.getAdjacencyMatrix();
+        Map<Person, Integer> vertices = graph.getVertices();
 
         int size = matrix.size();
         // Print column labels
