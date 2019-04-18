@@ -3,6 +3,7 @@ package com.got.genealogy.core.family;
 import com.got.genealogy.core.family.person.Gender;
 import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
+import com.got.genealogy.core.family.person.Relationship;
 import com.got.genealogy.core.graph.Graph;
 import com.got.genealogy.core.graph.property.Weight;
 
@@ -12,6 +13,8 @@ import static com.got.genealogy.core.family.Direction.DOWN;
 import static com.got.genealogy.core.family.Direction.NONE;
 import static com.got.genealogy.core.family.Direction.UP;
 import static com.got.genealogy.core.family.person.Gender.UNSPECIFIED;
+import static com.got.genealogy.core.family.person.Relationship.MARRIED;
+import static com.got.genealogy.core.family.person.Relationship.PARENT;
 
 
 public class FamilyTree extends Graph<Person, Relation> {
@@ -79,7 +82,17 @@ public class FamilyTree extends Graph<Person, Relation> {
      * @return
      */
     public int[] calculateRelationCoords(Person person1, Person person2) {
-        List<Person> path = getShortestUnweightedPath(person1, person2);
+        List<Person> path = getShortestUnweightedPath(person1, person2, (weights, index) -> {
+            boolean married = weights.get(index)
+                    .getWeight()
+                    .getLabel()
+                    .equals(MARRIED.toString());
+            boolean parent = weights.get(index)
+                    .getWeight()
+                    .getLabel()
+                    .equals(PARENT.toString());
+            return married || parent;
+        });
         // Check for empty path
         if (path.size() <= 0) {
             return null;
@@ -87,6 +100,7 @@ public class FamilyTree extends Graph<Person, Relation> {
         Direction previousDirection = NONE;
         Person previousPerson = path.get(0);
         boolean step = false;
+        int inLaw = 0;
 
         // x
         int height = 0;
@@ -105,31 +119,43 @@ public class FamilyTree extends Graph<Person, Relation> {
         for (int i = 1; i < path.size(); i++) {
             Relation edge = getEdge(previousPerson, path.get(i));
             if (edge == null) {
-                // Direction: up
-                if (previousDirection.equals(DOWN)) {
-                    // Change in direction. DOWN -> UP:
-                    // Share child, but aren't related.
+                Relation edgeFlipped = getEdge(path.get(i), previousPerson);
+                if (edgeFlipped.getLabel().equals(MARRIED.toString())) {
+                    inLaw = 1;
                     stepCount++;
                     step = true;
+                } else if (edgeFlipped.getLabel().equals(PARENT.toString())){
+                    if (previousDirection.equals(DOWN)) {
+                        // Change in direction. DOWN -> UP:
+                        // Share child, but aren't related.
+                        stepCount++;
+                        step = true;
+                    }
+                    // Direction: up
+                    // Increment y-axis.
+                    generation++;
+                    maxGeneration = getMaxInt(generation, maxGeneration);
+                    previousDirection = UP;
                 }
-                // Increment y-axis.
-                generation++;
-                maxGeneration = getMaxInt(generation, maxGeneration);
-                previousDirection = UP;
             } else {
-                // Direction: down
-                if (previousDirection.equals(UP) && step) {
-                    // Change in direction. UP -> DOWN:
-                    // Share parent, but when step relation
-                    // has been detected between person1
-                    // and the current person, increment
-                    // stepCount (z-axis).
+                if (edge.getLabel().equals(MARRIED.toString())) {
                     stepCount++;
+                    step = true;
+                } else if (edge.getLabel().equals(PARENT.toString())) {
+                    // Direction: down
+                    if (previousDirection.equals(UP) && (step)) {
+                        // Change in direction. UP -> DOWN:
+                        // Share parent, but when step relation
+                        // has been detected between person1
+                        // and the current person, increment
+                        // stepCount (z-axis).
+                        stepCount++;
+                    }
+                    // Decrement y-axis.
+                    generation--;
+                    minGeneration = getMinInt(generation, minGeneration);
+                    previousDirection = DOWN;
                 }
-                // Decrement y-axis.
-                generation--;
-                minGeneration = getMinInt(generation, minGeneration);
-                previousDirection = DOWN;
             }
             // Calculate height, based on the
             // range of generations traversed
@@ -138,7 +164,7 @@ public class FamilyTree extends Graph<Person, Relation> {
             previousPerson = path.get(i);
         }
 
-        return new int[]{height, generation, stepCount};
+        return new int[]{height, generation, stepCount, inLaw};
     }
 
     /**

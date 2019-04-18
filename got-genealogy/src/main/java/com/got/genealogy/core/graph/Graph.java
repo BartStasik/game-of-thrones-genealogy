@@ -1,5 +1,6 @@
 package com.got.genealogy.core.graph;
 
+import com.got.genealogy.core.family.person.Relationship;
 import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Edge;
@@ -15,6 +16,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.function.BiFunction;
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
+
+import static com.got.genealogy.core.family.person.Relationship.MARRIED;
+import static com.got.genealogy.core.family.person.Relationship.PARENT;
 
 public class Graph<Vert extends Vertex, Arc extends Edge> {
 
@@ -142,6 +149,10 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public Set<Vert> adjacentVertices(Vert vertex) {
+        return adjacentVertices(vertex, (list, index) -> true);
+    }
+
+    public Set<Vert> adjacentVertices(Vert vertex, BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
         if (existingVertex(vertex)) {
             int vertexIndex = vertices.get(vertex);
             Set<Vert> adjacentVertices = new HashSet<>();
@@ -155,7 +166,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
                     // TODO: Replace with LinkedHashMap
                     // Get vertex with corresponding
                     // index in the HashMap.
-                    if (containsAdjacent(row, vertexItem.getValue(), i)) {
+                    if (containsAdjacent(row, vertexItem.getValue(), i, filter)) {
                         adjacentVertices.add(vertexItem.getKey());
                     }
                     // Matrix rows and columns have
@@ -163,7 +174,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
                     // then look at column too. Column
                     // collection is null is not
                     // directed.
-                    if (directed && containsAdjacent(column, vertexItem.getValue(), i)) {
+                    if (directed && containsAdjacent(column, vertexItem.getValue(), i, filter)) {
                         // Adjacent if incoming or
                         // outgoing from vertex.
                         adjacentVertices.add(vertexItem.getKey());
@@ -231,6 +242,9 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      * in order of the path.
      */
     public List<Vert> depthFirstTraversal(Vert vertex) {
+        return depthFirstTraversal(vertex, (list, index) -> true);
+    }
+    public List<Vert> depthFirstTraversal(Vert vertex, BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
         Stack<Vert> stack = new Stack<>();
         List<Vert> path = new ArrayList<>();
         // Un-visit all vertices before
@@ -248,7 +262,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
                 // (regardless of direction)
                 // and push unvisited onto
                 // stack.
-                Iterator<Vert> adjacentVertices = adjacentVertices(topVertex).iterator();
+                Iterator<Vert> adjacentVertices = adjacentVertices(topVertex, filter).iterator();
                 while (adjacentVertices.hasNext()) {
                     Vert adjacentVertex = adjacentVertices.next();
                     if (!adjacentVertex.isVisited()) {
@@ -278,6 +292,12 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      * after graph traversal.
      */
     public List<Vert> getShortestUnweightedPath(Vert vertex1, Vert vertex2) {
+        return getShortestUnweightedPath(vertex1, vertex2, (list, index) -> true);
+    }
+
+    public List<Vert> getShortestUnweightedPath(Vert vertex1,
+                                                Vert vertex2,
+                                                BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
         // Need to use an inner class, to use
         // with the adjacentVertices() method
         // from the inherited Graph class.
@@ -296,10 +316,12 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
              * @param vertex2   Goal vertex, to reach
              *                  after traversing.
              */
-            private PathProcessor(Vert vertex1, Vert vertex2) {
+            private PathProcessor(Vert vertex1,
+                                  Vert vertex2,
+                                  BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
                 List<Vert> tempPath = new ArrayList<>();
                 tempPath.add(vertex1);
-                processAllPaths(vertex1, vertex2, tempPath);
+                processAllPaths(vertex1, vertex2, tempPath, filter);
             }
 
             /**
@@ -322,7 +344,8 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
              */
             private void processAllPaths(Vert vertex1,
                                          Vert vertex2,
-                                         List<Vert> currentPath) {
+                                         List<Vert> currentPath,
+                                         BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
                 vertex1.setVisited(true);
                 if (vertex1.equals(vertex2)) {
                     // Need to un-visit node to
@@ -339,20 +362,20 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
                 // Get all relatives and
                 // traverse graph over all
                 // unvisited relatives.
-                Iterator<Vert> adjacentVertices = adjacentVertices(vertex1).iterator();
+                Iterator<Vert> adjacentVertices = adjacentVertices(vertex1, filter).iterator();
                 while (adjacentVertices.hasNext()) {
                     Vert adjacentVertex = adjacentVertices.next();
                     if (!adjacentVertex.isVisited()) {
                         currentPath.add(adjacentVertex);
                         // Recursively traverse neighbours
-                        processAllPaths(adjacentVertex, vertex2, currentPath);
+                        processAllPaths(adjacentVertex, vertex2, currentPath, filter);
                         currentPath.remove(adjacentVertex);
                     }
                 }
                 vertex1.setVisited(false);
             }
         }
-        return new PathProcessor(vertex1, vertex2).shortestPath;
+        return new PathProcessor(vertex1, vertex2, filter).shortestPath;
     }
 
     private boolean existingVertex(Vert vertex) {
@@ -385,9 +408,10 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      */
     private boolean containsAdjacent(List<Weight<Arc>> weights,
                                      int vertexPosition,
-                                     int index) {
-        if (weights.size() == vertices.size()) {
-            return weights.get(index) != null && vertexPosition == index;
+                                     int index,
+                                     BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
+        if (weights.size() == vertices.size() && weights.get(index) != null) {
+            return vertexPosition == index && filter.apply(weights, index);
         }
         return false;
     }

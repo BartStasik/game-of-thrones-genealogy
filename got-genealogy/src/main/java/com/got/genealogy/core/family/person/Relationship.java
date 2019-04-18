@@ -1,4 +1,6 @@
 package com.got.genealogy.core.family.person;
 
-public class Relationship {
+public enum Relationship {
+    PARENT,
+    MARRIED
 }

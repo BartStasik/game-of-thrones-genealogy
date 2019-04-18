@@ -7,4 +7,8 @@ public class Relation extends Edge {
     public Relation(String label) {
         super(label);
     }
+
+    public Relation(Relationship label) {
+        this(label.toString());
+    }
 }
