@@ -63,7 +63,9 @@ public class FileProcessor {
 
                 switch (values.length) {
                     case 1:
-                        //code
+                        if (family.getPerson(values[0]) == null) {
+                            family.addPerson(values[0]);
+                        }
                         break;
                     case 2:
                         if (family.getPerson(values[0]) == null) {
