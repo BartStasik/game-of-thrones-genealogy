@@ -1,6 +1,5 @@
 package com.got.genealogy.core.graph;
 
-import com.got.genealogy.core.family.person.Relationship;
 import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Edge;
@@ -14,29 +13,36 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.BiFunction;
-import java.util.function.BooleanSupplier;
-import java.util.function.Supplier;
-
-import static com.got.genealogy.core.family.person.Relationship.MARRIED;
-import static com.got.genealogy.core.family.person.Relationship.PARENT;
+import java.util.function.Function;
 
 public class Graph<Vert extends Vertex, Arc extends Edge> {
 
     private AdjacencyMatrix<Weight<Arc>> matrix;
     private Map<Vert, Integer> vertices;
     private boolean directed;
+    private String label;
 
     public Graph() {
-        this(false);
+        this("", false);
+    }
+
+    public Graph(String label) {
+        this(label, false);
     }
 
     public Graph(boolean directed) {
+        this("", directed);
+    }
+
+    public Graph(String label, boolean directed) {
         matrix = new AdjacencyMatrix<>();
         vertices = new HashMap<>();
         this.directed = directed;
+        this.label = label;
     }
 
     public AdjacencyMatrix<Weight<Arc>> getAdjacencyMatrix() {
@@ -47,6 +53,35 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return vertices;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null) {
+            return false;
+        }
+        if (!(object instanceof Graph)) {
+            return false;
+        }
+        Graph<?, ?> graph = (Graph<?, ?>) object;
+        return directed == graph.directed &&
+                graph.label.equals(this.label);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(directed, label);
+    }
+
     public Arc getEdge(String label1, String label2) {
         Vert vertex1 = getVertex(label1);
         Vert vertex2 = getVertex(label2);
@@ -54,8 +89,12 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public Arc getEdge(Vert vertex1, Vert vertex2) {
+        return getEdge(vertex1, vertex2, (e) -> true);
+    }
+
+    public Arc getEdge(Vert vertex1, Vert vertex2, Function<Arc, Boolean> filter) {
         Weight<Arc> edge = getEdgeWeighted(vertex1, vertex2);
-        if (edge != null) {
+        if (edge != null && filter.apply(edge.getWeight())) {
             return edge.getWeight();
         }
         return null;
@@ -83,8 +122,10 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     public void addEdge(Vert vertex1, Vert vertex2, Weight<Arc> weight) {
         if (existingVertex(vertex1, vertex2)) {
             // Get index numbers of vertices
-            int fromVertex = vertices.get(vertex1);
-            int toVertex = vertices.get(vertex2);
+            Vert vertexItem1 = getVertex(vertex1.getLabel());
+            Vert vertexItem2 = getVertex(vertex2.getLabel());
+            int fromVertex = vertices.get(vertexItem1);
+            int toVertex = vertices.get(vertexItem2);
             // Add outgoing edge
             matrix.setCell(fromVertex, toVertex, weight);
             if (!directed) {
@@ -95,7 +136,9 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public void removeEdge(Vert vertex1, Vert vertex2) {
-        addEdge(vertex1, vertex2, null);
+        if (!existingEdge(vertex1, vertex2)) {
+            addEdge(vertex1, vertex2, null);
+        }
     }
 
     public Vert getVertex(int index) {
@@ -108,33 +151,32 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public Vert getVertex(String label) {
-        for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
-            if (vertex.getKey().getLabel().equals(label)) {
-                return vertex.getKey();
+        for (Vert vertex : vertices.keySet()) {
+            if (vertex.getLabel().equals(label)) {
+                return vertex;
             }
         }
         return null;
     }
 
     public void addVertex(Vert vertex) {
-        if (!existingVertex(vertex)) {
-            // Add vertex with new index
-            vertices.put(vertex, vertices.size());
-            int newIndex = matrix.size();
-            // Add new column to existing rows
-            matrix.addColumn(null);
-            // Add new empty row
-            matrix.addRow();
-            // Fill new row
-            matrix.fillRow(newIndex, null);
-        }
+        // Add vertex with new index
+        vertices.put(vertex, vertices.size());
+        int newIndex = matrix.size();
+        // Add new column to existing rows
+        matrix.addColumn(null);
+        // Add new empty row
+        matrix.addRow();
+        // Fill new row
+        matrix.fillRow(newIndex, null);
     }
 
     public void removeVertex(Vert vertex) {
         if (existingVertex(vertex)) {
-            Integer index = vertices.get(vertex);
+            Vert vertexItem = getVertex(vertex.getLabel());
+            Integer index = vertices.get(vertexItem);
             // Remove and shift left
-            vertices.remove(vertex);
+            vertices.remove(vertexItem);
             vertices.replaceAll((k, v) -> {
                 return (v >= index) ? v - 1 : v;
             });
@@ -142,6 +184,19 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
             matrix.removeRow(index);
             matrix.removeColumn(index);
         }
+    }
+
+    public boolean existingEdge(Vert vertex1, Vert vertex2) {
+        return getEdge(vertex1, vertex2) != null;
+    }
+
+    public boolean existingVertex(Vert vertex) {
+        Vert vertexItem = getVertex(vertex.getLabel());
+        return vertices.containsKey(vertexItem);
+    }
+
+    public boolean existingVertex(Vert vertex1, Vert vertex2) {
+        return existingVertex(vertex1) && existingVertex(vertex2);
     }
 
     public boolean isAdjacent(Vert vertex1, Vert vertex2) {
@@ -244,6 +299,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     public List<Vert> depthFirstTraversal(Vert vertex) {
         return depthFirstTraversal(vertex, (list, index) -> true);
     }
+
     public List<Vert> depthFirstTraversal(Vert vertex, BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
         Stack<Vert> stack = new Stack<>();
         List<Vert> path = new ArrayList<>();
@@ -376,15 +432,6 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
             }
         }
         return new PathProcessor(vertex1, vertex2, filter).shortestPath;
-    }
-
-    private boolean existingVertex(Vert vertex) {
-        // Todo: check if can have same strings
-        return vertices.get(vertex) != null;
-    }
-
-    private boolean existingVertex(Vert vertex1, Vert vertex2) {
-        return existingVertex(vertex1) && existingVertex(vertex2);
     }
 
     /**

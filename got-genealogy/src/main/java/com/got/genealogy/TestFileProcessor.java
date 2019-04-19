@@ -5,36 +5,47 @@ import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Weight;
-import com.got.genealogy.core.processor.FileProcessor;
-import com.got.genealogy.core.processor.GenealogyProcessor;
 
-import java.io.*;
+import java.io.File;
 import java.net.URL;
 import java.util.Map;
+
+import static com.got.genealogy.core.processor.GenealogyProcessor.*;
 
 
 public class TestFileProcessor {
 
     public static void main(String[] args) {
-        String filename = "InputFile.txt";
+        String sortedFile = "SortedPeople.txt";
+        String relationFile = "InputFile.txt";
+        String dotFile = "InputFile";
+        String absoluteRelationPath;
 
         URL resource = TestFileProcessor.class
                 .getClassLoader()
-                .getResource(filename);
-        if (resource == null){
+                .getResource(relationFile);
+
+        if (resource == null) {
             return;
         }
-        File file = new File (resource.getFile());
 
-        FileProcessor processor = new FileProcessor();
-        GenealogyProcessor genealogyProcessor = new GenealogyProcessor();
+        absoluteRelationPath = new File(resource.getFile()).getAbsolutePath();
 
-        String[][] fileContent= processor.loadFile(file.getAbsolutePath());
-        FamilyTree familyTree = genealogyProcessor.loadRelation(fileContent);
+        loadRelation(absoluteRelationPath, "Stark");
+        exportDOT(dotFile, "Stark");
+        exportSorted(sortedFile, "Stark");
 
-        String filename2 = "InputFile";
-        processor.exportGVFile(filename2,familyTree);
-        processor.sortPeople(familyTree);
+        FamilyTree family = getFamily("Stark");
+
+//        if (family != null) {
+//            System.out.println();
+//            int[] coordinates = family.calculateRelationCoords(family.getPerson("Catelyn Tully"), family.getPerson("Eddard Stark"));
+//            System.out.printf("[%s, %s, %s, %s]", coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
+//            System.out.println();
+//        }
+
+        printGraph(family);
+
     }
 
 
