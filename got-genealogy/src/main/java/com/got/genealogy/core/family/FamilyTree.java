@@ -3,24 +3,27 @@ package com.got.genealogy.core.family;
 import com.got.genealogy.core.family.person.Gender;
 import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
-import com.got.genealogy.core.family.person.Relationship;
 import com.got.genealogy.core.graph.Graph;
+import com.got.genealogy.core.graph.property.Edge;
 import com.got.genealogy.core.graph.property.Weight;
+import com.got.genealogy.core.graph.property.WeightedVertex;
 
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static com.got.genealogy.core.family.Direction.DOWN;
 import static com.got.genealogy.core.family.Direction.NONE;
 import static com.got.genealogy.core.family.Direction.UP;
 import static com.got.genealogy.core.family.person.Gender.UNSPECIFIED;
-import static com.got.genealogy.core.family.person.Relationship.MARRIED;
+import static com.got.genealogy.core.family.person.Relationship.SPOUSE;
 import static com.got.genealogy.core.family.person.Relationship.PARENT;
 
 
 public class FamilyTree extends Graph<Person, Relation> {
 
-    public FamilyTree() {
-        super(true);
+    public FamilyTree(String label) {
+        super(label, true);
     }
 
     public Person getPerson(String name) {
@@ -28,23 +31,24 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     public void addPerson(String name) {
-        addPerson(name, UNSPECIFIED);
+        addPerson(new Person(name));
     }
 
     public void addPerson(String name, Gender gender) {
-        // Assumed dead or do we use another enum/int?
-        addPerson(name, gender, false);
-    }
-
-    public void addPerson(String name, Gender gender, Boolean alive) {
-        Person person = new Person(name);
-        person.setGender(gender);
-        person.setAlive(alive);
-        addPerson(person);
+        Person person = getVertex(name);
+        if (person == null) {
+            person = new Person(name);
+            addVertex(person);
+        }
+        if (!gender.equals(UNSPECIFIED) && person.getGender().equals(UNSPECIFIED)) {
+            person.setGender(gender);
+        }
     }
 
     public void addPerson(Person person) {
-        addVertex(person);
+        if (!existingVertex(person)) {
+            addVertex(person);
+        }
     }
 
     public Relation getRelation(String name1, String name2) {
@@ -58,20 +62,22 @@ public class FamilyTree extends Graph<Person, Relation> {
     public void addRelation(String name1, String name2, Relation relation) {
         Person person1 = getVertex(name1);
         Person person2 = getVertex(name2);
-        // TODO: Prevent acyclic
-        // TODO: Prevent invalid, i.e. two people
-        // are parents of each other
         if (!(person1 == null) && !(person2 == null)) {
-            // TODO: Need some sort of Object -> Relation
-            // FileProcessor, e.g. String -> Relation
             addRelation(person1, person2, relation);
         }
     }
 
     public void addRelation(Person person1, Person person2, Relation relation) {
-        addEdge(person1, person2, new Weight<>(relation));
+        if (person1.getLabel().equals(person2.getLabel())) {
+            return;
+        }
+        if (getRelation(person1, person2) == null) {
+            if (relation.getLabel().equals(SPOUSE.toString())) {
+                addEdge(person2, person1, new Weight<>(relation));
+            }
+            addEdge(person1, person2, new Weight<>(relation));
+        }
     }
-
 
     /**
      * 3D coordinate calculator, based on the shortest
@@ -82,17 +88,12 @@ public class FamilyTree extends Graph<Person, Relation> {
      * @return
      */
     public int[] calculateRelationCoords(Person person1, Person person2) {
-        List<Person> path = getShortestUnweightedPath(person1, person2, (weights, index) -> {
-            boolean married = weights.get(index)
-                    .getWeight()
-                    .getLabel()
-                    .equals(MARRIED.toString());
-            boolean parent = weights.get(index)
-                    .getWeight()
-                    .getLabel()
-                    .equals(PARENT.toString());
-            return married || parent;
-        });
+        Person personItem1 = getPerson(person1.getLabel());
+        Person personItem2 = getPerson(person2.getLabel());
+        if (personItem1 == null || personItem2 == null) {
+            return null;
+        }
+        List<Person> path = getShortestUnweightedPath(personItem1, personItem2, filterPathRelation());
         // Check for empty path
         if (path.size() <= 0) {
             return null;
@@ -117,14 +118,15 @@ public class FamilyTree extends Graph<Person, Relation> {
         path.forEach((e) -> System.out.print(e.getLabel() + " -> "));
 
         for (int i = 1; i < path.size(); i++) {
-            Relation edge = getEdge(previousPerson, path.get(i));
+            // Todo: change to getRelation
+            Relation edge = getEdge(previousPerson, path.get(i), filterRelation());
             if (edge == null) {
-                Relation edgeFlipped = getEdge(path.get(i), previousPerson);
-                if (edgeFlipped.getLabel().equals(MARRIED.toString())) {
+                Relation edgeFlipped = getEdge(path.get(i), previousPerson, filterRelation());
+                if (edgeFlipped.getLabel().equals(SPOUSE.toString())) {
                     inLaw = 1;
                     stepCount++;
                     step = true;
-                } else if (edgeFlipped.getLabel().equals(PARENT.toString())){
+                } else if (edgeFlipped.getLabel().equals(PARENT.toString())) {
                     if (previousDirection.equals(DOWN)) {
                         // Change in direction. DOWN -> UP:
                         // Share child, but aren't related.
@@ -138,7 +140,7 @@ public class FamilyTree extends Graph<Person, Relation> {
                     previousDirection = UP;
                 }
             } else {
-                if (edge.getLabel().equals(MARRIED.toString())) {
+                if (edge.getLabel().equals(SPOUSE.toString())) {
                     stepCount++;
                     step = true;
                 } else if (edge.getLabel().equals(PARENT.toString())) {
@@ -167,15 +169,33 @@ public class FamilyTree extends Graph<Person, Relation> {
         return new int[]{height, generation, stepCount, inLaw};
     }
 
+    private BiFunction<List<Weight<Relation>>, Integer, Boolean> filterPathRelation() {
+        return (weights, index) -> {
+            boolean married = weights.get(index)
+                    .getWeight()
+                    .getLabel()
+                    .equals(SPOUSE.toString());
+            boolean parent = weights.get(index)
+                    .getWeight()
+                    .getLabel()
+                    .equals(PARENT.toString());
+            return married || parent;
+        };
+    }
+
+    private Function<Relation, Boolean> filterRelation() {
+        return e -> e.getLabel().equals(SPOUSE.toString()) || e.getLabel().equals(PARENT.toString());
+    }
+
     /**
      * Shortcut, determining the difference
      * between two integers and returning
      * the smaller value.
      *
-     * @param newInt    New integer.
-     * @param oldInt    Old integer.
-     * @return          Return the smaller
-     *                  integer value.
+     * @param newInt New integer.
+     * @param oldInt Old integer.
+     * @return Return the smaller
+     * integer value.
      */
     private int getMinInt(int newInt, int oldInt) {
         if (oldInt < newInt) {
@@ -189,10 +209,10 @@ public class FamilyTree extends Graph<Person, Relation> {
      * between two integers and returning
      * the larger value.
      *
-     * @param newInt    New integer.
-     * @param oldInt    Old integer.
-     * @return          Return the larger
-     *                  integer value.
+     * @param newInt New integer.
+     * @param oldInt Old integer.
+     * @return Return the larger
+     * integer value.
      */
     private int getMaxInt(int newInt, int oldInt) {
         if (oldInt > newInt) {
