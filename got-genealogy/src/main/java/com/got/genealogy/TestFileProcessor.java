@@ -6,27 +6,35 @@ import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Weight;
 import com.got.genealogy.core.processor.FileProcessor;
+import com.got.genealogy.core.processor.GenealogyProcessor;
 
 import java.io.*;
-import java.nio.file.Files;
+import java.net.URL;
 import java.util.Map;
 
 
 public class TestFileProcessor {
+
     public static void main(String[] args) {
         String filename = "InputFile.txt";
 
-        ClassLoader classLoader = new TestFileProcessor()
-                .getClass()
-                .getClassLoader();
-        File file = new File(classLoader.getResource(filename).getFile());
+        URL resource = TestFileProcessor.class
+                .getClassLoader()
+                .getResource(filename);
+        if (resource == null){
+            return;
+        }
+        File file = new File (resource.getFile());
 
         FileProcessor processor = new FileProcessor();
-        processor.loadFile(file.getAbsolutePath());
+        GenealogyProcessor genealogyProcessor = new GenealogyProcessor();
 
-        printGraph(processor.getFamily());
+        String[][] fileContent= processor.loadFile(file.getAbsolutePath());
+        FamilyTree familyTree = genealogyProcessor.loadRelation(fileContent);
+
         String filename2 = "InputFile";
-        processor.exportFile(filename2);
+        processor.exportGVFile(filename2,familyTree);
+        processor.sortPeople(familyTree);
     }
 
 
