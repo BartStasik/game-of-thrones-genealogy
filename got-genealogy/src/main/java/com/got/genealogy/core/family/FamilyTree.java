@@ -80,12 +80,16 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     /**
-     * 3D coordinate calculator, based on the shortest
+     * 4D coordinate calculator, based on the shortest
      * path between two vertices.
      *
-     * @param person1
-     * @param person2
-     * @return
+     * @param person1   Starting person, used to search
+     *                  how they are related to person2.
+     * @param person2   Goal person, to whom person1 is
+     *                  related to.
+     * @return 4 coordinates: tree height, generation
+     * difference, non-blood step count and
+     * marriages-passed count.
      */
     public int[] calculateRelationCoords(Person person1, Person person2) {
         Person personItem1 = getPerson(person1.getLabel());
@@ -101,7 +105,6 @@ public class FamilyTree extends Graph<Person, Relation> {
         Direction previousDirection = NONE;
         Person previousPerson = path.get(0);
         boolean step = false;
-        int inLaw = 0;
 
         // x
         int height = 0;
@@ -112,10 +115,10 @@ public class FamilyTree extends Graph<Person, Relation> {
         int maxGeneration = 0;
 
         // z
-        int stepCount = 0;
+        int noBloodCount = 0;
 
-        // Debugging print
-        path.forEach((e) -> System.out.print(e.getLabel() + " -> "));
+        // p
+        int inLawCount = 0;
 
         for (int i = 1; i < path.size(); i++) {
             // Todo: change to getRelation
@@ -123,14 +126,15 @@ public class FamilyTree extends Graph<Person, Relation> {
             if (edge == null) {
                 Relation edgeFlipped = getEdge(path.get(i), previousPerson, filterRelation());
                 if (edgeFlipped.getLabel().equals(SPOUSE.toString())) {
-                    inLaw = 1;
-                    stepCount++;
-                    step = true;
+                    // Count how many marriages
+                    // have been traversed
+                    // through.
+                    inLawCount++;
                 } else if (edgeFlipped.getLabel().equals(PARENT.toString())) {
                     if (previousDirection.equals(DOWN)) {
                         // Change in direction. DOWN -> UP:
                         // Share child, but aren't related.
-                        stepCount++;
+                        noBloodCount++;
                         step = true;
                     }
                     // Direction: up
@@ -141,8 +145,10 @@ public class FamilyTree extends Graph<Person, Relation> {
                 }
             } else {
                 if (edge.getLabel().equals(SPOUSE.toString())) {
-                    stepCount++;
-                    step = true;
+                    // Count how many marriages
+                    // have been traversed
+                    // through.
+                    inLawCount++;
                 } else if (edge.getLabel().equals(PARENT.toString())) {
                     // Direction: down
                     if (previousDirection.equals(UP) && (step)) {
@@ -151,7 +157,7 @@ public class FamilyTree extends Graph<Person, Relation> {
                         // has been detected between person1
                         // and the current person, increment
                         // stepCount (z-axis).
-                        stepCount++;
+                        noBloodCount++;
                     }
                     // Decrement y-axis.
                     generation--;
@@ -159,14 +165,14 @@ public class FamilyTree extends Graph<Person, Relation> {
                     previousDirection = DOWN;
                 }
             }
-            // Calculate height, based on the
-            // range of generations traversed
+            // Calculate tree height, based on
+            // the range of generations traversed
             // so far (x-axis).
             height = maxGeneration - minGeneration;
             previousPerson = path.get(i);
         }
 
-        return new int[]{height, generation, stepCount, inLaw};
+        return new int[]{height, generation, noBloodCount, inLawCount};
     }
 
     private BiFunction<List<Weight<Relation>>, Integer, Boolean> filterPathRelation() {

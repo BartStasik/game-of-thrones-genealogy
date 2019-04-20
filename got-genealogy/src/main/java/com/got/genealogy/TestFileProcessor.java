@@ -8,9 +8,9 @@ import com.got.genealogy.core.graph.property.Weight;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Map;
+import java.util.*;
 
-import static com.got.genealogy.core.processor.GenealogyProcessor.*;
+import static com.got.genealogy.core.processor.Genealogy.*;
 
 
 public class TestFileProcessor {
@@ -19,23 +19,33 @@ public class TestFileProcessor {
         String sortedFile = "SortedPeople.txt";
         String relationFile = "InputFile.txt";
         String dotFile = "InputFile";
-        String absoluteRelationPath;
+        String absoluteRelationPath, testRelationPath;
 
         URL resource = TestFileProcessor.class
                 .getClassLoader()
                 .getResource(relationFile);
 
-        if (resource == null) {
+        URL testResource = TestFileProcessor.class
+                .getClassLoader()
+                .getResource("RelationshipTestFile.txt");
+
+        if (resource == null && testResource == null) {
             return;
         }
 
         absoluteRelationPath = new File(resource.getFile()).getAbsolutePath();
+        testRelationPath = new File(testResource.getFile()).getAbsolutePath();
 
         loadRelation(absoluteRelationPath, "Stark");
         exportDOT(dotFile, "Stark");
         exportSorted(sortedFile, "Stark");
 
+        loadRelation(testRelationPath, "Test");
+        exportDOT("TestDOT", "Test");
+        exportSorted("TestSorted.txt", "Test");
+
         FamilyTree family = getFamily("Stark");
+        FamilyTree testFamily = getFamily("Test");
 
 //        if (family != null) {
 //            System.out.println();
@@ -44,7 +54,160 @@ public class TestFileProcessor {
 //            System.out.println();
 //        }
 
-        printGraph(family);
+        class Pair {
+            String key, value;
+            public Pair(String k, String v){
+                key = k;
+                value = v;
+            }
+        }
+
+        printGraph(testFamily);
+
+        List<Pair> relations = new ArrayList<>();
+
+//        relations.add(new Pair("Eddard Stark", "Arya Stark"));
+//        relations.add(new Pair("Robb Stark", "Eddard Stark"));
+//        relations.add(new Pair("Eddard Stark", "Sansa Stark"));
+//        relations.add(new Pair("Eddard Stark", "Bran Stark"));
+//        relations.add(new Pair("Catelyn Tully", "Robb Stark"));
+//        relations.add(new Pair("Catelyn Tully", "Sansa Stark"));
+//        relations.add(new Pair("Catelyn Tully", "Bran Stark"));
+//        relations.add(new Pair("Catelyn Tully", "Rickon Stark"));
+//        relations.add(new Pair("Rickard Stark", "Eddard Stark"));
+//        relations.add(new Pair("Rickard Stark", "Lyanna Stark"));
+//        relations.add(new Pair("Lyanna Stark", "Jon Snow"));
+//        relations.add(new Pair("Rhaegar Targaryen", "Jon Snow"));
+//        relations.add(new Pair("Eddard Stark", "Catelyn Tully"));
+
+//        relations.add(new Pair("Rickard Stark", "Jon Snow"));
+//        relations.add(new Pair("Lyanna Stark", "Jon Snow"));
+//        relations.add(new Pair("Lyanna Stark", "Arya Stark"));
+//        relations.add(new Pair("Eddard Stark", "Catelyn Tully"));
+//        relations.add(new Pair("Rickon Stark", "Catelyn Tully"));
+//        relations.add(new Pair("Rickon Stark", "Arya Stark"));
+//        relations.add(new Pair("Rickon Stark", "Robb Stark"));
+//        relations.add(new Pair("Arya Stark", "Robb Stark"));
+//        relations.add(new Pair("Robb Stark", "Arya Stark"));
+//        relations.add(new Pair("Robb Stark", "Jon Snow"));
+//        relations.add(new Pair("Robb Stark", "Lyanna Stark"));
+//        relations.add(new Pair("Robb Stark", "Rickard Stark"));
+//        relations.add(new Pair("Robb Stark", "Rhaegar Targaryen"));
+//        relations.add(new Pair("Rhaegar Targaryen", "Robb Stark"));
+//        relations.add(new Pair("Bartosz Stasik", "Rickard Stark"));
+//        relations.add(new Pair("Rickard Stark", "Bartosz Stasik"));
+//        relations.add(new Pair("Bartosz Stasik", "Jon Snow"));
+//        relations.add(new Pair("Ahmed Iqbal", "Jon Snow"));
+//        relations.add(new Pair("Jon Snow", "Josh Button"));
+//        relations.add(new Pair("Josh Button", "Jon Snow"));
+
+        // Connected by father - Luke Puckett
+        relations.add(new Pair("Ebony Mohamed", "Bilal Rios"));
+        relations.add(new Pair("Ebony Mohamed", "Leonardo Love"));
+        relations.add(new Pair("Ebony Mohamed", "Brenda Torres"));
+        relations.add(new Pair("Ebony Mohamed", "Luke Puckett"));
+        relations.add(new Pair("Ebony Mohamed", "Tasmin Williamson"));
+        relations.add(new Pair("Ebony Mohamed", "Sophie-Louise Lu"));
+
+        // Connected by grandmother - Khia Kemp
+        relations.add(new Pair("Ebony Mohamed", "Khia Kemp"));
+        relations.add(new Pair("Ebony Mohamed", "Chanice Mcintyre"));
+        relations.add(new Pair("Ebony Mohamed", "Samson Fellows"));
+        relations.add(new Pair("Ebony Mohamed", "Reegan Serrano"));
+        relations.add(new Pair("Ebony Mohamed", "Alysia Weeks"));
+
+        // Connected by great-grandmother - Nina Barnard
+        relations.add(new Pair("Ebony Mohamed", "Nina Barnard"));
+        relations.add(new Pair("Ebony Mohamed", "Rex Roy"));
+        relations.add(new Pair("Ebony Mohamed", "Rhia Mccarty"));
+        relations.add(new Pair("Ebony Mohamed", "Stacie Fountain"));
+        relations.add(new Pair("Ebony Mohamed", "Poppy-Rose Harmon"));
+        relations.add(new Pair("Ebony Mohamed", "Dolly Wyatt"));
+        relations.add(new Pair("Ebony Mohamed", "Carys Hubbard"));
+
+        // Connected by 2x great-grandmother - Katie Crowther
+        relations.add(new Pair("Ebony Mohamed", "Katie Crowther"));
+        relations.add(new Pair("Ebony Mohamed", "Kayden Beach"));
+        relations.add(new Pair("Ebony Mohamed", "Star Wharton"));
+        relations.add(new Pair("Ebony Mohamed", "Dru Mercado"));
+        relations.add(new Pair("Ebony Mohamed", "Mila-Rose Chaney"));
+        relations.add(new Pair("Ebony Mohamed", "Grace Montes"));
+        relations.add(new Pair("Ebony Mohamed", "Jake Pearson"));
+
+        // No path
+        relations.add(new Pair("Ebony Mohamed", "Bartosz Stasik"));
+
+        // x In-Law
+        relations.add(new Pair("Ebony Mohamed", "Ahmed Iqbal"));
+
+        // Not related, but someone in the family is married with their relative in-law
+        relations.add(new Pair("Ebony Mohamed", "Josh Button"));
+        relations.add(new Pair("Ebony Mohamed", "Ashleigh More Hattia"));
+
+        // Not blood related
+        relations.add(new Pair("Ebony Mohamed", "Jon Do"));
+
+
+        String[] expectedRelationshipsInOrder = new String[]{
+                "Grandaunt",
+                "Aunt",
+                "Sister",
+                "Daughter",
+                "Mother",
+                "Grandmother",
+                "Granddaughter",
+                "Niece",
+                "Niece",
+                "Cousin",
+                "1x Descendant Cousin",
+                "Great Granddaughter",
+                "Grandniece",
+                "1x Ascendant Cousin",
+                "2x Cousin",
+                "2x Descendant Cousin",
+                "2x Descendant Cousin",
+                "2x Descendant Cousin",
+                "2x Great Granddaughter",
+                "Great Grandniece",
+                "2x Ascendant Cousin",
+                "2x Ascendant Cousin",
+                "3x Cousin",
+                "3x Descendant Cousin",
+                "3x Descendant Cousin",
+                "Not Related",
+                "Great Granddaughter In-Law",
+                "Not Related, but someone in family is married to their relative",
+                "Not Related, but someone in family is married to their relative",
+                "Not Blood-Related"
+        };
+
+        boolean testPassed = true;
+        int i = 0;
+
+        for (Pair e : relations) {
+            String relationship = findRelationship(e.key, e.value, "Test");
+            if (relationship == null) {
+                testPassed = false;
+                System.out.println("Invalid Family Name");
+                break;
+            }
+            boolean correctRelationship = relationship.equals(expectedRelationshipsInOrder[i]);
+            if (!correctRelationship) {
+                testPassed = false;
+            }
+            System.out.printf("%s -> %s%n%b : %s%n",
+                    e.key,
+                    e.value,
+                    correctRelationship,
+                    relationship);
+            i++;
+        }
+
+        if (!testPassed) {
+            System.out.println("\nTEST FAILED");
+        } else {
+            System.out.println("\nTEST PASSED");
+        }
 
     }
 
