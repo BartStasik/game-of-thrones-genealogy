@@ -1,8 +1,7 @@
 target/
 .idea/
-*./classpath
-*./org
-*./settings
+*.classpath
+*.settings/
 *.iml
 *.pem
 *.log
