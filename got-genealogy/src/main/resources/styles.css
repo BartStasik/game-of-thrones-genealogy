@@ -5,7 +5,8 @@
 }
 
 .trans-bg {
-	-fx-background-image: transparent;
+	-fx-background-color: transparent;
+	-fx-background-image: none;
 }
 
 .face-bg {
