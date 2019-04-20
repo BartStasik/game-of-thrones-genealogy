@@ -1,6 +1,9 @@
 target/
 .idea/
+.classpath
+.settings/
 *.iml
 *.pem
 *.log
+.project
 *.DS_Store
