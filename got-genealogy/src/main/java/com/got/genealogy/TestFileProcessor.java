@@ -16,47 +16,29 @@ import static com.got.genealogy.core.processor.Genealogy.*;
 public class TestFileProcessor {
 
     public static void main(String[] args) {
-        String sortedFile = "SortedPeople.txt";
-        String relationFile = "InputFile.txt";
-        String dotFile = "InputFile";
-        String absoluteRelationPath, testRelationPath;
+        boolean testPassed = true;
+        int i = 0;
 
-        URL resource = TestFileProcessor.class
-                .getClassLoader()
-                .getResource(relationFile);
+        String testRelationPath;
 
         URL testResource = TestFileProcessor.class
                 .getClassLoader()
                 .getResource("RelationshipTestFile.txt");
 
-        if (resource == null && testResource == null) {
+        if (testResource == null) {
             return;
         }
-
-        absoluteRelationPath = new File(resource.getFile()).getAbsolutePath();
         testRelationPath = new File(testResource.getFile()).getAbsolutePath();
-
-        loadRelation(absoluteRelationPath, "Stark");
-        exportDOT(dotFile, "Stark");
-        exportSorted(sortedFile, "Stark");
 
         loadRelation(testRelationPath, "Test");
         exportDOT("TestDOT", "Test");
         exportSorted("TestSorted.txt", "Test");
 
-        FamilyTree family = getFamily("Stark");
         FamilyTree testFamily = getFamily("Test");
 
-//        if (family != null) {
-//            System.out.println();
-//            int[] coordinates = family.calculateRelationCoords(family.getPerson("Catelyn Tully"), family.getPerson("Eddard Stark"));
-//            System.out.printf("[%s, %s, %s, %s]", coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
-//            System.out.println();
-//        }
-
         class Pair {
-            String key, value;
-            public Pair(String k, String v){
+            private String key, value;
+            private Pair(String k, String v){
                 key = k;
                 value = v;
             }
@@ -65,41 +47,6 @@ public class TestFileProcessor {
         printGraph(testFamily);
 
         List<Pair> relations = new ArrayList<>();
-
-//        relations.add(new Pair("Eddard Stark", "Arya Stark"));
-//        relations.add(new Pair("Robb Stark", "Eddard Stark"));
-//        relations.add(new Pair("Eddard Stark", "Sansa Stark"));
-//        relations.add(new Pair("Eddard Stark", "Bran Stark"));
-//        relations.add(new Pair("Catelyn Tully", "Robb Stark"));
-//        relations.add(new Pair("Catelyn Tully", "Sansa Stark"));
-//        relations.add(new Pair("Catelyn Tully", "Bran Stark"));
-//        relations.add(new Pair("Catelyn Tully", "Rickon Stark"));
-//        relations.add(new Pair("Rickard Stark", "Eddard Stark"));
-//        relations.add(new Pair("Rickard Stark", "Lyanna Stark"));
-//        relations.add(new Pair("Lyanna Stark", "Jon Snow"));
-//        relations.add(new Pair("Rhaegar Targaryen", "Jon Snow"));
-//        relations.add(new Pair("Eddard Stark", "Catelyn Tully"));
-
-//        relations.add(new Pair("Rickard Stark", "Jon Snow"));
-//        relations.add(new Pair("Lyanna Stark", "Jon Snow"));
-//        relations.add(new Pair("Lyanna Stark", "Arya Stark"));
-//        relations.add(new Pair("Eddard Stark", "Catelyn Tully"));
-//        relations.add(new Pair("Rickon Stark", "Catelyn Tully"));
-//        relations.add(new Pair("Rickon Stark", "Arya Stark"));
-//        relations.add(new Pair("Rickon Stark", "Robb Stark"));
-//        relations.add(new Pair("Arya Stark", "Robb Stark"));
-//        relations.add(new Pair("Robb Stark", "Arya Stark"));
-//        relations.add(new Pair("Robb Stark", "Jon Snow"));
-//        relations.add(new Pair("Robb Stark", "Lyanna Stark"));
-//        relations.add(new Pair("Robb Stark", "Rickard Stark"));
-//        relations.add(new Pair("Robb Stark", "Rhaegar Targaryen"));
-//        relations.add(new Pair("Rhaegar Targaryen", "Robb Stark"));
-//        relations.add(new Pair("Bartosz Stasik", "Rickard Stark"));
-//        relations.add(new Pair("Rickard Stark", "Bartosz Stasik"));
-//        relations.add(new Pair("Bartosz Stasik", "Jon Snow"));
-//        relations.add(new Pair("Ahmed Iqbal", "Jon Snow"));
-//        relations.add(new Pair("Jon Snow", "Josh Button"));
-//        relations.add(new Pair("Josh Button", "Jon Snow"));
 
         // Connected by father - Luke Puckett
         relations.add(new Pair("Ebony Mohamed", "Bilal Rios"));
@@ -181,9 +128,6 @@ public class TestFileProcessor {
                 "Not Blood-Related"
         };
 
-        boolean testPassed = true;
-        int i = 0;
-
         for (Pair e : relations) {
             String relationship = findRelationship(e.key, e.value, "Test");
             if (relationship == null) {
@@ -208,7 +152,6 @@ public class TestFileProcessor {
         } else {
             System.out.println("\nTEST PASSED");
         }
-
     }
 
 

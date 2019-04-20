@@ -55,7 +55,7 @@ public class File {
                     outputFile,
                     fileWriter);
 
-            writeLine(("node [shape=rectangle] [color=navy];"),
+            writeLine(("node [shape=rectangle color=navy];"),
                     outputFile,
                     fileWriter);
 
