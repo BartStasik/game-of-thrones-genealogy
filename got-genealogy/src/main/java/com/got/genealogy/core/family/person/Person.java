@@ -1,29 +1,28 @@
-package com.got.genealogy.core.person;
+package com.got.genealogy.core.family.person;
 
-import com.got.genealogy.core.graph.Vertex;
+import com.got.genealogy.core.graph.property.Vertex;
 
 public class Person extends Vertex {
-    private String name;
-    private String gender;
+    private Gender gender;
     private boolean alive;
 
     public Person(String label) {
-        super(label);
+        super(label); // name
     }
 
     public String getName() {
-        return name;
+        return getLabel();
     }
 
     public void setName(String name) {
-        this.name = name;
+        setLabel(name);
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
