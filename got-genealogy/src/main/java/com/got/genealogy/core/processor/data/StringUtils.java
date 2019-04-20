@@ -14,6 +14,6 @@ public class StringUtils {
         for (String word : words) {
             finalString.append(toSentenceCase(word)).append(" ");
         }
-        return finalString.toString();
+        return finalString.toString().trim();
     }
 }

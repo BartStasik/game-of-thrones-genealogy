@@ -94,6 +94,11 @@ public class TestFileProcessor {
         // Not blood related
         relations.add(new Pair("Ebony Mohamed", "Jon Do"));
 
+        // Spouse
+        relations.add(new Pair("Ahmed Iqbal", "Nina Barnard"));
+
+        // Loves
+        relations.add(new Pair("Nina Barnard", "Ebony Mohamed"));
 
         String[] expectedRelationshipsInOrder = new String[]{
                 "Grandaunt",
@@ -125,21 +130,23 @@ public class TestFileProcessor {
                 "Great Granddaughter In-Law",
                 "Not Related, but someone in family is married to their relative",
                 "Not Related, but someone in family is married to their relative",
-                "Not Blood-Related"
+                "Not Blood-Related",
+                "Husband",
+                "Loves"
         };
 
         for (Pair e : relations) {
             String relationship = findRelationship(e.key, e.value, "Test");
             if (relationship == null) {
                 testPassed = false;
-                System.out.println("Invalid Family Name");
+                System.out.println("Error");
                 break;
             }
             boolean correctRelationship = relationship.equals(expectedRelationshipsInOrder[i]);
             if (!correctRelationship) {
                 testPassed = false;
             }
-            System.out.printf("%s -> %s%n%b : %s%n",
+            System.out.printf("%n%s -> %s%n%b : %s%n",
                     e.key,
                     e.value,
                     correctRelationship,

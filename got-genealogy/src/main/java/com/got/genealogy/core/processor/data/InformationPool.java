@@ -124,7 +124,7 @@ public class InformationPool {
             Relationship relationship = Relationship.valueOf(relation.getLabel());
             return getRelationship(gender, relationship);
         } catch (IllegalArgumentException e) {
-            return relation.getLabel();
+            return toTitleCase(relation.getLabel());
         }
     }
 
