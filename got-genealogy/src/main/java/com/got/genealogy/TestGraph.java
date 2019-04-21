@@ -58,7 +58,7 @@ public class TestGraph {
         System.out.println("\n\nRemoved edge [a -> b]");
         printGraph(graph1, defaultNull);
 
-        graph1.addEdge(c, d, new Weight<>(new Relation("4")));
+        graph1.addEdge(c, d, new Weight<>(new Edge("4")));
 
         System.out.println("\n\nAdded edge [c -> d]");
         printGraph(graph1, defaultNull);

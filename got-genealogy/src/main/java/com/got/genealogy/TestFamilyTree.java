@@ -4,7 +4,6 @@ import com.got.genealogy.core.family.FamilyTree;
 import com.got.genealogy.core.family.person.Gender;
 import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
-import com.got.genealogy.core.family.person.Relationship;
 import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Weight;
@@ -18,15 +17,15 @@ import java.util.Map;
 import static com.got.genealogy.core.family.person.Gender.FEMALE;
 import static com.got.genealogy.core.family.person.Gender.MALE;
 import static com.got.genealogy.core.family.person.Gender.UNSPECIFIED;
-import static com.got.genealogy.core.family.person.Relationship.MARRIED;
+import static com.got.genealogy.core.family.person.Relationship.SPOUSE;
 import static com.got.genealogy.core.family.person.Relationship.PARENT;
 
 public class TestFamilyTree {
 
     public static void main(String[] args) {
         // Should eventually be in the
-        // file processor or controller file?
-        FamilyTree family = new FamilyTree();
+        // file FileProcessor or controller file?
+        FamilyTree family = new FamilyTree("Stark");
 
         HashMap<String, Gender> names = new HashMap<>();
 
@@ -47,69 +46,71 @@ public class TestFamilyTree {
         // Add person with name and gender
         names.forEach(family::addPerson);
 
+        family.addPerson("Robb Stark", MALE);
+
         // Both mother/father will be generic
         // and gender will be injected when
         // getting.
         // Eddard Stark, father
         family.addRelation("Eddard Stark",
                 "Arya Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Eddard Stark",
                 "Robb Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Eddard Stark",
                 "Sansa Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Eddard Stark",
                 "Bran Stark",
-                new Relation(PARENT));
+                PARENT);
 //        family.addRelation("Eddard Stark",
 //                "Rickon Stark",
 //                new Relation(PARENT));
 
         family.addRelation("Eddard Stark",
                 "Catelyn Tully",
-                new Relation(MARRIED));
+                SPOUSE);
 
         // Catelyn Tully, mother
         family.addRelation("Catelyn Tully",
                 "Arya Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Catelyn Tully",
                 "Robb Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Catelyn Tully",
                 "Sansa Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Catelyn Tully",
                 "Bran Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Catelyn Tully",
                 "Rickon Stark",
-                new Relation(PARENT));
+                PARENT);
 
         // Rickard Stark, father
         family.addRelation("Rickard Stark",
                 "Eddard Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Rickard Stark",
                 "Lyanna Stark",
-                new Relation(PARENT));
+                PARENT);
 
         // Lyanna Stark, mother
         family.addRelation("Lyanna Stark",
                 "Jon Snow",
-                new Relation(PARENT));
+                PARENT);
 
         // Rhaegar Targaryen, father
         family.addRelation("Rhaegar Targaryen",
                 "Jon Snow",
-                new Relation(PARENT));
+                PARENT);
 
         // Rhaegar Targaryen, father
-        family.addRelation("Rhaegar Targaryen",
+        family.addExtraRelation("Rhaegar Targaryen",
                 "Rickon Stark",
-                new Relation("Tests out"));
+                "Tests out");
 
         // Both mother and father are
         // 6 characters long.
@@ -128,8 +129,8 @@ public class TestFamilyTree {
         people.forEach((e) -> System.out.println(e.getLabel()));
 
         System.out.println();
-        int[] coordinates = family.calculateRelationCoords(family.getPerson("Rhaegar Targaryen"), family.getPerson("Rickon Stark"));
-        System.out.printf("[%s, %s, %s]", coordinates[0], coordinates[1], coordinates[2]);
+        int[] coordinates = family.calculateRelationCoords(family.getPerson("Rickon Stark"), family.getPerson("Eddard Stark"));
+        System.out.printf("[%s, %s, %s, %s]", coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
         System.out.println();
     }
 
