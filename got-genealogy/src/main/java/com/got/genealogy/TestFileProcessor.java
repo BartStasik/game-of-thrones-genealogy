@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.*;
 
 import static com.got.genealogy.core.processor.Genealogy.*;
+import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 
 
 public class TestFileProcessor {
@@ -19,18 +20,23 @@ public class TestFileProcessor {
         boolean testPassed = true;
         int i = 0;
 
-        String testRelationPath;
+        String testRelationPath, testDetailsPath;
 
         URL testResource = TestFileProcessor.class
                 .getClassLoader()
                 .getResource("RelationshipTestFile.txt");
+        URL testDetailsResource = TestFileProcessor.class
+                .getClassLoader()
+                .getResource("PersonDetailsTestFile.txt");
 
-        if (testResource == null) {
+        if (testResource == null || testDetailsResource == null) {
             return;
         }
         testRelationPath = new File(testResource.getFile()).getAbsolutePath();
+        testDetailsPath = new File(testDetailsResource.getFile()).getAbsolutePath();
 
         loadRelation(testRelationPath, "Test");
+        loadPersonDetails(testDetailsPath, "Test");
         exportDOT("TestDOT", "Test");
         exportSorted("TestSorted.txt", "Test");
 
@@ -38,7 +44,8 @@ public class TestFileProcessor {
 
         class Pair {
             private String key, value;
-            private Pair(String k, String v){
+
+            private Pair(String k, String v) {
                 key = k;
                 value = v;
             }
@@ -142,6 +149,13 @@ public class TestFileProcessor {
                 "Not Related"
         };
 
+        String[] expectedPeopleForDetails = new String[]{
+                "Bilal Rios",
+                "Leonardo Love",
+                "Brenda Torres",
+                "Non Connected Dude"
+        };
+
         for (Pair e : relations) {
             String[] relationships = findRelationship(e.key, e.value, "Test");
             if (relationships == null) {
@@ -161,6 +175,18 @@ public class TestFileProcessor {
                         relationship,
                         expectedRelationshipsInOrder[i]);
                 i++;
+            }
+        }
+
+        for (String person : expectedPeopleForDetails) {
+            Map<String, String> details = getPersonDetails(person, "Test");
+            if (details == null) {
+                testPassed = false;
+            } else {
+                System.out.println("\n" + person);
+                details.forEach((k, v) -> {
+                    System.out.println(toTitleCase(k) + " : " + toTitleCase(v));
+                });
             }
         }
 

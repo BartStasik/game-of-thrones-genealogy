@@ -9,7 +9,6 @@ import static com.got.genealogy.core.family.person.Gender.UNSPECIFIED;
 
 public class Person extends Vertex {
     private Gender gender = UNSPECIFIED;
-    private boolean alive = true;
     private Map<String, String> details = new HashMap<>();
 
     public Person(String label) {
@@ -24,19 +23,27 @@ public class Person extends Vertex {
         this.gender = gender;
     }
 
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
     public Map<String, String> getDetails() {
         return details;
     }
 
-    public void setDetails(Map<String, String> details) {
-        this.details = details;
+    public String getDetail(String key) {
+        return details.get(key.toUpperCase());
+    }
+
+    public void setDetail(String key, String value) {
+        details.replace(
+                key.toUpperCase(),
+                value.toUpperCase());
+    }
+
+    public void addDetail(String key, String value) {
+        details.put(
+                key.toUpperCase(),
+                value.toUpperCase());
+    }
+
+    public void removeDetail(String key) {
+        details.remove(key.toUpperCase());
     }
 }

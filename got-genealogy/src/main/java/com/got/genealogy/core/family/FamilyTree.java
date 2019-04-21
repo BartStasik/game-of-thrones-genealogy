@@ -30,11 +30,11 @@ public class FamilyTree extends Graph<Person, Relation> {
         return getVertex(name);
     }
 
-    public void addPerson(String name) {
-        addPerson(new Person(name));
+    public Person addPerson(String name) {
+        return addPerson(new Person(name));
     }
 
-    public void addPerson(String name, Gender gender) {
+    public Person addPerson(String name, Gender gender) {
         Person person = getVertex(name);
         if (person == null) {
             person = new Person(name);
@@ -43,10 +43,11 @@ public class FamilyTree extends Graph<Person, Relation> {
         if (!gender.equals(UNSPECIFIED) && person.getGender().equals(UNSPECIFIED)) {
             person.setGender(gender);
         }
+        return person;
     }
 
-    public void addPerson(Person person) {
-        addVertex(person);
+    public Person addPerson(Person person) {
+        return addVertex(person);
     }
 
     public Relation getRelation(String name1, String name2) {

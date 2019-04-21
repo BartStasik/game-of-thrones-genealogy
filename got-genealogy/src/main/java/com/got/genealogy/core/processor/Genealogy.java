@@ -8,6 +8,7 @@ import com.got.genealogy.core.family.person.Relationship;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.got.genealogy.core.family.person.Relationship.*;
 import static com.got.genealogy.core.processor.data.File.exportGVFile;
@@ -56,6 +57,56 @@ public class Genealogy {
 
     public static void removeFamily(FamilyTree familyTree) {
         families.remove(familyTree);
+    }
+
+    public static Map<String, String> getPersonDetails(String personName, String familyName) {
+        FamilyTree family = getFamily(familyName);
+        Map<String, String> details;
+        Person person;
+        if (family == null) {
+            return null;
+        }
+        person = family.getPerson(personName);
+        if (person == null) {
+            return null;
+        }
+        details = person.getDetails();
+        details.put("GENDER", person.getGender().toString());
+        return details;
+    }
+
+    public static boolean loadPersonDetails(String absolutePath, String familyName) {
+        try {
+            String[][] file = loadFile(absolutePath);
+            FamilyTree family = getFamily(familyName);
+
+            String personName;
+            Person person;
+
+            if (file == null || family == null) {
+                return false;
+            }
+
+            for (String[] row : file) {
+                if (row.length == 3){
+                        personName = row[0];
+                        person = family.getPerson(personName);
+                        if (person == null) {
+                            person = family.addPerson(personName);
+                        }
+                        if (row[1].toUpperCase().equals("GENDER")) {
+                            person.setGender(getInputGender(row[2]));
+                        }
+                        person.addDetail(row[1], row[2]);
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public static FamilyTree loadRelation(String absolutePath, String familyName) {
