@@ -79,8 +79,8 @@ public class Genealogy {
         try {
             String[][] file = loadFile(absolutePath);
             FamilyTree family = getFamily(familyName);
-            String personName;
 
+            String personName;
             Person person;
 
             if (file == null || family == null) {
