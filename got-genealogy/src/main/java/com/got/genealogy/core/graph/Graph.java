@@ -159,18 +159,20 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return null;
     }
 
-    public void addVertex(Vert vertex) {
-        if (!existingVertex(vertex)) {
-            // Add vertex with new index
-            vertices.put(vertex, vertices.size());
-            int newIndex = matrix.size();
-            // Add new column to existing rows
-            matrix.addColumn(null);
-            // Add new empty row
-            matrix.addRow();
-            // Fill new row
-            matrix.fillRow(newIndex, null);
+    public Vert addVertex(Vert vertex) {
+        if (existingVertex(vertex)) {
+            return null;
         }
+        // Add vertex with new index
+        vertices.put(vertex, vertices.size());
+        int newIndex = matrix.size();
+        // Add new column to existing rows
+        matrix.addColumn(null);
+        // Add new empty row
+        matrix.addRow();
+        // Fill new row
+        matrix.fillRow(newIndex, null);
+        return vertex;
     }
 
     public void removeVertex(Vert vertex) {
