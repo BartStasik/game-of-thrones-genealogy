@@ -8,44 +8,157 @@ import com.got.genealogy.core.graph.property.Weight;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Map;
+import java.util.*;
 
-import static com.got.genealogy.core.processor.GenealogyProcessor.*;
+import static com.got.genealogy.core.processor.Genealogy.*;
 
 
 public class TestFileProcessor {
 
     public static void main(String[] args) {
-        String sortedFile = "SortedPeople.txt";
-        String relationFile = "InputFile.txt";
-        String dotFile = "InputFile";
-        String absoluteRelationPath;
+        boolean testPassed = true;
+        int i = 0;
 
-        URL resource = TestFileProcessor.class
+        String testRelationPath;
+
+        URL testResource = TestFileProcessor.class
                 .getClassLoader()
-                .getResource(relationFile);
+                .getResource("RelationshipTestFile.txt");
 
-        if (resource == null) {
+        if (testResource == null) {
             return;
         }
+        testRelationPath = new File(testResource.getFile()).getAbsolutePath();
 
-        absoluteRelationPath = new File(resource.getFile()).getAbsolutePath();
+        loadRelation(testRelationPath, "Test");
+        exportDOT("TestDOT", "Test");
+        exportSorted("TestSorted.txt", "Test");
 
-        loadRelation(absoluteRelationPath, "Stark");
-        exportDOT(dotFile, "Stark");
-        exportSorted(sortedFile, "Stark");
+        FamilyTree testFamily = getFamily("Test");
 
-        FamilyTree family = getFamily("Stark");
+        class Pair {
+            private String key, value;
+            private Pair(String k, String v){
+                key = k;
+                value = v;
+            }
+        }
 
-//        if (family != null) {
-//            System.out.println();
-//            int[] coordinates = family.calculateRelationCoords(family.getPerson("Catelyn Tully"), family.getPerson("Eddard Stark"));
-//            System.out.printf("[%s, %s, %s, %s]", coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
-//            System.out.println();
-//        }
+        printGraph(testFamily);
 
-        printGraph(family);
+        List<Pair> relations = new ArrayList<>();
 
+        // Connected by father - Luke Puckett
+        relations.add(new Pair("Ebony Mohamed", "Bilal Rios"));
+        relations.add(new Pair("Ebony Mohamed", "Leonardo Love"));
+        relations.add(new Pair("Ebony Mohamed", "Brenda Torres"));
+        relations.add(new Pair("Ebony Mohamed", "Luke Puckett"));
+        relations.add(new Pair("Ebony Mohamed", "Tasmin Williamson"));
+        relations.add(new Pair("Ebony Mohamed", "Sophie-Louise Lu"));
+
+        // Connected by grandmother - Khia Kemp
+        relations.add(new Pair("Ebony Mohamed", "Khia Kemp"));
+        relations.add(new Pair("Ebony Mohamed", "Chanice Mcintyre"));
+        relations.add(new Pair("Ebony Mohamed", "Samson Fellows"));
+        relations.add(new Pair("Ebony Mohamed", "Reegan Serrano"));
+        relations.add(new Pair("Ebony Mohamed", "Alysia Weeks"));
+
+        // Connected by great-grandmother - Nina Barnard
+        relations.add(new Pair("Ebony Mohamed", "Nina Barnard"));
+        relations.add(new Pair("Ebony Mohamed", "Rex Roy"));
+        relations.add(new Pair("Ebony Mohamed", "Rhia Mccarty"));
+        relations.add(new Pair("Ebony Mohamed", "Stacie Fountain"));
+        relations.add(new Pair("Ebony Mohamed", "Poppy-Rose Harmon"));
+        relations.add(new Pair("Ebony Mohamed", "Dolly Wyatt"));
+        relations.add(new Pair("Ebony Mohamed", "Carys Hubbard"));
+
+        // Connected by 2x great-grandmother - Katie Crowther
+        relations.add(new Pair("Ebony Mohamed", "Katie Crowther"));
+        relations.add(new Pair("Ebony Mohamed", "Kayden Beach"));
+        relations.add(new Pair("Ebony Mohamed", "Star Wharton"));
+        relations.add(new Pair("Ebony Mohamed", "Dru Mercado"));
+        relations.add(new Pair("Ebony Mohamed", "Mila-Rose Chaney"));
+        relations.add(new Pair("Ebony Mohamed", "Grace Montes"));
+        relations.add(new Pair("Ebony Mohamed", "Jake Pearson"));
+
+        // No path
+        relations.add(new Pair("Ebony Mohamed", "Bartosz Stasik"));
+
+        // x In-Law
+        relations.add(new Pair("Ebony Mohamed", "Ahmed Iqbal"));
+
+        // Not related, but someone in the family is married with their relative in-law
+        relations.add(new Pair("Ebony Mohamed", "Josh Button"));
+        relations.add(new Pair("Ebony Mohamed", "Ashleigh More Hattia"));
+
+        // Not blood related
+        relations.add(new Pair("Ebony Mohamed", "Jon Do"));
+
+        // Spouse
+        relations.add(new Pair("Ahmed Iqbal", "Nina Barnard"));
+
+        // Loves
+        relations.add(new Pair("Nina Barnard", "Ebony Mohamed"));
+
+        String[] expectedRelationshipsInOrder = new String[]{
+                "Grandaunt",
+                "Aunt",
+                "Sister",
+                "Daughter",
+                "Mother",
+                "Grandmother",
+                "Granddaughter",
+                "Niece",
+                "Niece",
+                "Cousin",
+                "1x Descendant Cousin",
+                "Great Granddaughter",
+                "Grandniece",
+                "1x Ascendant Cousin",
+                "2x Cousin",
+                "2x Descendant Cousin",
+                "2x Descendant Cousin",
+                "2x Descendant Cousin",
+                "2x Great Granddaughter",
+                "Great Grandniece",
+                "2x Ascendant Cousin",
+                "2x Ascendant Cousin",
+                "3x Cousin",
+                "3x Descendant Cousin",
+                "3x Descendant Cousin",
+                "Not Related",
+                "Great Granddaughter In-Law",
+                "Not Related, but someone in family is married to their relative",
+                "Not Related, but someone in family is married to their relative",
+                "Not Blood-Related",
+                "Husband",
+                "Loves"
+        };
+
+        for (Pair e : relations) {
+            String relationship = findRelationship(e.key, e.value, "Test");
+            if (relationship == null) {
+                testPassed = false;
+                System.out.println("Error");
+                break;
+            }
+            boolean correctRelationship = relationship.equals(expectedRelationshipsInOrder[i]);
+            if (!correctRelationship) {
+                testPassed = false;
+            }
+            System.out.printf("%n%s -> %s%n%b : %s%n",
+                    e.key,
+                    e.value,
+                    correctRelationship,
+                    relationship);
+            i++;
+        }
+
+        if (!testPassed) {
+            System.out.println("\nTEST FAILED");
+        } else {
+            System.out.println("\nTEST PASSED");
+        }
     }
 
 
