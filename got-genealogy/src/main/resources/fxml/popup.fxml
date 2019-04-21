@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.FXMLController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.got.genealogy.userinterface.FXMLController">
    <children>
       <Text fx:id="characterOne" fill="WHITE" layoutX="84.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Joffrey Lanister" />
       <Text fx:id="characterTwo" fill="WHITE" layoutX="436.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Ned Stark" />
