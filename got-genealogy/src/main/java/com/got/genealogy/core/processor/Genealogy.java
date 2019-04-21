@@ -84,14 +84,14 @@ public class Genealogy {
                         break;
                     case 2:
                         name1 = row[0];
-                        gender = getGender(row[1]);
+                        gender = getInputGender(row[1]);
                         family.addPerson(name1, gender);
                         break;
                     case 3:
                         name1 = row[0];
                         name2 = row[2];
-                        gender = getGender(row[1]);
-                        relationship = getRelationship(row[1]);
+                        gender = getInputGender(row[1]);
+                        relationship = getFilteredInputRelationship(row[1]);
 
                         if (relationship != null) {
                             family.addPerson(name1, gender);

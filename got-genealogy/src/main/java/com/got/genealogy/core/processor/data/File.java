@@ -23,7 +23,6 @@ import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 public class File {
 
     public static String[][] loadFile(String absolutePath) {
-
         try {
             BufferedReader br = new BufferedReader(
                     new FileReader(absolutePath));

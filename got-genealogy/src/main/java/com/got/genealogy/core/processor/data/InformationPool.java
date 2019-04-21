@@ -108,15 +108,12 @@ public class InformationPool {
         FEMALE_RELATIONSHIPS = Collections.unmodifiableMap(femaleRelationships);
     }
 
-    public static String getRelationship(Gender gender, Relationship relationship) {
-        switch (gender) {
-            case MALE:
-                return getMaleRelationship(relationship);
-            case FEMALE:
-                return getFemaleRelationship(relationship);
-            default:
-                return toTitleCase(relationship.toString());
-        }
+    public static String getMaleRelationship(Relationship relationship) {
+        return MALE_RELATIONSHIPS.get(relationship);
+    }
+
+    public static String getFemaleRelationship(Relationship relationship) {
+        return FEMALE_RELATIONSHIPS.get(relationship);
     }
 
     public static String getRelationship(Gender gender, Relation relation) {
@@ -128,11 +125,18 @@ public class InformationPool {
         }
     }
 
-    public static Relationship getRelationship(Relation relation) {
-        return Relationship.valueOf(relation.getLabel());
+    public static String getRelationship(Gender gender, Relationship relationship) {
+        switch (gender) {
+            case MALE:
+                return getMaleRelationship(relationship);
+            case FEMALE:
+                return getFemaleRelationship(relationship);
+            default:
+                return toTitleCase(relationship.toString());
+        }
     }
 
-    public static Relationship getRelationship(String relationship) {
+    public static Relationship getFilteredInputRelationship(String relationship) {
         switch (relationship.toUpperCase()) {
             case "HUSBAND":
             case "WIFE":
@@ -152,17 +156,9 @@ public class InformationPool {
         }
     }
 
-    public static String getMaleRelationship(Relationship relationship) {
-        return MALE_RELATIONSHIPS.get(relationship);
-    }
-
-    public static String getFemaleRelationship(Relationship relationship) {
-        return FEMALE_RELATIONSHIPS.get(relationship);
-    }
-
-    public static Gender getGender(String gender) {
-        Gender male = getMaleGender(gender);
-        Gender female = getFemaleGender(gender);
+    public static Gender getInputGender(String gender) {
+        Gender male = getMaleInputGender(gender);
+        Gender female = getFemaleInputGender(gender);
 
         if (male == null && female == null) {
             return UNSPECIFIED;
@@ -175,7 +171,7 @@ public class InformationPool {
         }
     }
 
-    public static Gender getMaleGender(String gender) {
+    public static Gender getMaleInputGender(String gender) {
         for (String male : MALE_INPUTS) {
             String genderUp = gender.toUpperCase();
             String maleUp = male.toUpperCase();
@@ -186,7 +182,7 @@ public class InformationPool {
         return null;
     }
 
-    public static Gender getFemaleGender(String gender) {
+    public static Gender getFemaleInputGender(String gender) {
         for (String female : FEMALE_INPUTS) {
             String genderUp = gender.toUpperCase();
             String femaleUp = female.toUpperCase();
