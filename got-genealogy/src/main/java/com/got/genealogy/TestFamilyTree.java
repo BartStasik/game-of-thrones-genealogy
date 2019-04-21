@@ -54,63 +54,63 @@ public class TestFamilyTree {
         // Eddard Stark, father
         family.addRelation("Eddard Stark",
                 "Arya Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Eddard Stark",
                 "Robb Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Eddard Stark",
                 "Sansa Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Eddard Stark",
                 "Bran Stark",
-                new Relation(PARENT));
+                PARENT);
 //        family.addRelation("Eddard Stark",
 //                "Rickon Stark",
 //                new Relation(PARENT));
 
         family.addRelation("Eddard Stark",
                 "Catelyn Tully",
-                new Relation(SPOUSE));
+                SPOUSE);
 
         // Catelyn Tully, mother
         family.addRelation("Catelyn Tully",
                 "Arya Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Catelyn Tully",
                 "Robb Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Catelyn Tully",
                 "Sansa Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Catelyn Tully",
                 "Bran Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Catelyn Tully",
                 "Rickon Stark",
-                new Relation(PARENT));
+                PARENT);
 
         // Rickard Stark, father
         family.addRelation("Rickard Stark",
                 "Eddard Stark",
-                new Relation(PARENT));
+                PARENT);
         family.addRelation("Rickard Stark",
                 "Lyanna Stark",
-                new Relation(PARENT));
+                PARENT);
 
         // Lyanna Stark, mother
         family.addRelation("Lyanna Stark",
                 "Jon Snow",
-                new Relation(PARENT));
+                PARENT);
 
         // Rhaegar Targaryen, father
         family.addRelation("Rhaegar Targaryen",
                 "Jon Snow",
-                new Relation(PARENT));
+                PARENT);
 
         // Rhaegar Targaryen, father
-        family.addRelation("Rhaegar Targaryen",
+        family.addExtraRelation("Rhaegar Targaryen",
                 "Rickon Stark",
-                new Relation("Tests out"));
+                "Tests out");
 
         // Both mother and father are
         // 6 characters long.

@@ -3,10 +3,9 @@ package com.got.genealogy.core.family;
 import com.got.genealogy.core.family.person.Gender;
 import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
+import com.got.genealogy.core.family.person.Relationship;
 import com.got.genealogy.core.graph.Graph;
-import com.got.genealogy.core.graph.property.Edge;
 import com.got.genealogy.core.graph.property.Weight;
-import com.got.genealogy.core.graph.property.WeightedVertex;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -16,8 +15,9 @@ import static com.got.genealogy.core.family.Direction.DOWN;
 import static com.got.genealogy.core.family.Direction.NONE;
 import static com.got.genealogy.core.family.Direction.UP;
 import static com.got.genealogy.core.family.person.Gender.UNSPECIFIED;
-import static com.got.genealogy.core.family.person.Relationship.SPOUSE;
+import static com.got.genealogy.core.family.person.Relationship.CHILD;
 import static com.got.genealogy.core.family.person.Relationship.PARENT;
+import static com.got.genealogy.core.family.person.Relationship.SPOUSE;
 
 
 public class FamilyTree extends Graph<Person, Relation> {
@@ -46,9 +46,7 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     public void addPerson(Person person) {
-        if (!existingVertex(person)) {
-            addVertex(person);
-        }
+        addVertex(person);
     }
 
     public Relation getRelation(String name1, String name2) {
@@ -59,23 +57,63 @@ public class FamilyTree extends Graph<Person, Relation> {
         return getEdge(person1, person2);
     }
 
-    public void addRelation(String name1, String name2, Relation relation) {
+    public void addRelation(String name1,
+                            String name2,
+                            Relationship relationship) {
         Person person1 = getVertex(name1);
         Person person2 = getVertex(name2);
+        Relation relationFrom1 = editRelation(name1, name2, relationship);
+        Relation relationFrom2;
+
         if (!(person1 == null) && !(person2 == null)) {
-            addRelation(person1, person2, relation);
+            if (relationship.equals(CHILD)) {
+                relationFrom2 = editRelation(name2, name1, PARENT);
+                addRelation(person2, person1, relationFrom2);
+            } else {
+                if (relationship.equals(SPOUSE)) {
+                    relationFrom2 = editRelation(name2, name1, SPOUSE);
+                    addRelation(person2, person1, relationFrom2);
+                }
+                addRelation(person1, person2, relationFrom1);
+            }
         }
     }
 
-    public void addRelation(Person person1, Person person2, Relation relation) {
+    public void addRelation(Person person1,
+                            Person person2,
+                            Relation relation) {
         if (person1.getLabel().equals(person2.getLabel())) {
             return;
         }
-        if (getRelation(person1, person2) == null) {
-            if (relation.getLabel().equals(SPOUSE.toString())) {
-                addEdge(person2, person1, new Weight<>(relation));
+        addEdge(person1, person2, new Weight<>(relation));
+    }
+
+    public Relation editRelation(String name1,
+                                 String name2,
+                                 Relationship relationship) {
+        Relation relation = getRelation(name1, name2);
+        if (relation == null) {
+            relation = new Relation(relationship);
+        } else if (relation.getLabel() != null){
+            relation.setLabel(relationship.toString());
+        }
+        return relation;
+    }
+
+    public void addExtraRelation(String name1,
+                                 String name2,
+                                 String relationship) {
+        Person person1 = getVertex(name1);
+        Person person2 = getVertex(name2);
+        Relation relation = getRelation(name1, name2);
+
+        if (!(person1 == null) && !(person2 == null)) {
+            if (relation == null) {
+                relation = new Relation(relationship);
+            } else {
+                relation.addExtra(relationship);
             }
-            addEdge(person1, person2, new Weight<>(relation));
+            addRelation(person1, person2, relation);
         }
     }
 
@@ -83,10 +121,10 @@ public class FamilyTree extends Graph<Person, Relation> {
      * 4D coordinate calculator, based on the shortest
      * path between two vertices.
      *
-     * @param person1   Starting person, used to search
-     *                  how they are related to person2.
-     * @param person2   Goal person, to whom person1 is
-     *                  related to.
+     * @param person1 Starting person, used to search
+     *                how they are related to person2.
+     * @param person2 Goal person, to whom person1 is
+     *                related to.
      * @return 4 coordinates: tree height, generation
      * difference, non-blood step count and
      * marriages-passed count.
@@ -97,7 +135,10 @@ public class FamilyTree extends Graph<Person, Relation> {
         if (personItem1 == null || personItem2 == null) {
             return null;
         }
-        List<Person> path = getShortestUnweightedPath(personItem1, personItem2, filterPathRelation());
+        List<Person> path = getShortestUnweightedPath(
+                personItem1,
+                personItem2,
+                filterPathRelation());
         // Check for empty path
         if (path.size() <= 0) {
             return null;
@@ -122,15 +163,22 @@ public class FamilyTree extends Graph<Person, Relation> {
 
         for (int i = 1; i < path.size(); i++) {
             // Todo: change to getRelation
-            Relation edge = getEdge(previousPerson, path.get(i), filterRelation());
+            Relation edge = getEdge(
+                    previousPerson,
+                    path.get(i),
+                    filterRelation());
+            Relation edgeFlipped = getEdge(
+                    path.get(i),
+                    previousPerson,
+                    filterRelation());
             if (edge == null) {
-                Relation edgeFlipped = getEdge(path.get(i), previousPerson, filterRelation());
                 if (edgeFlipped.getLabel().equals(SPOUSE.toString())) {
                     // Count how many marriages
                     // have been traversed
                     // through.
                     inLawCount++;
-                } else if (edgeFlipped.getLabel().equals(PARENT.toString())) {
+                } else if (edgeFlipped.getLabel()
+                        .equals(PARENT.toString())) {
                     if (previousDirection.equals(DOWN)) {
                         // Change in direction. DOWN -> UP:
                         // Share child, but aren't related.
@@ -144,12 +192,14 @@ public class FamilyTree extends Graph<Person, Relation> {
                     previousDirection = UP;
                 }
             } else {
-                if (edge.getLabel().equals(SPOUSE.toString())) {
+                if (edge.getLabel()
+                        .equals(SPOUSE.toString())) {
                     // Count how many marriages
                     // have been traversed
                     // through.
                     inLawCount++;
-                } else if (edge.getLabel().equals(PARENT.toString())) {
+                } else if (edge.getLabel()
+                        .equals(PARENT.toString())) {
                     // Direction: down
                     if (previousDirection.equals(UP) && (step)) {
                         // Change in direction. UP -> DOWN:
@@ -177,20 +227,23 @@ public class FamilyTree extends Graph<Person, Relation> {
 
     private BiFunction<List<Weight<Relation>>, Integer, Boolean> filterPathRelation() {
         return (weights, index) -> {
-            boolean married = weights.get(index)
-                    .getWeight()
-                    .getLabel()
+            Relation relation = weights.get(index)
+                    .getWeight();
+            if (relation == null) {
+                return false;
+            }
+            boolean married = relation.getLabel()
                     .equals(SPOUSE.toString());
-            boolean parent = weights.get(index)
-                    .getWeight()
-                    .getLabel()
+            boolean parent = relation.getLabel()
                     .equals(PARENT.toString());
             return married || parent;
         };
     }
 
     private Function<Relation, Boolean> filterRelation() {
-        return e -> e.getLabel().equals(SPOUSE.toString()) || e.getLabel().equals(PARENT.toString());
+        return e -> e.getLabel()
+                .equals(SPOUSE.toString()) ||
+                e.getLabel().equals(PARENT.toString());
     }
 
     /**

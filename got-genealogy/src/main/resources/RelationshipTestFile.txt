@@ -31,9 +31,12 @@ Jake Pearson,  son, Grace Montes
 
 Bartosz Stasik, man
 
+Ahmed Iqbal, likes, Nina Barnard
+
 Ahmed Iqbal, husband, Nina Barnard
 Josh Button, wife, Ahmed Iqbal
 Ashleigh More Hattia, daughter, Josh Button
 Jon Do, mother, Ashleigh More Hattia
 
 Nina Barnard, loves, Ebony Mohamed
+Nina Barnard, kind of hates, Bartosz Stasik

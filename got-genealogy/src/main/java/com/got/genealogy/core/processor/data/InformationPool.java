@@ -17,26 +17,26 @@ public class InformationPool {
     public final static Map<Relationship, String> MALE_RELATIONSHIPS;
     public final static Map<Relationship, String> FEMALE_RELATIONSHIPS;
 
-    public final static Relationship[] COORD_PARENT_RELATIONSHIPS = new Relationship[]{
+    public final static Relationship[] PARENT_COORDS = new Relationship[]{
             PARENT,
             GRANDPARENT,
             GREAT_GRANDPARENT
     };
-    public final static Relationship[] COORD_AUNT_UNCLE_RELATIONSHIPS = new Relationship[]{
+    public final static Relationship[] AUNT_UNCLE_COORDS = new Relationship[]{
             AUNT_OR_UNCLE,
             GRANDAUNT_OR_UNCLE,
             GREAT_GRANDAUNT_OR_UNCLE
     };
-    public final static Relationship[] COORD_CHILD_RELATIONSHIPS = new Relationship[]{
+    public final static Relationship[] CHILD_COORDS = new Relationship[]{
             CHILD,
             GRANDCHILD,
             GREAT_GRANDCHILD
     };
-    public final static Relationship[] COORD_SIBLING_RELATIONSHIPS = new Relationship[]{
+    public final static Relationship[] SIBLING_COORDS = new Relationship[]{
             SIBLING,
             COUSIN
     };
-    public final static Relationship[] COORD_NIECE_NEPH_RELATIONSHIPS = new Relationship[]{
+    public final static Relationship[] NIECE_NEPHEW_COORDS = new Relationship[]{
             NIECE_OR_NEPHEW,
             GRANDNIECE_OR_NEPHEW,
             GREAT_GRANDNIECE_OR_NEPHEW

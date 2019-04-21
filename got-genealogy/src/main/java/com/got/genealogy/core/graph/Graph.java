@@ -136,7 +136,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public void removeEdge(Vert vertex1, Vert vertex2) {
-        if (!existingEdge(vertex1, vertex2)) {
+        if (existingEdge(vertex1, vertex2)) {
             addEdge(vertex1, vertex2, null);
         }
     }
@@ -160,15 +160,17 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public void addVertex(Vert vertex) {
-        // Add vertex with new index
-        vertices.put(vertex, vertices.size());
-        int newIndex = matrix.size();
-        // Add new column to existing rows
-        matrix.addColumn(null);
-        // Add new empty row
-        matrix.addRow();
-        // Fill new row
-        matrix.fillRow(newIndex, null);
+        if (!existingVertex(vertex)) {
+            // Add vertex with new index
+            vertices.put(vertex, vertices.size());
+            int newIndex = matrix.size();
+            // Add new column to existing rows
+            matrix.addColumn(null);
+            // Add new empty row
+            matrix.addRow();
+            // Fill new row
+            matrix.fillRow(newIndex, null);
+        }
     }
 
     public void removeVertex(Vert vertex) {

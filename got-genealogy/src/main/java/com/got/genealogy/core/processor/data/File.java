@@ -15,8 +15,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static com.got.genealogy.core.processor.data.InformationPool.getRelationship;
+import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 
 public class File {
 
@@ -48,15 +50,14 @@ public class File {
     public static String[] exportGVFile(String absolutePath, FamilyTree family) {
         try {
             PrintWriter fileWriter = new PrintWriter(absolutePath + ".gv");
-            List<String> outputFile = new ArrayList<>();
-            String arc = " -> ";
+            List<String> outputStorage = new ArrayList<>();
 
             writeLine(("digraph " + absolutePath + "{ rankdir=LR;\n size =\"8,5\""),
-                    outputFile,
+                    outputStorage,
                     fileWriter);
 
             writeLine(("node [shape=rectangle color=navy];"),
-                    outputFile,
+                    outputStorage,
                     fileWriter);
 
             AdjacencyList<Person, Relation> list = family.adjacencyListWeighted();
@@ -65,27 +66,40 @@ public class File {
                 for (WeightedVertex<Person, Relation> person : v) {
                     Relation relation = person.getValue();
                     Gender gender = k.getGender();
-                    String relationship = getRelationship(gender, relation);
+                    String relationship;
 
-                    String relationshipLine = String.format("\"%s\"%s\"%s\" [ label = \"%s\"];",
-                            k.getLabel(),
-                            arc,
-                            person.getKey().getLabel(),
-                            relationship);
-
-                    writeLine(relationshipLine,
-                            outputFile,
-                            fileWriter);
+                    Set<String> extras = relation.getExtras();
+                    if (extras.size() != 0) {
+                        for (String extra : extras) {
+                            writeRelationshipLine(
+                                    k.getLabel(),
+                                    person.getKey().getLabel(),
+                                    toTitleCase(extra),
+                                    outputStorage,
+                                    fileWriter
+                            );
+                        }
+                    }
+                    if (!relation.getLabel().isEmpty()) {
+                        relationship = getRelationship(gender, relation);
+                        writeRelationshipLine(
+                                k.getLabel(),
+                                person.getKey().getLabel(),
+                                relationship,
+                                outputStorage,
+                                fileWriter
+                        );
+                    }
                 }
             });
 
             writeLine("}",
-                    outputFile,
+                    outputStorage,
                     fileWriter);
 
             fileWriter.close();
 
-            return outputFile.toArray(new String[0]);
+            return outputStorage.toArray(new String[0]);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -108,7 +122,23 @@ public class File {
         return true;
     }
 
-    private static void writeLine(String line, List<String> collector, PrintWriter writer) {
+    private static void writeRelationshipLine(String person1,
+                                              String person2,
+                                              String relationship,
+                                              List<String> collector,
+                                              PrintWriter writer) {
+        String relationshipLine = String.format("\"%s\"->\"%s\" [ label = \"%s\"];",
+                person1,
+                person2,
+                relationship);
+        writeLine(relationshipLine,
+                collector,
+                writer);
+    }
+
+    private static void writeLine(String line,
+                                  List<String> collector,
+                                  PrintWriter writer) {
         writer.println(line);
         collector.add(line);
     }
