@@ -59,23 +59,6 @@ public class FamilyTree extends Graph<Person, Relation> {
 
     public void addRelation(String name1,
                             String name2,
-                            String relationship) {
-        Person person1 = getVertex(name1);
-        Person person2 = getVertex(name2);
-        Relation relation = getRelation(name1, name2);
-
-        if (!(person1 == null) && !(person2 == null)) {
-            if (relation == null) {
-                relation = new Relation(relationship);
-            } else {
-                relation.addExtra(relationship);
-            }
-            addRelation(person1, person2, relation);
-        }
-    }
-
-    public void addRelation(String name1,
-                            String name2,
                             Relationship relationship) {
         Person person1 = getVertex(name1);
         Person person2 = getVertex(name2);
@@ -115,6 +98,23 @@ public class FamilyTree extends Graph<Person, Relation> {
             relation.setLabel(relationship.toString());
         }
         return relation;
+    }
+
+    public void addExtraRelation(String name1,
+                                 String name2,
+                                 String relationship) {
+        Person person1 = getVertex(name1);
+        Person person2 = getVertex(name2);
+        Relation relation = getRelation(name1, name2);
+
+        if (!(person1 == null) && !(person2 == null)) {
+            if (relation == null) {
+                relation = new Relation(relationship);
+            } else {
+                relation.addExtra(relationship);
+            }
+            addRelation(person1, person2, relation);
+        }
     }
 
     /**

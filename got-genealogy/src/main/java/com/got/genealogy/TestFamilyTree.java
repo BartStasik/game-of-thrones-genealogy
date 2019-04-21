@@ -108,7 +108,7 @@ public class TestFamilyTree {
                 PARENT);
 
         // Rhaegar Targaryen, father
-        family.addRelation("Rhaegar Targaryen",
+        family.addExtraRelation("Rhaegar Targaryen",
                 "Rickon Stark",
                 "Tests out");
 

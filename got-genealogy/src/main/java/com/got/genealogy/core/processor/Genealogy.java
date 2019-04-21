@@ -100,7 +100,7 @@ public class Genealogy {
                         } else {
                             family.addPerson(name1);
                             family.addPerson(name2);
-                            family.addRelation(name1, name2, row[1]);
+                            family.addExtraRelation(name1, name2, row[1]);
                         }
                         break;
                     default:
