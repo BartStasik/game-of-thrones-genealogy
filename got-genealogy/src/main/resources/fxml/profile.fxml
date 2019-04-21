@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane stylesheets="@../styles.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="face-bg" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@../styles.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="face-bg" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
    <children>
       <Text fx:id="character" fill="WHITE" layoutX="83.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Joffrey Lanister" />
       <ImageView fitHeight="87.0" fitWidth="118.0" layoutX="241.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
