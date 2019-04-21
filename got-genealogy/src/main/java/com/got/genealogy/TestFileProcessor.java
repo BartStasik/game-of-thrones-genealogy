@@ -94,11 +94,14 @@ public class TestFileProcessor {
         // Not blood related
         relations.add(new Pair("Ebony Mohamed", "Jon Do"));
 
-        // Spouse
+        // Spouse, Likes
         relations.add(new Pair("Ahmed Iqbal", "Nina Barnard"));
 
         // Loves
         relations.add(new Pair("Nina Barnard", "Ebony Mohamed"));
+
+        // Hates
+        relations.add(new Pair("Nina Barnard", "Bartosz Stasik"));
 
         String[] expectedRelationshipsInOrder = new String[]{
                 "Grandaunt",
@@ -131,27 +134,34 @@ public class TestFileProcessor {
                 "Not Related, but someone in family is married to their relative",
                 "Not Related, but someone in family is married to their relative",
                 "Not Blood-Related",
+                "Likes",
                 "Husband",
-                "Loves"
+                "Loves",
+                "Great Grandmother",
+                "Kind Of Hates",
+                "Not Related"
         };
 
         for (Pair e : relations) {
-            String relationship = findRelationship(e.key, e.value, "Test");
-            if (relationship == null) {
+            String[] relationships = findRelationship(e.key, e.value, "Test");
+            if (relationships == null) {
                 testPassed = false;
                 System.out.println("Error");
                 break;
             }
-            boolean correctRelationship = relationship.equals(expectedRelationshipsInOrder[i]);
-            if (!correctRelationship) {
-                testPassed = false;
+            for (String relationship : relationships) {
+                boolean correctRelationship = relationship.equals(expectedRelationshipsInOrder[i]);
+                if (!correctRelationship) {
+                    testPassed = false;
+                }
+                System.out.printf("%n%s -> %s%n%b : %s%n<expected : %s>%n",
+                        e.key,
+                        e.value,
+                        correctRelationship,
+                        relationship,
+                        expectedRelationshipsInOrder[i]);
+                i++;
             }
-            System.out.printf("%n%s -> %s%n%b : %s%n",
-                    e.key,
-                    e.value,
-                    correctRelationship,
-                    relationship);
-            i++;
         }
 
         if (!testPassed) {
@@ -201,6 +211,12 @@ public class TestFileProcessor {
                 if (weight != null) {
                     weightValue = weight.getWeight()
                             .getLabel();
+                    if (weightValue == null) {
+                        weightValue = weight.getWeight().getTopExtra();
+                        if (weightValue == null) {
+                            weightValue = "______";
+                        }
+                    }
                 } else {
                     weightValue = "______";
                 }
