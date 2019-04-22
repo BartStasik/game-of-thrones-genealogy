@@ -14,7 +14,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.FXMLController">
    <children>
-      <SplitPane dividerPositions="0.1489971346704871, 0.3452722063037249" orientation="VERTICAL" prefWidth="160.0" style="-fx-background-color: #000;" styleClass="face-bg">
+      <SplitPane dividerPositions="0.1489971346704871" orientation="VERTICAL" prefWidth="160.0" style="-fx-background-color: #000;" styleClass="face-bg">
         <items>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="1078.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
                <children>
@@ -29,29 +29,17 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1078.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
+            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="406.0" prefWidth="1078.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
                <children>
                   <Text fill="WHITE" layoutX="404.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="FAMILY RELATIONS" />
                   <Group layoutX="86.0" layoutY="120.0" />
-                  <Label layoutX="55.0" layoutY="77.0" text="Enter Character 1" />
-                  <Label layoutX="344.0" layoutY="78.0" text="Enter Character 2" />
-                  <TextField fx:id="person1" layoutX="55.0" layoutY="101.0" prefHeight="31.0" prefWidth="254.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <TextField fx:id="person2" layoutX="344.0" layoutY="101.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="254.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <Label layoutX="633.0" layoutY="78.0" text="Enter Family Name" />
-                  <TextField fx:id="familyName" layoutX="633.0" layoutY="101.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="254.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <Button fx:id="submitBtn" layoutX="911.0" layoutY="98.0" mnemonicParsing="false" onAction="#findRelation" prefHeight="36.0" prefWidth="121.0" styleClass="ice-button" text="SUBMIT" />
-                  <Text fx:id="dispField" fill="RED" layoutX="55.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Results:" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1100.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
-               <children>
-                  <Text fill="WHITE" layoutX="473.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="HISTORY" />
-                  <TextField layoutX="86.0" layoutY="127.0" prefHeight="31.0" prefWidth="305.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <TextField layoutX="464.0" layoutY="126.0" prefHeight="31.0" prefWidth="305.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <Label layoutX="86.0" layoutY="98.0" text="Enter Character 1" />
-                  <Label layoutX="464.0" layoutY="97.0" text="Enter Character 2" />
-                  <Button fx:id="submitHistory" layoutX="819.0" layoutY="125.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="174.0" styleClass="ice-button" text="SUBMIT" />
-                  <Label contentDisplay="CENTER" layoutX="419.0" layoutY="117.0" prefHeight="54.0" prefWidth="45.0" styleClass="h2" text="+" textAlignment="CENTER" />
+                  <Label layoutX="185.0" layoutY="78.0" text="Enter Character 1" />
+                  <Label layoutX="474.0" layoutY="79.0" text="Enter Character 2" />
+                  <TextField fx:id="person1" layoutX="185.0" layoutY="102.0" prefHeight="31.0" prefWidth="254.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
+                  <TextField fx:id="person2" layoutX="474.0" layoutY="102.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="254.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
+                  <Button fx:id="submitBtn" layoutX="763.0" layoutY="100.0" mnemonicParsing="false" onAction="#findRelation" prefHeight="36.0" prefWidth="121.0" styleClass="ice-button" text="SUBMIT" />
+                  <Button fx:id="clearBtn" layoutX="893.0" layoutY="100.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="36.0" prefWidth="121.0" styleClass="ice-button" text="CLEAR" />
+                  <Label fx:id="dispField" layoutX="185.0" layoutY="165.0" />
                </children>
             </AnchorPane>
         </items>
