@@ -1,35 +1,48 @@
 package com.got.genealogy.userinterface;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 	 
 public class FXMLController {
-	
-//	private static HashMap<String, Pane> screenMap = new HashMap<>();
-//	private static Scene main;
-//	
-//	
-//	public FXMLController(Scene main) {
-//        FXMLController.main = main;
-//    }
-//
-//    public static void addScreen(String name, Pane pane){
-//         screenMap.put(name, pane);
-//    }
-//
-//    public void removeScreen(String name){
-//        screenMap.remove(name);
-//    }
-//
-//    public static void activate(String name){
-//        main.setRoot( screenMap.get(name) );
-//    }
-	
-    
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private TextField person1;
+
+    @FXML
+    private TextField person2;
+
+    @FXML
+    private TextField dispField;
+
+    @FXML
+    private Button submitBtn;
+
+    @FXML
+    private Button submitHistory;
+
+    @FXML
+    void findRelation(ActionEvent event) {
+        String char1 = person1.getText();
+        String char2 = person2.getText();
+        findRelationship(char1, char2);
+
+        dispField.setText(char1);
+    }
+
     private Scene secondScene;
 
     @FXML private Text actiontarget;
@@ -39,7 +52,7 @@ public class FXMLController {
     @FXML protected void startGame(ActionEvent event) throws Exception  {
     	Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(secondScene);
-    	System.out.println("Working");
+//    	System.out.println("Working");
     }
 
     private Scene firstScene;
@@ -65,6 +78,14 @@ public class FXMLController {
     	System.out.println("Working 2");
     }
 
+    @FXML
+    void initialize() {
+        assert person1 != null : "fx:id=\"person1\" was not injected: check your FXML file 'main.fxml'.";
+        assert person2 != null : "fx:id=\"person2\" was not injected: check your FXML file 'main.fxml'.";
+        assert submitBtn != null : "fx:id=\"submitBtn\" was not injected: check your FXML file 'main.fxml'.";
+        assert submitHistory != null : "fx:id=\"submitHistory\" was not injected: check your FXML file 'main.fxml'.";
+
+    }
 }
 
 
