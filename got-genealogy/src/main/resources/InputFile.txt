@@ -21,3 +21,4 @@ Catelyn Tully, hates, Arya Stark
 Eddard Stark,mArriEd   , Catelyn Tully
 Eddard Stark,mArriEd   , Catelyn Tully
 Eddard Stark,shags   , Catelyn Tully
+Eddard Stark,kills   , Catelyn Tully

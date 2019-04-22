@@ -8,11 +8,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import static com.got.genealogy.core.processor.Genealogy.loadRelation;
+
 public class MainLoader extends Application {
 
    
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
         FXMLLoader popupLoader = new FXMLLoader();
@@ -43,6 +47,9 @@ public class MainLoader extends Application {
         
         FXMLController popupPaneController = (FXMLController) popupLoader.getController();
         popupPaneController.setPopupScene(popupScene);
+
+
+        loadRelation("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/InputFile.txt", "Stark");
         
     }
     
