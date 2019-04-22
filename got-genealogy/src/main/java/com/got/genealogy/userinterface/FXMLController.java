@@ -1,22 +1,9 @@
 package com.got.genealogy.userinterface;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
- 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-
-import java.util.HashMap;
-
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-
 import javafx.scene.Node;
-
 import javafx.scene.Scene;
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 	 
@@ -66,6 +53,17 @@ public class FXMLController {
         primaryStage.setScene(firstScene);
     }
     
+    private Scene popupScene;
+
+    public void setPopupScene(Scene scene) {
+    	popupScene = scene;
+    }
+    
+    @FXML protected void loadResults(ActionEvent event) throws Exception  {
+    	Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        primaryStage.setScene(popupScene);
+    	System.out.println("Working 2");
+    }
 
 }
 

@@ -1,11 +1,8 @@
 package com.got.genealogy;
 
 import com.got.genealogy.userinterface.FXMLController;
-//import com.got.genealogy.userinterface.MainController;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -18,23 +15,19 @@ public class MainLoader extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
+        FXMLLoader popupLoader = new FXMLLoader();
 
         interfaceLoader.setLocation(getClass().getResource("/fxml/interface.fxml"));
         mainLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
-
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/interface.fxml"));
-//        Parent secondPane = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
-        
-//        Scene scene = new Scene(root);
-//        Scene secondScene = new Scene(secondPane);
-
+        popupLoader.setLocation(getClass().getResource("/fxml/popup.fxml"));
 
         AnchorPane interfacePane = interfaceLoader.load();
         VBox mainPane = mainLoader.load();
+        AnchorPane popupPane = popupLoader.load();
 
         Scene firstScene = new Scene(interfacePane);
         Scene secondScene = new Scene(mainPane);
-//        Scene scene2 = new Scene(mainPane);
+        Scene popupScene = new Scene(popupPane);
 
         primaryStage.setTitle("Game Of Thrones Genealogy");
         primaryStage.setScene(firstScene);
@@ -46,8 +39,10 @@ public class MainLoader extends Application {
         
         // injecting first scene into the controller of the second scene
         FXMLController secondPaneController = (FXMLController) mainLoader.getController();
-        //secondPaneController.setFirstScene(firstScene);
+        secondPaneController.setFirstScene(firstScene);
         
+        FXMLController popupPaneController = (FXMLController) popupLoader.getController();
+        popupPaneController.setPopupScene(popupScene);
         
     }
     
