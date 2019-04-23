@@ -13,7 +13,6 @@ import static com.got.genealogy.core.processor.Genealogy.loadPersonDetails;
 
 public class MainLoader extends Application {
 
-   
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -24,7 +23,7 @@ public class MainLoader extends Application {
 
         interfaceLoader.setLocation(getClass().getResource("/fxml/interface.fxml"));
         mainLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
-        popupLoader.setLocation(getClass().getResource("/fxml/popup.fxml"));
+        //popupLoader.setLocation(getClass().getResource("/fxml/popup.fxml"));
 
         AnchorPane interfacePane = interfaceLoader.load();
         VBox mainPane = mainLoader.load();
@@ -32,24 +31,25 @@ public class MainLoader extends Application {
 
         Scene firstScene = new Scene(interfacePane);
         Scene secondScene = new Scene(mainPane);
-        Scene popupScene = new Scene(popupPane);
+        //Scene popupScene = new Scene(popupPane);
 
         primaryStage.setTitle("Game Of Thrones Genealogy");
         primaryStage.setScene(firstScene);
         primaryStage.show();
         
-        // inject second scene into the controller of the first scene
+        // inject main.fxml scene into the controller of the interface.fxml scene
         FXMLController firstPaneController = (FXMLController) interfaceLoader.getController();
         firstPaneController.setSecondScene(secondScene);
         
-        // inject first scene into the controller of the main scene
-        FXMLController secondPaneController = (FXMLController) mainLoader.getController();
-        secondPaneController.setFirstScene(firstScene);
+        // inject first scene into the controller of the main.fxml scene
+        //FXMLController secondPaneController = (FXMLController) mainLoader.getController();
+        //secondPaneController.setFirstScene(firstScene);
         
 //        FXMLController popupPaneController = (FXMLController) popupLoader.getController();
 //        popupPaneController.setPopupScene(popupScene);
 
 
+        //Get the test files from resources in order for laod methods etc in FXMLController to work
         loadRelation("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/InputFile.txt", "Stark");
         loadPersonDetails("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/PersonDetailsTestFile.txt", "Stark");
         
