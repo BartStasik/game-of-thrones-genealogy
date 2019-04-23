@@ -43,7 +43,7 @@
                   <TextField fx:id="person2" layoutX="409.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="254.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
                   <Button fx:id="submitBtn" layoutX="698.0" layoutY="126.0" mnemonicParsing="false" onAction="#findRelation" prefHeight="36.0" prefWidth="121.0" styleClass="ice-button" text="SUBMIT" />
                   <Button fx:id="clearBtn" layoutX="828.0" layoutY="126.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="36.0" prefWidth="121.0" styleClass="ice-button" text="CLEAR" />
-                  <Label fx:id="dispField" layoutX="180.0" layoutY="190.0" />
+                  <Label fx:id="dispField" layoutX="180.0" layoutY="190.0" text="STUFF SHOWS UP HERE" />
                </children>
             </AnchorPane>
         </items>

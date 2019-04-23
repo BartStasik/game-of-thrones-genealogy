@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
 import static com.got.genealogy.core.processor.Genealogy.loadPersonDetailsFile;
 import javafx.stage.FileChooser;
-import org.apache.commons.io.FileUtils;
 
 public class MainLoader extends Application {
 
@@ -54,10 +53,10 @@ public class MainLoader extends Application {
         //TemporaryDialogs for opening relation and details files
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Relations File");
-        loadRelationsFile(FileUtils.readFileToString(fileChooser.showOpenDialog(primaryStage)),"Stark");
+        loadRelationsFile((fileChooser.showOpenDialog(primaryStage)).getAbsolutePath(),"Stark");
         
-        fileChooser.setTitle("Open Relations File");
-        loadPersonDetailsFile(FileUtils.readFileToString(fileChooser.showOpenDialog(primaryStage)),"Stark");
+        fileChooser.setTitle("Open Persons Details File");
+        loadPersonDetailsFile((fileChooser.showOpenDialog(primaryStage)).getAbsolutePath(),"Stark");
         
         //Get the test files from resources in order for load methods etc in FXMLController to work
         //loadRelationsFile("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/InputFile.txt", "Stark");
