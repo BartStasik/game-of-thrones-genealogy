@@ -18,8 +18,8 @@
         <items>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="1078.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
                <children>
-                  <Button layoutX="765.0" layoutY="195.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="VIEW PROFILE" />
-                  <ComboBox layoutX="765.0" layoutY="148.0" prefHeight="31.0" prefWidth="227.0" promptText="SELECT A CHARACTER" />
+                  <Button fx:id="profileBtn" layoutX="765.0" layoutY="195.0" mnemonicParsing="false" onAction="#viewProfile" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="VIEW PROFILE" />
+                  <ComboBox fx:id="charComboBox" layoutX="765.0" layoutY="148.0" prefHeight="31.0" prefWidth="227.0" promptText="SELECT A CHARACTER" />
                   <Button layoutX="86.0" layoutY="196.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="LOAD FILES" />
                   <Button layoutX="86.0" layoutY="147.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="SAVE" />
                   <ImageView fitHeight="194.0" fitWidth="254.0" layoutX="412.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">

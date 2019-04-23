@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import static com.got.genealogy.core.processor.Genealogy.loadRelation;
+import static com.got.genealogy.core.processor.Genealogy.loadPersonDetails;
 
 public class MainLoader extends Application {
 
@@ -37,19 +38,20 @@ public class MainLoader extends Application {
         primaryStage.setScene(firstScene);
         primaryStage.show();
         
-        // injecting second scene into the controller of the first scene
+        // inject second scene into the controller of the first scene
         FXMLController firstPaneController = (FXMLController) interfaceLoader.getController();
         firstPaneController.setSecondScene(secondScene);
         
-        // injecting first scene into the controller of the second scene
+        // inject first scene into the controller of the main scene
         FXMLController secondPaneController = (FXMLController) mainLoader.getController();
         secondPaneController.setFirstScene(firstScene);
         
-        FXMLController popupPaneController = (FXMLController) popupLoader.getController();
-        popupPaneController.setPopupScene(popupScene);
+//        FXMLController popupPaneController = (FXMLController) popupLoader.getController();
+//        popupPaneController.setPopupScene(popupScene);
 
 
         loadRelation("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/InputFile.txt", "Stark");
+        loadPersonDetails("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/PersonDetailsTestFile.txt", "Stark");
         
     }
     

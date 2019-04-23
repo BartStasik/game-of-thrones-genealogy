@@ -1,6 +1,7 @@
 package com.got.genealogy.userinterface;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -11,8 +12,11 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 
 import static com.got.genealogy.core.processor.Genealogy.findRelationship;
+import static com.got.genealogy.core.processor.Genealogy.getPersonDetails;
+
 
 public class FXMLController {
 
@@ -37,6 +41,12 @@ public class FXMLController {
     @FXML
     private Button clearBtn;
 
+    @FXML
+    private Button profileBtn;
+
+    @FXML
+    private ComboBox<?> charComboBox;
+
 
 
     @FXML
@@ -55,7 +65,7 @@ public class FXMLController {
             dispField.setText(element + " and " + nextElement);
         }
 
-//
+
 //        String current = relationship[i];
 //        if (i != relationship.length - 1) {
 //            String next = relationship[i+1];
@@ -79,7 +89,10 @@ public class FXMLController {
 
     }
 
-
+    @FXML
+    void viewProfile(ActionEvent event) {
+        //String[] profile = getPersonDetails("Jon Snow", "Stark");
+    }
 
     private Scene secondScene;
 
@@ -87,40 +100,43 @@ public class FXMLController {
     public void setSecondScene(Scene scene) {
         secondScene = scene;
     }
+
+    //load the main.fxml screen when "play" is clicked
     @FXML protected void startGame(ActionEvent event) throws Exception  {
     	Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(secondScene);
-//    	System.out.println("Working");
     }
 
+    //load the main.fxml screen when "play" is clicked
     private Scene firstScene;
-
     public void setFirstScene(Scene scene) {
         firstScene = scene;
     }
-
     public void openFirstScene(ActionEvent actionEvent) {    
         Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         primaryStage.setScene(firstScene);
     }
     
-    private Scene popupScene;
-
-    public void setPopupScene(Scene scene) {
-    	popupScene = scene;
-    }
-    
-    @FXML protected void loadResults(ActionEvent event) throws Exception  {
-    	Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        primaryStage.setScene(popupScene);
-    	System.out.println("Working 2");
-    }
+//    private Scene popupScene;
+//
+//    public void setPopupScene(Scene scene) {
+//    	popupScene = scene;
+//    }
+//
+//    @FXML protected void loadResults(ActionEvent event) throws Exception  {
+//    	Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//        primaryStage.setScene(popupScene);
+//    }
 
     @FXML
-    void initialize() {
+    void initialize(URL location, ResourceBundle resources) {
+        assert profileBtn != null : "fx:id=\"profileBtn\" was not injected: check your FXML file 'main.fxml'.";
+        assert charComboBox != null : "fx:id=\"charComboBox\" was not injected: check your FXML file 'main.fxml'.";
         assert person1 != null : "fx:id=\"person1\" was not injected: check your FXML file 'main.fxml'.";
         assert person2 != null : "fx:id=\"person2\" was not injected: check your FXML file 'main.fxml'.";
         assert submitBtn != null : "fx:id=\"submitBtn\" was not injected: check your FXML file 'main.fxml'.";
+        assert clearBtn != null : "fx:id=\"clearBtn\" was not injected: check your FXML file 'main.fxml'.";
+        assert dispField != null : "fx:id=\"dispField\" was not injected: check your FXML file 'main.fxml'.";
 
 
     }
