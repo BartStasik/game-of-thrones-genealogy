@@ -74,7 +74,7 @@
                         Build with `mvn exec:java`
                     -->
                     <configuration>
-                        <mainClass>com.got.genealogy.TestFileProcessor</mainClass>
+                        <mainClass>com.got.genealogy.MainLoader</mainClass>
                     </configuration>
                 </plugin>
             </plugins>
