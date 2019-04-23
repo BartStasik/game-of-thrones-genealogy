@@ -7,7 +7,10 @@ import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Weight;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.*;
 
 import static com.got.genealogy.core.processor.Genealogy.*;
@@ -20,7 +23,7 @@ public class TestFileProcessor {
         boolean testPassed = true;
         int i = 0;
 
-        String testRelationPath, testDetailsPath;
+        String testRelationPath, testDetailsPath, sourceCodePath;
 
         URL testResource = TestFileProcessor.class
                 .getClassLoader()
@@ -28,17 +31,25 @@ public class TestFileProcessor {
         URL testDetailsResource = TestFileProcessor.class
                 .getClassLoader()
                 .getResource("PersonDetailsTestFile.txt");
+        URL sourceCodeLocation = TestFileProcessor.class
+                .getProtectionDomain()
+                .getCodeSource()
+                .getLocation();
 
         if (testResource == null || testDetailsResource == null) {
             return;
         }
-        testRelationPath = new File(testResource.getFile()).getAbsolutePath();
-        testDetailsPath = new File(testDetailsResource.getFile()).getAbsolutePath();
+        testRelationPath = new File(testResource.getFile())
+                .getAbsolutePath();
+        testDetailsPath = new File(testDetailsResource.getFile())
+                .getAbsolutePath();
+        sourceCodePath = new File(sourceCodeLocation.getFile())
+                .getParent() + File.separator;
 
-        loadRelation(testRelationPath, "Test");
-        loadPersonDetails(testDetailsPath, "Test");
-        exportDOT("TestDOT", "Test");
-        exportSorted("TestSorted.txt", "Test");
+        loadRelationsFile(testRelationPath, "Test");
+        loadPersonDetailsFile(testDetailsPath, "Test");
+        exportDOT(sourceCodePath + "TestDOT",  "Test");
+        exportSorted(sourceCodePath + "TestSorted",  "Test");
 
         FamilyTree testFamily = getFamily("Test");
 

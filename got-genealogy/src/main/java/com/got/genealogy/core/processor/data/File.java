@@ -7,18 +7,15 @@ import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.property.WeightedVertex;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import static com.got.genealogy.core.processor.data.InformationPool.getRelationship;
-import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
+import static com.got.genealogy.core.processor.data.StringUtils.*;
 
 public class File {
 
@@ -47,11 +44,15 @@ public class File {
     }
 
     public static String[] exportGVFile(String absolutePath, FamilyTree family) {
+        if (family == null) {
+            return null;
+        }
         try {
-            PrintWriter fileWriter = new PrintWriter(absolutePath + ".gv");
+            PrintWriter fileWriter = new PrintWriter(
+                    writeFileExtension(absolutePath, ".gv"));
             List<String> outputStorage = new ArrayList<>();
 
-            writeLine(("digraph " + absolutePath + "{ rankdir=LR;\n size =\"8,5\""),
+            writeLine(("digraph " + family.getLabel() + "{ rankdir=LR;\n size =\"8,5\""),
                     outputStorage,
                     fileWriter);
 
@@ -101,24 +102,26 @@ public class File {
             return outputStorage.toArray(new String[0]);
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             return null;
         }
     }
 
-    public static boolean exportSortedFile(String absolutePath, FamilyTree family) {
-        ArrayList<Person> sortedPeople = new ArrayList<>(family.getVertices().keySet());
-        Collections.sort(sortedPeople);
-        PrintWriter writer;
+    public static Person[] exportSortedFile(String absolutePath, FamilyTree family) {
+        if (family == null) {
+            return null;
+        }
         try {
-            writer = new PrintWriter(absolutePath);
+            List<Person> sortedPeople = new ArrayList<>(family.getVertices().keySet());
+            Collections.sort(sortedPeople);
+            PrintWriter writer;
+            writer = new PrintWriter(
+                    writeFileExtension(absolutePath, ".txt"));
             sortedPeople.forEach((e) -> writer.println(e.getLabel()));
             writer.close();
+            return sortedPeople.toArray(new Person[0]);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
+            return null;
         }
-        return true;
     }
 
     private static void writeRelationshipLine(String person1,

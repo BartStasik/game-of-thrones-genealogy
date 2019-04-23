@@ -19,4 +19,11 @@ public class StringUtils {
         }
         return finalString.toString().trim();
     }
+
+    public static String writeFileExtension(String string, String extension) {
+        if (!string.endsWith(extension)) {
+            return string + extension;
+        }
+        return string;
+    }
 }
