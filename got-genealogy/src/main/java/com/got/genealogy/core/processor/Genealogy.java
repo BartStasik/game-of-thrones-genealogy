@@ -75,7 +75,7 @@ public class Genealogy {
         return details;
     }
 
-    public static boolean loadPersonDetails(String absolutePath, String familyName) {
+    public static boolean loadPersonDetailsFile(String absolutePath, String familyName) {
         try {
             String[][] file = loadFile(absolutePath);
             FamilyTree family = getFamily(familyName);
@@ -109,7 +109,7 @@ public class Genealogy {
         return true;
     }
 
-    public static FamilyTree loadRelation(String absolutePath, String familyName) {
+    public static FamilyTree loadRelationsFile(String absolutePath, String familyName) {
         try {
             String[][] file = loadFile(absolutePath);
             FamilyTree family = getFamily(familyName);
@@ -168,14 +168,16 @@ public class Genealogy {
         }
     }
 
-    public static String[] exportDOT(String absolutePath, String familyName) {
+    public static String[] exportDOT(String absolutePath,
+                                     String familyName) {
         FamilyTree family = getFamily(familyName);
         return family == null ? null : exportGVFile(absolutePath, family);
     }
 
-    public static boolean exportSorted(String absolutePath, String familyName) {
+    public static Person[] exportSorted(String absolutePath,
+                                        String familyName) {
         FamilyTree family = getFamily(familyName);
-        return family != null && exportSortedFile(absolutePath, family);
+        return family == null ? null : exportSortedFile(absolutePath, family);
     }
 
     public static String[] findRelationship(String name1, String name2, String familyName) {
@@ -195,7 +197,7 @@ public class Genealogy {
     }
 
     private static String[] processRelationship(Person person1, Person person2, FamilyTree family) {
-        int x, y, z, p, grandTimes, cousinTimes;
+        int x, y, z, p;
         int[] coordinates;
         String relationship;
 
@@ -285,7 +287,6 @@ public class Genealogy {
             if (isSiblingCousin(x, y)) {
                 // Linear: x
                 // Constant: y
-                cousinTimes = x - 1;
                 if (x > 2) {
                     return finalRelationship(
                             relationships,
