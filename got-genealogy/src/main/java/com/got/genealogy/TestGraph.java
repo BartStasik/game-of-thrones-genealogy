@@ -1,6 +1,5 @@
 package com.got.genealogy;
 
-import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.Graph;
 import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
