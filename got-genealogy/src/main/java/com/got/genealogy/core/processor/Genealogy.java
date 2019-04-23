@@ -88,20 +88,29 @@ public class Genealogy {
             }
 
             for (String[] row : file) {
-                if (row.length == 3){
-                        personName = row[0];
-                        person = family.getPerson(personName);
-                        if (person == null) {
-                            person = family.addPerson(personName);
-                        }
-                        if (row[1].toUpperCase().equals("GENDER")) {
-                            person.setGender(getInputGender(row[2]));
-                        }
-                        person.addDetail(row[1], row[2]);
+                personName = row[0];
+                person = family.getPerson(personName);
+                if (row.length == 3) {
+
+                    if (person == null) {
+                        person = family.addPerson(personName);
+                    }
+                    if (row[1].toUpperCase().equals("GENDER")) {
+                        person.setGender(getInputGender(row[2]));
+                    }
+                    person.addDetail(row[1], row[2]);
+                } else if (row.length == 2) {
+
+                    if (person == null) {
+                        person = family.addPerson(personName);
+                    }
+                    person.addDetail(row[1], "Unknown");
+
                 } else {
                     return false;
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -189,7 +198,7 @@ public class Genealogy {
         Person person1 = family.getPerson(name1);
         Person person2 = family.getPerson(name2);
 
-        if (person1 == person2 || person1 == null || person2 == null){
+        if (person1 == person2 || person1 == null || person2 == null) {
             return null;
         }
 
@@ -214,7 +223,8 @@ public class Genealogy {
                 // if any distant family relation.
                 for (String extra : direct.getExtras()) {
                     relationships.add(toTitleCase(extra));
-                };
+                }
+                ;
             } else {
                 relationship = getRelationship(gender, direct);
                 if (!relationship.isEmpty()) {
@@ -341,24 +351,31 @@ public class Genealogy {
     private static boolean isParent(int x, int y) {
         return x == 0 && y < 0;
     }
+
     private static boolean isAuntUncle(int x, int y) {
         return x == 1 && y < 0;
     }
+
     private static boolean isSiblingCousin(int x, int y) {
         return x >= 1 && y == 0;
     }
+
     private static boolean isSpouse(int x, int y) {
         return x == y && y == 0;
     }
+
     private static boolean isChild(int x, int y) {
         return x == y && y > 0;
     }
+
     private static boolean isNieceNephew(int x, int y) {
         return x >= 2 && y == x - 1;
     }
+
     private static boolean isDescCousin(int x, int y) {
         return x >= 2 && y < 0;
     }
+
     private static boolean isAscCousin(int x, int y) {
         return x >= y + 2 && y > 0;
     }
@@ -366,7 +383,7 @@ public class Genealogy {
     private static String countRepeatedTimes(int count,
                                              boolean inLaw,
                                              Gender gender,
-                                             Relationship relationship){
+                                             Relationship relationship) {
         return count + "x " + countInLaw(inLaw, gender, relationship);
     }
 

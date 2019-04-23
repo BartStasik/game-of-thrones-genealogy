@@ -9,6 +9,7 @@ import com.got.genealogy.core.graph.property.Weight;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -26,10 +27,10 @@ public class TestFileProcessor {
 
         URL testResource = TestFileProcessor.class
                 .getClassLoader()
-                .getResource("RelationshipTestFile.txt");
+                .getResource("GOT.txt");
         URL testDetailsResource = TestFileProcessor.class
                 .getClassLoader()
-                .getResource("PersonDetailsTestFile.txt");
+                .getResource("PersonDetails.txt");
         URL sourceCodeLocation = TestFileProcessor.class
                 .getProtectionDomain()
                 .getCodeSource()
@@ -47,8 +48,25 @@ public class TestFileProcessor {
 
         loadRelationsFile(testRelationPath, "Test");
         loadPersonDetailsFile(testDetailsPath, "Test");
-        exportDOT(sourceCodePath + "TestDOT",  "Test");
-        exportSorted(sourceCodePath + "TestSorted",  "Test");
+        exportDOT(sourceCodePath + "TestDOT", "Test");
+        exportSorted(sourceCodePath + "TestSorted", "Test");
+        String[] s = findRelationship("Joanna Lannister", "Rhaella Targaryen", "Test");
+
+        for (int a = 0; a < s.length; a++) {
+            System.out.println("Relation: " + s[a]);
+
+        }
+        System.out.println();
+        Map<String, String> map;
+        map = getPersonDetails("Rhaegar Targaryen", "Test");
+
+        if (map == null) {
+            testPassed = false;
+        } else {
+            map.forEach((k, v) -> {
+                System.out.println(toTitleCase(k) + " : " + toTitleCase(v));
+            });
+        }
 
         FamilyTree testFamily = getFamily("Test");
 
