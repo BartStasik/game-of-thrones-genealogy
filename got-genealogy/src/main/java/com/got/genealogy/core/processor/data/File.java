@@ -8,14 +8,14 @@ import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.property.WeightedVertex;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import static com.got.genealogy.core.processor.data.InformationPool.getRelationship;
-import static com.got.genealogy.core.processor.data.StringUtils.*;
+import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
+import static com.got.genealogy.core.processor.data.StringUtils.writeFileExtension;
 
 public class File {
 
