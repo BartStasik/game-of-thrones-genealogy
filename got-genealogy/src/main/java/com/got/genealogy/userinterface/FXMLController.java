@@ -115,6 +115,8 @@ public class FXMLController {
 
         // Display name, family and height of person in dispProfile label box
         // code goes here Josh
+        
+        dispProfile.setText((getPersonDetails(personName,"Stark").toString()).replaceAll(",", "\n"));
     }
 
     @FXML
