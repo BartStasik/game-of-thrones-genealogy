@@ -8,10 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
-import static com.got.genealogy.core.processor.Genealogy.loadPersonDetailsFile;
-import javafx.stage.FileChooser;
-
 public class MainLoader extends Application {
 
     @Override
@@ -20,7 +16,7 @@ public class MainLoader extends Application {
 
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
-        FXMLLoader popupLoader = new FXMLLoader();
+        //FXMLLoader popupLoader = new FXMLLoader();
 
         interfaceLoader.setLocation(getClass().getResource("/fxml/interface.fxml"));
         mainLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
@@ -48,20 +44,6 @@ public class MainLoader extends Application {
         
         //FXMLController popupPaneController = (FXMLController) popupLoader.getController();
         //popupPaneController.setPopupScene(popupScene);
-        
-        
-        //TemporaryDialogs for opening relation and details files
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Relations File");
-        loadRelationsFile((fileChooser.showOpenDialog(primaryStage)).getAbsolutePath(),"Stark");
-        
-        fileChooser.setTitle("Open Persons Details File");
-        loadPersonDetailsFile((fileChooser.showOpenDialog(primaryStage)).getAbsolutePath(),"Stark");
-        
-        //Get the test files from resources in order for load methods etc in FXMLController to work
-        //loadRelationsFile("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/InputFile.txt", "Stark");
-        //loadPersonDetailsFile("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/PersonDetailsTestFile.txt", "Stark");
-        
     }
     
     public static void main(String[] args) {
