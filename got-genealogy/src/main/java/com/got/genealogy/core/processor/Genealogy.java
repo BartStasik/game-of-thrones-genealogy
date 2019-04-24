@@ -80,34 +80,47 @@ public class Genealogy {
             String[][] file = loadFile(absolutePath);
             FamilyTree family = getFamily(familyName);
 
-            String personName;
-            Person person;
+            String personName = null;
+            Person person = null;
+            String gender = null;
 
             if (file == null || family == null) {
                 return false;
             }
 
             for (String[] row : file) {
-                personName = row[0];
-                person = family.getPerson(personName);
-                if (row.length == 3) {
 
-                    if (person == null) {
+                if (row.length >= 0) {
+                    personName = row[0];
+                    person = family.getPerson(personName);
+                }
+
+                if (row.length > 1 && row.length <= 3) {
+                    if (person == null)
                         person = family.addPerson(personName);
-                    }
-                    if (row[1].toUpperCase().equals("GENDER")) {
-                        person.setGender(getInputGender(row[2]));
-                    }
-                    person.addDetail(row[1], row[2]);
-                } else if (row.length == 2) {
+                }
 
-                    if (person == null) {
-                        person = family.addPerson(personName);
-                    }
-                    person.addDetail(row[1], "Unknown");
+                if (row[1].toUpperCase().equals("GENDER")) {
+                    if (row.length <= 2)
+                        gender = "UNSPECIFIED";
 
-                } else {
-                    return false;
+                    if (row.length == 3)
+                        gender = (row[2]);
+                    person.setGender(getInputGender(gender));
+                }
+
+                switch (row.length) {
+
+                    case 2:
+                        person.addDetail(row[1], "Unknown");
+                        break;
+
+                    case 3:
+                        person.addDetail(row[1], row[2]);
+                        break;
+
+                    default:
+                        return false;
                 }
             }
 
@@ -224,7 +237,7 @@ public class Genealogy {
                 for (String extra : direct.getExtras()) {
                     relationships.add(toTitleCase(extra));
                 }
-                ;
+
             } else {
                 relationship = getRelationship(gender, direct);
                 if (!relationship.isEmpty()) {

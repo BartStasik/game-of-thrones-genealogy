@@ -29,7 +29,7 @@ Tyrion Lannister,Culture,Andal
 Tyrion Lannister,House,Lannister
 
 Joanna Lannister,Life Status,Dead
-Joanna Lannister,Origin,
+Joanna Lannister,Origin
 Joanna Lannister,Allegiance,House Lannister
 Joanna Lannister,Culture,Andal
 Joanna Lannister,House,Lannister
@@ -134,13 +134,13 @@ Khal Drogo,Life Status,Dead
 Khal Drogo,Origin,Vaes Dothrak
 Khal Drogo,Allegiance,Himself
 Khal Drogo,Culture,Dothraki
-Khal Drogo,House,
+Khal Drogo,House
 
 Rhaego,Life Status,Dead
 Rhaego,Origin,Lhazar; Essos
 Rhaego,Allegiance,House Targaryen
-Rhaego,Culture,
-Rhaego,House,
+Rhaego,Culture
+Rhaego,House
 
 Elia Martell,Life Status,Dead
 Elia Martell,Origin,Sunspear
