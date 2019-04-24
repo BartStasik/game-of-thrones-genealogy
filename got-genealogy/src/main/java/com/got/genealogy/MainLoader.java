@@ -8,9 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static com.got.genealogy.core.processor.Genealogy.loadRelation;
-import static com.got.genealogy.core.processor.Genealogy.loadPersonDetails;
-
 public class MainLoader extends Application {
 
     @Override
@@ -19,7 +16,7 @@ public class MainLoader extends Application {
 
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
-        FXMLLoader popupLoader = new FXMLLoader();
+        //FXMLLoader popupLoader = new FXMLLoader();
 
         interfaceLoader.setLocation(getClass().getResource("/fxml/interface.fxml"));
         mainLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
@@ -27,7 +24,7 @@ public class MainLoader extends Application {
 
         AnchorPane interfacePane = interfaceLoader.load();
         VBox mainPane = mainLoader.load();
-        AnchorPane popupPane = popupLoader.load();
+        //AnchorPane popupPane = popupLoader.load();
 
         Scene firstScene = new Scene(interfacePane);
         Scene secondScene = new Scene(mainPane);
@@ -45,14 +42,8 @@ public class MainLoader extends Application {
         //FXMLController secondPaneController = (FXMLController) mainLoader.getController();
         //secondPaneController.setFirstScene(firstScene);
         
-//        FXMLController popupPaneController = (FXMLController) popupLoader.getController();
-//        popupPaneController.setPopupScene(popupScene);
-
-
-        //Get the test files from resources in order for laod methods etc in FXMLController to work
-        loadRelation("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/InputFile.txt", "Stark");
-        loadPersonDetails("/Users/ashmac/GitHub/game-of-thrones-genealogy/got-genealogy/src/main/resources/PersonDetailsTestFile.txt", "Stark");
-        
+        //FXMLController popupPaneController = (FXMLController) popupLoader.getController();
+        //popupPaneController.setPopupScene(popupScene);
     }
     
     public static void main(String[] args) {

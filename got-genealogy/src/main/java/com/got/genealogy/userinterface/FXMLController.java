@@ -10,13 +10,26 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.application.Platform;
 
 import static com.got.genealogy.core.processor.Genealogy.findRelationship;
 import static com.got.genealogy.core.processor.Genealogy.getPersonDetails;
+import static com.got.genealogy.core.processor.Genealogy.loadPersonDetailsFile;
+import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
+import static com.got.genealogy.core.processor.Genealogy.exportDOT;
+import java.io.File;
+import java.util.Arrays;
+import javafx.stage.FileChooser;
 
 
 public class FXMLController {
-
+    Stage primaryStage;
+    
+    String ProfileFilePath;
+    String RelationshipFilePath;
+    String exportPath;
+    FileChooser fileChooser = new FileChooser();
+    
     @FXML
     private Button profileBtn;
 
@@ -55,25 +68,30 @@ public class FXMLController {
 
     @FXML
     private Label dispField;
-
-
+    
+    @FXML
+    private Label relationshipFileURL;
+    
+    @FXML
+    private Label profileFileURL;
 
     // --------------------------- --------------------------- ---------------------------
     // FIND RELATIONSHIP METHODS
     // --------------------------- --------------------------- ---------------------------
     @FXML
     void findRelation(ActionEvent event) {
-        String char1 = person1.getText();
-        String char2 = person2.getText();
+        String person1Name = person1.getText();
+        String person2Name = person2.getText();
 
         //Find relationship - method comes from Genealogy
-        String[] relationship = findRelationship(char1, char2, "Stark");
-
+        String[] relationship = findRelationship(person1Name, person2Name, "Stark");
+        dispField.setText("");
+        
         // Print out list of relationship attributes between two characters
         for( int i = 0; i < relationship.length; i++)
         {
             String element = relationship[i];
-            dispField.setText(element);
+            dispField.setText(dispField.getText() + "\n" + element);
         }
     }
 
@@ -93,12 +111,17 @@ public class FXMLController {
     @FXML
     void chooseSaveLocation(ActionEvent event) {
         // 1. File Chooser (showSaveDialog) - return path
+        File exportPath = fileChooser.showSaveDialog(primaryStage);
+        dispExportResults.setWrapText(true);
+        dispExportResults.setText("Exporting to: " + exportPath + "\n");
     }
 
     @FXML
     void exportFamily(ActionEvent event) {
         // 2. export file using load method
         // 3. Display filepath and array of items that were exported on screen
+        String exportOutput = Arrays.toString(exportDOT(exportPath,"Stark"));
+        dispExportResults.setText("Exported to: " + exportPath + "\n" + exportOutput);
 
     }
     // --------------------------- --------------------------- ---------------------------
@@ -110,11 +133,14 @@ public class FXMLController {
     // --------------------------- --------------------------- ---------------------------
     @FXML
     void loadProfile(ActionEvent event) {
-        // Name is typed into textbox
+        // Get name from textbox
         String personName = personProfile.getText();
 
-        // Display name, family and height of person in dispProfile label box
-        // code goes here Josh
+        //Turn map into string, delete curly branckets and eplace commas with new lines
+        String displayPersonsDetails = getPersonDetails(personName,"Stark").toString().replaceAll(", ", "\n");
+        displayPersonsDetails = displayPersonsDetails.replaceAll("\\{", "");
+        displayPersonsDetails = displayPersonsDetails.replaceAll("\\}", "");
+        dispProfile.setText(displayPersonsDetails);
     }
 
     @FXML
@@ -132,8 +158,14 @@ public class FXMLController {
         secondScene = scene;
     }
     @FXML protected void startGame(ActionEvent event) throws Exception  {
-    	Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        loadPersonDetailsFile(ProfileFilePath,"Stark");
+        loadRelationsFile(RelationshipFilePath,"Stark");
+    	primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(secondScene);
+    }
+    
+    @FXML protected void exitGame(ActionEvent event) throws Exception  {
+    	Platform.exit();
     }
 
 
@@ -163,7 +195,21 @@ public class FXMLController {
 //        primaryStage.setScene(popupScene);
 //    }
     // --------------------------- --------------------------- ---------------------------
-
+            
+        
+    @FXML 
+    void loadProfilesFile(ActionEvent event) {
+        fileChooser.setTitle("Open Persons Details File");
+        ProfileFilePath = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
+        profileFileURL.setText(ProfileFilePath);
+    }
+    
+    @FXML 
+    void loadRelationshipFile(ActionEvent event) {
+        fileChooser.setTitle("Open Relations File");
+        RelationshipFilePath = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
+        relationshipFileURL.setText(RelationshipFilePath);
+    }
 
 
     @FXML
