@@ -19,16 +19,24 @@ import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
 import static com.got.genealogy.core.processor.Genealogy.exportDOT;
 import java.io.File;
 import java.util.Arrays;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 
 
-public class FXMLController {
+public class FXMLController implements Initializable{
     Stage primaryStage;
     
     String ProfileFilePath;
     String RelationshipFilePath;
     String exportPath;
     FileChooser fileChooser = new FileChooser();
+    
+    ListView<String> Characterlist = new ListView<String>();
+    ObservableList<String> characters = FXCollections.observableArrayList (
+    "Single", "Double", "Suite", "Family App");
     
     @FXML
     private Button profileBtn;
@@ -53,6 +61,9 @@ public class FXMLController {
 
     @FXML
     private Label dispProfile11;
+    
+    @FXML
+    private Label dispProfile1;
 
     @FXML
     private TextField person1;
@@ -74,6 +85,12 @@ public class FXMLController {
     
     @FXML
     private Label profileFileURL;
+    
+    @FXML
+    private ListView characterSelect1;
+    
+    @FXML
+    private ListView characterSelect2;
 
     // --------------------------- --------------------------- ---------------------------
     // FIND RELATIONSHIP METHODS
@@ -88,9 +105,7 @@ public class FXMLController {
         dispField.setText("");
         
         // Print out list of relationship attributes between two characters
-        for( int i = 0; i < relationship.length; i++)
-        {
-            String element = relationship[i];
+        for (String element : relationship) {
             dispField.setText(dispField.getText() + "\n" + element);
         }
     }
@@ -134,13 +149,19 @@ public class FXMLController {
     @FXML
     void loadProfile(ActionEvent event) {
         // Get name from textbox
-        String personName = personProfile.getText();
+        String personName1 = person1.getText();
+        String personName2 = person2.getText();
 
         //Turn map into string, delete curly branckets and eplace commas with new lines
-        String displayPersonsDetails = getPersonDetails(personName,"Stark").toString().replaceAll(", ", "\n");
-        displayPersonsDetails = displayPersonsDetails.replaceAll("\\{", "");
-        displayPersonsDetails = displayPersonsDetails.replaceAll("\\}", "");
-        dispProfile.setText(displayPersonsDetails);
+        String displayPerson1Details = getPersonDetails(personName1,"Stark").toString().replaceAll(", ", "\n");
+        displayPerson1Details = displayPerson1Details.replaceAll("\\{", "");
+        displayPerson1Details = displayPerson1Details.replaceAll("\\}", "");
+        dispProfile.setText(displayPerson1Details);
+        
+        String displayPerson2Details = getPersonDetails(personName2,"Stark").toString().replaceAll(", ", "\n");
+        displayPerson2Details = displayPerson2Details.replaceAll("\\{", "");
+        displayPerson2Details = displayPerson2Details.replaceAll("\\}", "");
+        dispProfile1.setText(displayPerson2Details);
     }
 
     @FXML
@@ -162,6 +183,9 @@ public class FXMLController {
         loadRelationsFile(RelationshipFilePath,"Stark");
     	primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(secondScene);
+        
+        characterSelect1.setItems(characters);
+        characterSelect2.setItems(characters);
     }
     
     @FXML protected void exitGame(ActionEvent event) throws Exception  {
@@ -213,7 +237,8 @@ public class FXMLController {
 
 
     @FXML
-    void initialize(URL location, ResourceBundle resources) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {      
         assert profileBtn != null : "fx:id=\"profileBtn\" was not injected: check your FXML file 'main.fxml'.";
         assert person1 != null : "fx:id=\"person1\" was not injected: check your FXML file 'main.fxml'.";
         assert person2 != null : "fx:id=\"person2\" was not injected: check your FXML file 'main.fxml'.";
