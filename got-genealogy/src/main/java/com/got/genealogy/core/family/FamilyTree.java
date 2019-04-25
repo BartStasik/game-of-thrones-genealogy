@@ -32,6 +32,10 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     public Person addPerson(String name) {
+        Person person = getPerson(name);
+        if (person != null) {
+            return null;
+        }
         return addPerson(new Person(name));
     }
 
@@ -64,6 +68,7 @@ public class FamilyTree extends Graph<Person, Relation> {
                             Relationship relationship) {
         Person person1 = getPerson(name1);
         Person person2 = getPerson(name2);
+        // Todo: check this
         Relation relationFrom1 = editRelation(name1, name2, relationship);
         Relation relationFrom2;
 

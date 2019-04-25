@@ -45,12 +45,23 @@ public class TestFileProcessor {
         sourceCodePath = new File(sourceCodeLocation.getFile())
                 .getParent() + File.separator;
 
-        loadRelationsFile(testRelationPath, "Test");
+        // Disregarding case. Different
+        // familyName case is intentional.
+        loadRelationsFile(testRelationPath, "TEST");
         loadPersonDetailsFile(testDetailsPath, "Test");
-        exportDOT(sourceCodePath + "TestDOT",  "Test");
-        exportSorted(sourceCodePath + "TestSorted",  "Test");
+        exportDOT(sourceCodePath + "TestDOT", "Test");
+        exportSorted(sourceCodePath + "TestSorted", "Test");
 
         FamilyTree testFamily = getFamily("Test");
+
+        if (testFamily == null) {
+            System.out.println("\nTEST FAILED");
+            return;
+        }
+
+        // Shouldn't add this person.
+        // Disregarding case.
+        testFamily.addPerson("bartosz StAsIk");
 
         class Pair {
             private String key, value;
@@ -210,7 +221,6 @@ public class TestFileProcessor {
             System.out.println("\nTEST PASSED");
         }
     }
-
 
     private static void printGraph(FamilyTree graph) {
         AdjacencyMatrix<Weight<Relation>> matrix = graph.getAdjacencyMatrix();
