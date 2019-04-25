@@ -80,20 +80,19 @@ public class Genealogy {
             String[][] file = loadFile(absolutePath);
             FamilyTree family = getFamily(familyName);
 
-            String personName = null;
-            Person person = null;
-            String gender = null;
+            String personName;
+            Person person;
 
             if (file == null || family == null) {
                 return false;
             }
 
             for (String[] row : file) {
+                if (row.length < 1 || row.length > 3)
+                    return false;
 
-                if (row.length >= 0) {
-                    personName = row[0];
-                    person = family.getPerson(personName);
-                }
+                personName = row[0];
+                person = family.getPerson(personName);
 
                 if (row.length > 1 && row.length <= 3) {
                     if (person == null)
@@ -101,26 +100,24 @@ public class Genealogy {
                 }
 
                 if (row[1].toUpperCase().equals("GENDER")) {
-                    if (row.length <= 2)
-                        gender = "UNSPECIFIED";
-
-                    if (row.length == 3)
-                        gender = (row[2]);
-                    person.setGender(getInputGender(gender));
-                }
-
-                switch (row.length) {
-
-                    case 2:
-                        person.addDetail(row[1], "Unknown");
-                        break;
-
-                    case 3:
-                        person.addDetail(row[1], row[2]);
-                        break;
-
-                    default:
+                    if (row.length != 3)
                         return false;
+                    person.setGender(getInputGender(row[2]));
+                } else {
+
+                    switch (row.length) {
+
+                        case 2:
+                            person.addDetail(row[1], "Unknown");
+                            break;
+
+                        case 3:
+                            person.addDetail(row[1], row[2]);
+                            break;
+
+                        default:
+                            return false;
+                    }
                 }
             }
 
