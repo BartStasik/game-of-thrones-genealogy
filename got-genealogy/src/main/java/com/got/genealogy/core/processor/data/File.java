@@ -8,6 +8,7 @@ import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.property.WeightedVertex;
 
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,8 +22,9 @@ public class File {
 
     public static String[][] loadFile(String absolutePath) {
         try {
+            String decodedURL = URLDecoder.decode(absolutePath, "UTF-8");
             BufferedReader br = new BufferedReader(
-                    new FileReader(absolutePath));
+                    new FileReader(decodedURL));
             List<String[]> trimmedFile = new ArrayList<>();
             String[] words;
             String line;
@@ -48,8 +50,10 @@ public class File {
             return null;
         }
         try {
-            PrintWriter fileWriter = new PrintWriter(
-                    writeFileExtension(absolutePath, ".gv"));
+            String decodedURL = URLDecoder.decode(
+                    writeFileExtension(absolutePath, ".gv"),
+                    "UTF-8");
+            PrintWriter fileWriter = new PrintWriter(decodedURL, "UTF-8");
             List<String> outputStorage = new ArrayList<>();
 
             writeLine(("digraph " + family.getLabel() + "{ rankdir=LR;\n size =\"8,5\""),
@@ -101,7 +105,7 @@ public class File {
 
             return outputStorage.toArray(new String[0]);
 
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             return null;
         }
     }
@@ -114,12 +118,14 @@ public class File {
             List<Person> sortedPeople = new ArrayList<>(family.getVertices().keySet());
             Collections.sort(sortedPeople);
             PrintWriter writer;
-            writer = new PrintWriter(
-                    writeFileExtension(absolutePath, ".txt"));
+            String decodedURL = URLDecoder.decode(
+                    writeFileExtension(absolutePath, ".txt"),
+                    "UTF-8");
+            writer = new PrintWriter(decodedURL, "UTF-8");
             sortedPeople.forEach((e) -> writer.println(e.getLabel()));
             writer.close();
             return sortedPeople.toArray(new Person[0]);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             return null;
         }
     }
