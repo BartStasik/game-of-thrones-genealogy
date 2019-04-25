@@ -195,6 +195,9 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public boolean existingVertex(Vert vertex) {
+        if (vertex == null) {
+            return false;
+        }
         Vert vertexItem = getVertex(vertex.getLabel());
         return vertices.containsKey(vertexItem);
     }
