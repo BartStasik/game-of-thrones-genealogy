@@ -151,8 +151,16 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
     }
 
     public Vert getVertex(String label) {
+        // No filter
+        return getVertex(label, (e) -> e);
+    }
+
+    public Vert getVertex(String label,
+                          Function<String, String> filter) {
         for (Vert vertex : vertices.keySet()) {
-            if (vertex.getLabel().equals(label)) {
+            String vertexFiltered = filter.apply(vertex.getLabel());
+            String labelFiltered = filter.apply(label);
+            if (vertexFiltered.equals(labelFiltered)) {
                 return vertex;
             }
         }
