@@ -118,7 +118,7 @@ public class TestFileProcessor {
         relations.add(new Pair("Nina Barnard", "Ebony Mohamed"));
 
         // Hates
-        relations.add(new Pair("Nina Barnard", "Bartosz Stasik"));
+        relations.add(new Pair("nina barnard", "bartosz Stasik"));
 
         String[] expectedRelationshipsInOrder = new String[]{
                 "Grandaunt",
@@ -189,7 +189,11 @@ public class TestFileProcessor {
         }
 
         for (String person : expectedPeopleForDetails) {
-            Map<String, String> details = getPersonDetails(person, "Test");
+            // Setting to lowercase, to ensure
+            // it's not case sensitive
+            Map<String, String> details = getPersonDetails(
+                    person.toLowerCase(),
+                    "Test");
             if (details == null) {
                 testPassed = false;
             } else {

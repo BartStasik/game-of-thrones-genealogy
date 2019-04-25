@@ -27,7 +27,8 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     public Person getPerson(String name) {
-        return getVertex(name);
+        // Regardless of case
+        return getVertex(name, String::toUpperCase);
     }
 
     public Person addPerson(String name) {
@@ -35,7 +36,7 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     public Person addPerson(String name, Gender gender) {
-        Person person = getVertex(name);
+        Person person = getPerson(name);
         if (person == null) {
             person = new Person(name);
             addVertex(person);
@@ -61,8 +62,8 @@ public class FamilyTree extends Graph<Person, Relation> {
     public void addRelation(String name1,
                             String name2,
                             Relationship relationship) {
-        Person person1 = getVertex(name1);
-        Person person2 = getVertex(name2);
+        Person person1 = getPerson(name1);
+        Person person2 = getPerson(name2);
         Relation relationFrom1 = editRelation(name1, name2, relationship);
         Relation relationFrom2;
 
@@ -104,8 +105,8 @@ public class FamilyTree extends Graph<Person, Relation> {
     public void addExtraRelation(String name1,
                                  String name2,
                                  String relationship) {
-        Person person1 = getVertex(name1);
-        Person person2 = getVertex(name2);
+        Person person1 = getPerson(name1);
+        Person person2 = getPerson(name2);
         Relation relation = getRelation(name1, name2);
 
         if (!(person1 == null) && !(person2 == null)) {
@@ -163,7 +164,6 @@ public class FamilyTree extends Graph<Person, Relation> {
         int inLawCount = 0;
 
         for (int i = 1; i < path.size(); i++) {
-            // Todo: change to getRelation
             Relation edge = getEdge(
                     previousPerson,
                     path.get(i),
