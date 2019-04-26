@@ -5,6 +5,7 @@ import com.got.genealogy.userinterface.InterfaceController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -30,7 +31,6 @@ public class MainLoader extends Application {
         Scene interfaceScene = new Scene(interfacePane);
         Scene mainScene = new Scene(mainPane);
         Scene profileScene = new Scene(profilePane);
-
 
         primaryStage.setTitle("Game Of Thrones Genealogy");
         primaryStage.setScene(interfaceScene);

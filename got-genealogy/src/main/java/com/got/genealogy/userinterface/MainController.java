@@ -20,6 +20,7 @@ import static com.got.genealogy.core.processor.Genealogy.findRelationship;
 import static com.got.genealogy.core.processor.Genealogy.exportDOT;
 import static com.got.genealogy.core.processor.Genealogy.getPersonDetails;
 import java.util.Arrays;
+import java.util.Map;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 
@@ -108,14 +109,17 @@ public class MainController implements Initializable{
     void displayRelationship(){
         String person1Name = character1.getText();
         String person2Name = character2.getText();
-
+        
+        if(character1.getText() == "" || character2.getText() == ""){
+            return;
+        }
         //Find relationship - method comes from Genealogy
         String[] relationship = findRelationship(person1Name, person2Name, "Stark");
         dispField.setText("");
         
         // Print out list of relationship attributes between two characters
-        for (String element : relationship) {
-            dispField.setText(dispField.getText() + "\n" + element);
+        for (String realtionshipType : relationship) {
+            dispField.setText(dispField.getText() + "\n" + realtionshipType);
         }
     }
 
@@ -146,27 +150,46 @@ public class MainController implements Initializable{
     // --------------------------- --------------------------- ---------------------------
     @FXML
     void loadProfile(ActionEvent event) {
-    	
-//        // Get name from textbox
+        loadCharacterProfile1();
+        loadCharacterProfile2();
+    }
+    
+    void loadCharacterProfile1() {     	
+        
+        // Get name from textbox
         String personName1 = character1.getText();
-        String personName2 = character2.getText();
-//
+        String displayPerson1Details = "";
+
         //Turn map into string, delete curly branckets and eplace commas with new lines
-        String displayPerson1Details = getPersonDetails(personName1,"Stark").toString().replaceAll(", ", "\n");
-        displayPerson1Details = displayPerson1Details.replaceAll("\\{", "");
-        displayPerson1Details = displayPerson1Details.replaceAll("\\}", "");
-       dispProfile.setText(displayPerson1Details);
+        Map<String, String> characterDetails = getPersonDetails(personName1, "Stark");
+        for (Map.Entry<String, String> entry : characterDetails.entrySet()) {
+            displayPerson1Details = (displayPerson1Details + entry.getKey() + ": " + entry.getValue() + "\n");
+        }
+        dispProfile.setText(displayPerson1Details);
+        }
+        
         
         //Load profile sceen to display results
-    	primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        primaryStage.setScene(profileScene);
+    	//primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        //primaryStage.setScene(profileScene);
+    
+    void loadCharacterProfile2() {     	
         
-        String displayPerson2Details = getPersonDetails(personName2,"Stark").toString().replaceAll(", ", "\n");
-        displayPerson2Details = displayPerson2Details.replaceAll("\\{", "");
-        displayPerson2Details = displayPerson2Details.replaceAll("\\}", "");
-        dispProfile1.setText(displayPerson2Details);
-    }
+        // Get name from textbox
+        String personName2 = character2.getText();
+        String displayPerson2Details = "";
 
+        Map<String, String> characterDetails = getPersonDetails(personName2, "Stark");
+        for (Map.Entry<String, String> entry : characterDetails.entrySet()) {
+            displayPerson2Details = (displayPerson2Details + entry.getKey() + ": " + entry.getValue() + "\n");
+        }
+        dispProfile1.setText(displayPerson2Details);
+        }
+        
+        //Load profile sceen to display results
+    	//primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        //primaryStage.setScene(profileScene);
+    
     @FXML
     void clearProfileField(ActionEvent event) {
         personProfile.clear();
@@ -206,11 +229,13 @@ public class MainController implements Initializable{
     @FXML public void list1Clicked(MouseEvent arg0) {
         character1.setText(characterSelect1.getSelectionModel().getSelectedItem());
         displayRelationship();
+        loadCharacterProfile1();
 }
     
     @FXML public void list2Clicked(MouseEvent arg0) {
         character2.setText(characterSelect2.getSelectionModel().getSelectedItem());
         displayRelationship();
+        loadCharacterProfile2();
 }
 
 

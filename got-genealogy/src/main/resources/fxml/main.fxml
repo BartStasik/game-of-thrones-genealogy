@@ -8,19 +8,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.MainController">
    <children>
       <SplitPane orientation="VERTICAL" prefWidth="160.0" style="-fx-background-color: #000;" styleClass="face-bg">
         <items>
-            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1500.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
+            <AnchorPane layoutX="10.0" layoutY="10.0" style="-fx-background-color: transparent;" styleClass="trans-bg" stylesheets="@../styles.css">
                <children>
                   <Text fill="WHITE" layoutX="610.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="CHARACTER SELECT" />
                   <Label layoutX="121.0" layoutY="69.0" text="CHARACTER 1" />
                   <Label layoutX="1250.0" layoutY="66.0" text="CHARACTER 2" />
-                  <Label fx:id="dispField" alignment="CENTER" layoutX="546.0" layoutY="81.0" prefHeight="90.0" prefWidth="350.0" text="" textAlignment="CENTER" wrapText="true" styleClass="relationship"/>
+                  <Label fx:id="dispField" alignment="CENTER" layoutX="546.0" layoutY="81.0" prefHeight="90.0" prefWidth="350.0" styleClass="relationship" text="" textAlignment="CENTER" wrapText="true" />
                   <Label fx:id="dispProfile" alignment="TOP_LEFT" layoutX="254.0" layoutY="353.0" prefHeight="216.0" prefWidth="245.0" style="-fx-border-color: #fff;" text="Results for profile" />
                   <Label fx:id="dispProfile1" alignment="TOP_LEFT" layoutX="965.0" layoutY="342.0" prefHeight="216.0" prefWidth="252.0" style="-fx-border-color: #fff;" text="Results for profile" />
                   <Button fx:id="profileBtn" layoutX="622.0" layoutY="260.0" mnemonicParsing="false" onAction="#loadProfile" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="VIEW PROFILE" />
@@ -31,10 +30,10 @@
                      </image>
                   </ImageView>
                   <Label fx:id="dispExportResults" alignment="TOP_LEFT" layoutX="591.0" layoutY="317.0" prefHeight="154.0" prefWidth="326.0" style="-fx-border-color: #fff;" text="Results for export" wrapText="true" />
-                  <ListView fx:id="characterSelect1" onMouseClicked="#list1Clicked" layoutX="21.0" layoutY="141.0" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
-                  <ListView fx:id="characterSelect2" onMouseClicked="#list2Clicked" layoutX="1263.0" layoutY="138.0" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
-                  <Label fx:id="character1" layoutX="254.0" layoutY="600.0" prefHeight="20.0" prefWidth="246.0" styleClass="characterName" />
-                  <Label fx:id="character2" layoutX="968.0" layoutY="600.0" prefHeight="20.0" prefWidth="246.0" styleClass="characterName" />
+                  <ListView fx:id="characterSelect1" layoutX="21.0" layoutY="141.0" onMouseClicked="#list1Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
+                  <ListView fx:id="characterSelect2" layoutX="1263.0" layoutY="138.0" onMouseClicked="#list2Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
+                  <Label fx:id="character1" layoutX="236.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
+                  <Label fx:id="character2" layoutX="890.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
                </children>
             </AnchorPane>
         </items>

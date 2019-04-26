@@ -12,7 +12,10 @@ import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 
 public class InterfaceController {
@@ -67,6 +70,7 @@ public class InterfaceController {
     	Platform.exit();
     }
     
-    public void initialize(URL location, ResourceBundle resources) { 
+    
+    public void initialize(URL location, ResourceBundle resources) {   
     }
 }
