@@ -1,0 +1,116 @@
+Dorna Lannister,Life Status,Alive
+Dorna Lanister,Origin,Cornfield
+Dorna Lanister,Allegiance,House Swyft; House Lannister
+Dorna Lannister,Culture,Andal
+Kevan Lannister,Life Status,Dead
+Kevan Lannister,Origin,Casterly Rock
+Kevan Lannister,Allegiance,House Lannister; House Baratheon of King's Landing
+Kevan Lannister,Culture,Andal
+Lancel Lannister,Life Status,Dead
+Lancel Lannister,Origin,Casterly Rock
+Lancel Lannister,Allegiance,Sparrows; Faith Militant; House Lannister
+Lancel Lannister,Culture,Andal
+Tywin Lannister,Life Status,Dead
+Tywin Lannister,Origin,Casterly Rock
+Tywin Lannister,Allegiance,House Lannister; House Baratheon of King's Landing; House Targaryen
+Tywin Lannister,Culture,Andal
+Tyrion Lannister,Life Status,Alive
+Tyrion Lannister,Origin,Casterly Rock
+Tyrion Lannister,Allegiance,House Lannister; House Targaryen
+Tyrion Lannister,Culture,Andal
+Joanna Lannister,Life Status,Dead
+Joanna Lannister,Origin,Unknown
+Joanna Lannister,Allegiance,House Lannister
+Joanna Lannister,Culture,Andal
+Tytos Lannister,Life Status,Dead
+Tytos Lannister,Origin,Castery Rock
+Tytos Lannister,Allegiance,House Lannister
+Tytos Lannister,Culture,Andal
+Jeyne Lannister,Life Status,Dead
+Jeyne Lannister,Origin,Ashemark
+Jeyne Lannister,Allegiance,House Marbrand; House Lannister
+Jeyne Lannister,Culture,Andal
+Cersei Lannister,Life Status,Alive
+Cersei Lannister,Origin,Casterly Rock
+Cersei Lannister,Allegiance,House Lannister; House Baratheon of King's Landing
+Cersei Lannister,Culture,Andal 
+Jaime Lannister,Life Status,Alive
+Jaime Lannister,Origin,Casterly Rock
+Jaime Lannister,Allegiance,House Lannister; Kingsguard
+Jaime Lannister,Culture,Andal
+Robert Baratheon,Life Status,Dead
+Robert Baratheon,Origin,Storm's End; The Elyrie
+Robert Baratheon,Allegiance,House Baratheon; House Baratheon of King's Landing
+Robert Baratheon,Culture,Andals
+Joffrey Baratheon,Life Status,Dead
+Joffrey Baratheon,Origin,King's Landing
+Joffrey Baratheon,Allegiance,House Baratheon of King's Landing
+Joffrey Baratheon,Culture,Andal
+Myrcella Baratheon,Life Status,Dead
+Myrcella Baratheon,Origin,King's Landing
+Myrcella Baratheon,Allegiance,House Baratheon of King's Landing
+Myrcella Baratheon,Culture,Andal
+Tommen Baratheon,Life Status,Dead
+Tommen Baratheon,Origin,King's Landing
+Tommen Baratheon,Allegiance,House Baratheon of King's Landing; Faith of Seven
+Tommen Baratheon,Culture,Andal
+Aerys II Targaryen,Life Status,Dead
+Aerys II Targaryen,Origin,King's Landing
+Aerys II Targaryen,Allegiance,House Targaryen
+Aerys II Targaryen,Culture,Valyrian
+Rhaella Targaryen,Life Status,Dead
+Rhaella Targaryen,Origin,Red Keep; King's Landing
+Rhaella Targaryen,Allegiance,House Targaryen
+Rhaella Targaryen,Culture,Valyrian
+Aegon V Targaryen,Life Status,Dead
+Aegon V Targaryen,Origin,Summerhall
+Aegon V Targaryen,Allegiance,House Targaryen
+Aegon V Targaryen,Culture,Valyrian
+Maekar Targaryen,Life Status,Dead
+Maekar Targaryen,Origin,King's Landing
+Maekar Targaryen,Allegiance,House Targaryen
+Maekar Targaryen,Culture,Valyrian
+Dyanna Dayne,Life Status,Dead
+Dyanna Dayne,Origin,Starfall
+Dyanna Dayne,Allegiance,House Dayne; House Targaryen
+Dyanna Dayne,Culture,Dornishmen
+Rhaegar Targaryen,Life Status,Dead
+Rhaegar Targaryen,Origin,King's Landing
+Rhaegar Targaryen,Allegiance,House Targaryen
+Rhaegar Targaryen,Culture,Valyrian
+Viserys Targaryen,Life Status,Dead
+Viserys Targaryen,Origin,King's Landing
+Viserys Targaryen,Allegiance,House Targaryen
+Viserys Targaryen,Culture,Valyrian
+Daenerys Targaryen,Life Status,Alive
+Daenerys Targaryen,Origin,Dragonstone; Free Cities
+Daenerys Targaryen,Allegiance,House Targaryen
+Daenerys Targaryen,Culture,Valyrian
+Khal Drogo,Life Status,Dead
+Khal Drogo,Origin,Vaes Dothrak
+Khal Drogo,Allegiance,Himself
+Khal Drogo,Culture,Dothraki
+Rhaego,Life Status,Dead
+Rhaego,Origin,Lhazar; Essos
+Rhaego,Allegiance,House Targaryen
+Rhaego,Culture,Unknown
+Elia Martell,Life Status,Dead
+Elia Martell,Origin,Sunspear
+Elia Martell,Allegiance,House Martell
+Elia Martell,Culture,Dornishmen
+Rhaenys Targaryen,Life Status,Dead
+Rhaenys Targaryen,Origin,King's Landing
+Rhaenys Targaryen,Allegiance,House Targaryen
+Rhaenys Targaryen,Culture,Valyrian
+Aegon Targaryen,Life Status,Dead
+Aegon Targaryen,Origin,King's Landing
+Aegon Targaryen,Allegiance,House Targaryen
+Aegon Targaryen,Culture,Valyrian
+Sandor Clegane,Life Status,Alive
+Sandor Clegane,Origin,Clegane's Keep
+Sandor Clegane,Allegiance,Brotherhood Without Banners; House Clegane; House Baratheon of King's Landing; Kingsguard; Ray's
+Sandor Clegane,Culture,Andal
+Gregor Clegane,Life Status,Alive
+Gregor Clegane,Origin,Clegane's Keep
+Gregor Clegane,Allegiance,House Clegane; House Lannister; Queensguard; Kingsguard;
+Gregor Clegane,Culture,Andal

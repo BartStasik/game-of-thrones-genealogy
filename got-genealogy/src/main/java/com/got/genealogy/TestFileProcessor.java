@@ -215,6 +215,19 @@ public class TestFileProcessor {
             }
         }
 
+        String[] allPeople = getAllPeople("Test");
+
+        if (allPeople == null) {
+            System.out.println("\nTEST PASSED");
+            return;
+        }
+
+        System.out.println();
+
+        for (String person : allPeople) {
+            System.out.println(person);
+        }
+
         if (!testPassed) {
             System.out.println("\nTEST FAILED");
         } else {
