@@ -16,7 +16,7 @@ public class MainLoader extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 
-        FXMLLoader interfaceLoader = new FXMLLoader();
+         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
         FXMLLoader profileLoader = new FXMLLoader();
 
@@ -31,7 +31,8 @@ public class MainLoader extends Application {
         Scene interfaceScene = new Scene(interfacePane);
         Scene mainScene = new Scene(mainPane);
         Scene profileScene = new Scene(profilePane);
-
+        
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
         primaryStage.setTitle("Game Of Thrones Genealogy");
         primaryStage.setScene(interfaceScene);
         primaryStage.show();

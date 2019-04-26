@@ -102,8 +102,17 @@
     -fx-background-color: transparent;
     -fx-text-fill: #ffffff;
     
-}.relationship{
+}
+.relationship{
     -fx-font-family: "Cinzel";
     -fx-text-fill: #ffffff;
     -fx-font-size: 29px;
+}
+
+.muteButton {
+    -fx-border-width: 0;
+    -fx-background-image: url('volume-high.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
 }

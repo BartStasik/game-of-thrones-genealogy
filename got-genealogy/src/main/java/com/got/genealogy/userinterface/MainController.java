@@ -1,8 +1,6 @@
 package com.got.genealogy.userinterface;
 
 import com.got.genealogy.core.processor.Genealogy;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -21,11 +19,10 @@ import static com.got.genealogy.core.processor.Genealogy.exportDOT;
 import static com.got.genealogy.core.processor.Genealogy.getPersonDetails;
 import java.util.Arrays;
 import java.util.Map;
-import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 
 
-public class MainController implements Initializable{
+public class MainController{
     
     Stage primaryStage;
 
@@ -123,7 +120,6 @@ public class MainController implements Initializable{
         }
     }
 
-
     // --------------------------- --------------------------- ---------------------------
     // EXPORT FILE METHODS
     // --------------------------- --------------------------- ---------------------------
@@ -137,7 +133,6 @@ public class MainController implements Initializable{
         dispExportResults.setText("Exporting to: " + exportPath + "\n");
         // 2. export file using load method
         // 3. Display filepath and array of items that were exported on screen
-        loadCharacters();
         String exportOutput = Arrays.toString(exportDOT(exportPath,"Stark"));
         dispExportResults.setText("Exported to: " + exportPath + "\n" + exportOutput);
     }
@@ -238,9 +233,6 @@ public class MainController implements Initializable{
         loadCharacterProfile2();
 }
 
-
-    @FXML
-    @Override
-    public void initialize(URL location, ResourceBundle resources) { 
+    public void initialize() { 
     }
 }
