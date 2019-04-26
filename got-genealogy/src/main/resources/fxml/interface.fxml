@@ -13,11 +13,7 @@
    
    <children>
       <Button layoutX="135.0" layoutY="431.0" mnemonicParsing="false" onAction="#startGame" prefHeight="63.0" prefWidth="330.0" text="Play" />
-      <Button layoutX="135.0" layoutY="502.0" mnemonicParsing="false" onAction="#loadRelationshipFile" prefHeight="63.0" prefWidth="330.0" text="Load Relationships" />
-      <Label fx:id="relationshipFileURL" layoutX="578.0" layoutY="502.0" prefHeight="63.0" prefWidth="434.0" styleClass="h1" text="" />
-      <Button layoutX="135.0" layoutY="573.0" mnemonicParsing="false" onAction="#loadProfilesFile" prefHeight="63.0" prefWidth="330.0" text="Load Personal Details" />
-      <Label fx:id="profileFileURL" layoutX="578.0" layoutY="573.0" prefHeight="63.0" prefWidth="434.0" styleClass="h1" text="" />
-      <Button layoutX="135.0" layoutY="644.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="63.0" prefWidth="330.0" text="Exit" />
+      <Button layoutX="135.0" layoutY="502.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="63.0" prefWidth="330.0" text="Exit" />
       <ImageView fitHeight="196.0" fitWidth="265.0" layoutX="140.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../logo.png" />

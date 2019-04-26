@@ -9,8 +9,8 @@ import javafx.application.Platform;
 
 import static com.got.genealogy.core.processor.Genealogy.loadPersonDetailsFile;
 import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import java.io.File;
+import java.net.URL;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.media.Media;
@@ -50,43 +50,13 @@ public class InterfaceController{
     public void setMainScene(Scene scene) {
         mainScene = scene;
     }
-    
-    @FXML 
-    void loadProfilesFile(ActionEvent event) {
-        fileChooser.setTitle("Open Persons Details File");
-        ProfileFilePath = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
-        profileFileURL.setText(ProfileFilePath);
-    }
-    
-    @FXML 
-    void loadRelationshipFile(ActionEvent event) {
-        fileChooser.setTitle("Open Relations File");
-        RelationshipFilePath = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
-        relationshipFileURL.setText(RelationshipFilePath);
-    }
+  
     
     @FXML 
     protected void startGame(ActionEvent event) throws Exception  {
-        loadPersonDetailsFile(ProfileFilePath,"GOT");
-        loadRelationsFile(RelationshipFilePath,"GOT");
-        
         // load the main scene when "play" is clicked
     	primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(mainScene);
-        
-        //try {
-        //    Thread.sleep(2000);
-        //} catch (InterruptedException e) {
-        //    e.printStackTrace();
-        //}
-        //Load second scene
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
-        //loader.load();
-             
-        //Get controller of scene2
-        //MainController mainPaneController = (MainController) loader.getController();
-        //Pass whatever data you want. You can have multiple method calls here
-        //mainPaneController.loadCharacters();
     }
     
     @FXML 

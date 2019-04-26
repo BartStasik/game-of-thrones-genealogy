@@ -16,13 +16,20 @@ import javafx.scene.control.Label;
 
 import static com.got.genealogy.core.processor.Genealogy.findRelationship;
 import static com.got.genealogy.core.processor.Genealogy.exportDOT;
+import static com.got.genealogy.core.processor.Genealogy.exportSorted;
+import static com.got.genealogy.core.processor.Genealogy.getAllPeople;
 import static com.got.genealogy.core.processor.Genealogy.getPersonDetails;
+import static com.got.genealogy.core.processor.Genealogy.loadPersonDetailsFile;
+import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
+import java.io.File;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Map;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 
-public class MainController{
+public class MainController {
     
     Stage primaryStage;
 
@@ -30,17 +37,17 @@ public class MainController{
     FileChooser fileChooser = new FileChooser();
     ObservableList characters = FXCollections.observableArrayList();
     
+    @FXML
+    private Button loadButton;
+    
+    @FXML
+    private AnchorPane anchorParent;
+    
     @FXML 
     private ListView<String> characterSelect1;
     
     @FXML 
     private ListView<String> characterSelect2;
-    
-    @FXML 
-    private Button profileBtn;
-
-    @FXML 
-    private Button exportFamily;
 
     @FXML 
     private TextField personProfile;
@@ -53,48 +60,16 @@ public class MainController{
         
     @FXML
     private Label character2;
-
-    @FXML
-    private Button clearBtn2;
-
+    
     @FXML
     private Label dispExportResults;
-
-    @FXML
-    private Button browseBtn;
-
-    @FXML
-    private Label dispProfile11;
     
     @FXML
     private Label dispProfile1;
 
     @FXML
-    private TextField person1;
-
-    @FXML
-    private TextField person2;
-
-    @FXML
-    private Button submitBtn;
-
-    @FXML
-    private Button clearBtn;
-
-    @FXML
     private Label dispField;
     
-    
-    //profile.fxml elements
-    @FXML
-    private Label dispNamePopup;
-
-    @FXML
-    private Button closeWindow;
-
-    @FXML
-    private Label dispProfilePopup;
-
     // --------------------------- --------------------------- ---------------------------
     // FIND RELATIONSHIP METHODS
     // --------------------------- --------------------------- ---------------------------
@@ -107,11 +82,14 @@ public class MainController{
         String person1Name = character1.getText();
         String person2Name = character2.getText();
         
-        if(character1.getText() == "" || character2.getText() == ""){
+        if(character1.getText().equals("") || character2.getText().equals("")){
             return;
         }
         //Find relationship - method comes from Genealogy
         String[] relationship = findRelationship(person1Name, person2Name, "GOT");
+        if (relationship == null) {
+            return;
+        }
         dispField.setText("");
         
         // Print out list of relationship attributes between two characters
@@ -128,13 +106,20 @@ public class MainController{
     @FXML
     void exportFamily(ActionEvent event) {
         // 1. File Chooser (showSaveDialog) - return path
-        exportPath = fileChooser.showSaveDialog(primaryStage).toString();
+        File exportPath = fileChooser.showSaveDialog(primaryStage);
+        if(exportPath == null){
+            return;
+            //popup, what is cancel is pressed?
+        }
         dispExportResults.setWrapText(true);
-        dispExportResults.setText("Exporting to: " + exportPath + "\n");
+        dispExportResults.setText("Exporting to: " + exportPath + ".gv \n");
         // 2. export file using load method
         // 3. Display filepath and array of items that were exported on screen
-        String exportOutput = Arrays.toString(exportDOT(exportPath,"GOT"));
-        dispExportResults.setText("Exported to: " + exportPath + "\n" + exportOutput);
+        String[] fileOutput = exportDOT(exportPath
+                .getAbsolutePath(),"GOT");
+        String exportOutput = Arrays.toString(fileOutput);
+        dispExportResults.setText("Exported to: " + exportPath + "\n" + 
+                exportOutput);
     }
     // --------------------------- --------------------------- ---------------------------
 
@@ -143,11 +128,6 @@ public class MainController{
     // --------------------------- --------------------------- ---------------------------
     // PROFILE LOAD METHODS
     // --------------------------- --------------------------- ---------------------------
-    @FXML
-    void loadProfile(ActionEvent event) {
-        loadCharacterProfile1();
-        loadCharacterProfile2();
-    }
     
     void loadCharacterProfile1() {     	
         
@@ -163,10 +143,6 @@ public class MainController{
         dispProfile.setText(displayPerson1Details);
         }
         
-        
-        //Load profile sceen to display results
-    	//primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        //primaryStage.setScene(profileScene);
     
     void loadCharacterProfile2() {     	
         
@@ -180,19 +156,36 @@ public class MainController{
         }
         dispProfile1.setText(displayPerson2Details);
         }
-        
-        //Load profile sceen to display results
-    	//primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        //primaryStage.setScene(profileScene);
-    
-    @FXML
-    void clearProfileField(ActionEvent event) {
-        personProfile.clear();
-        dispProfile.setText("");
-    }
+
     // --------------------------- --------------------------- ---------------------------
 
+    @FXML
+    void loadDataBlocker(ActionEvent event) {
+        URL gotRelations = InterfaceController.class
+                .getClassLoader()
+                .getResource("GOTRelationships.txt");
+        URL gotDetails = InterfaceController.class
+                .getClassLoader()
+                .getResource("PersonDetails.txt");
 
+        if (gotRelations == null || gotDetails == null) {
+            return;
+        }
+
+        String gotRelationsPath = new File(gotRelations.getFile())
+                .getAbsolutePath();
+        String gotDetailsPath = new File(gotDetails.getFile())
+                .getAbsolutePath();
+
+        //error if false
+        loadRelationsFile(gotRelationsPath, "GOT");
+        //error if null
+        loadPersonDetailsFile(gotDetailsPath, "GOT");
+        loadCharacters("GOT");
+        anchorParent.getChildren().remove(loadButton);
+    }
+    // ----------
+    
     //set scene to main scene
     private Scene mainScene;
     
@@ -211,14 +204,36 @@ public class MainController{
     @FXML
     void closeWindow(ActionEvent event) {
     	// go back to main scene when profile / popup closed
-    	primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    	primaryStage = (Stage)((Node)event.getSource())
+                .getScene()
+                .getWindow();
         primaryStage.setScene(mainScene);
     }
+    @FXML
+    void exportSortedList(ActionEvent event) {
+        File exportListPath = fileChooser.showSaveDialog(primaryStage);
+        if(exportListPath == null){
+            return;
+            //popup, what is cancel is pressed?
+        }
+        
+        exportSorted(exportListPath.getAbsolutePath(),"GOT");
+        //popup confirm exported file
+    }   
     
-    public void loadCharacters(){
-        String[] charactersNames = Genealogy.getAllPeople("GOT"); 
-        characterSelect1.getItems().addAll(charactersNames);
-        characterSelect2.getItems().addAll(charactersNames);
+    void loadCharacters(String familyName){
+        String[] charactersNames = getAllPeople(familyName); 
+        if (charactersNames == null){
+            return; 
+            //popup?
+        }
+        
+        ObservableList<String> obsNames = FXCollections
+                .observableArrayList(charactersNames);
+        
+        
+        characterSelect1.setItems(obsNames);
+        characterSelect2.setItems(obsNames);
     }
     
     @FXML public void list1Clicked(MouseEvent arg0) {
