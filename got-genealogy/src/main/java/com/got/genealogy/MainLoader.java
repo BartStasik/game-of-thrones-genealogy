@@ -1,6 +1,7 @@
 package com.got.genealogy;
 
-import com.got.genealogy.userinterface.FXMLController;
+import com.got.genealogy.userinterface.MainController;
+import com.got.genealogy.userinterface.InterfaceController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,34 +17,37 @@ public class MainLoader extends Application {
 
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
-        //FXMLLoader popupLoader = new FXMLLoader();
+        FXMLLoader profileLoader = new FXMLLoader();
 
         interfaceLoader.setLocation(getClass().getResource("/fxml/interface.fxml"));
         mainLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
-        //popupLoader.setLocation(getClass().getResource("/fxml/popup.fxml"));
+        profileLoader.setLocation(getClass().getResource("/fxml/profile.fxml"));
 
         AnchorPane interfacePane = interfaceLoader.load();
         VBox mainPane = mainLoader.load();
-        //AnchorPane popupPane = popupLoader.load();
+        AnchorPane profilePane = profileLoader.load();
 
-        Scene firstScene = new Scene(interfacePane);
-        Scene secondScene = new Scene(mainPane);
-        //Scene popupScene = new Scene(popupPane);
+        Scene interfaceScene = new Scene(interfacePane);
+        Scene mainScene = new Scene(mainPane);
+        Scene profileScene = new Scene(profilePane);
+
 
         primaryStage.setTitle("Game Of Thrones Genealogy");
-        primaryStage.setScene(firstScene);
+        primaryStage.setScene(interfaceScene);
         primaryStage.show();
         
         // inject main.fxml scene into the controller of the interface.fxml scene
-        FXMLController firstPaneController = (FXMLController) interfaceLoader.getController();
-        firstPaneController.setSecondScene(secondScene);
+        InterfaceController interfacePaneController = (InterfaceController) interfaceLoader.getController();
+        interfacePaneController.setMainScene(mainScene);
         
-        // inject first scene into the controller of the main.fxml scene
-        //FXMLController secondPaneController = (FXMLController) mainLoader.getController();
-        //secondPaneController.setFirstScene(firstScene);
+        // inject popup.fxml scene into the controller of the main.fxml scene
+        MainController mainPaneController = (MainController) mainLoader.getController();
+        mainPaneController.setProfileScene(profileScene);
         
-        //FXMLController popupPaneController = (FXMLController) popupLoader.getController();
-        //popupPaneController.setPopupScene(popupScene);
+        // inject main.fxml scene into the controller of the popup.fxml scene
+        MainController profilePaneController = (MainController) profileLoader.getController();
+        profilePaneController.setMainScene(mainScene);
+
     }
     
     public static void main(String[] args) {

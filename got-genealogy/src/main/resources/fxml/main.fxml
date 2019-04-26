@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,38 +11,30 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.FXMLController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.MainController">
    <children>
       <SplitPane orientation="VERTICAL" prefWidth="160.0" style="-fx-background-color: #000;" styleClass="face-bg">
         <items>
-            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1078.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
+            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1500.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
                <children>
-                  <Text fill="WHITE" layoutX="399.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="FAMILY RELATIONS" />
-                  <Group layoutX="81.0" layoutY="145.0" />
-                  <Label layoutX="38.0" layoutY="70.0" text="CHARACTER 1" />
-                  <Label layoutX="876.0" layoutY="70.0" text="CHARACTER 2" />
-                  <TextField fx:id="person1" layoutX="38.0" layoutY="94.0" prefHeight="31.0" prefWidth="254.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <TextField fx:id="person2" layoutX="750.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="254.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <Button fx:id="submitBtn" layoutX="359.0" layoutY="185.0" mnemonicParsing="false" onAction="#findRelation" prefHeight="36.0" prefWidth="121.0" styleClass="ice-button" text="SUBMIT" />
-                  <Button fx:id="clearBtn" layoutX="579.0" layoutY="186.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="36.0" prefWidth="121.0" styleClass="ice-button" text="CLEAR" />
-                  <Label fx:id="dispField" alignment="CENTER" layoutX="391.0" layoutY="83.0" prefHeight="90.0" prefWidth="286.0" text="THIS IS A REALLY REALLY REALLY BIG TEST PIECE OF TEXT" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="Comic Sans MS" size="12.0" />
-                     </font></Label>
-                  <Label fx:id="dispProfile" alignment="TOP_LEFT" layoutX="42.0" layoutY="140.0" prefHeight="216.0" prefWidth="245.0" style="-fx-border-color: #fff;" text="Results for profile" />
-                  <Label fx:id="dispProfile1" alignment="TOP_LEFT" layoutX="753.0" layoutY="142.0" prefHeight="216.0" prefWidth="252.0" style="-fx-border-color: #fff;" text="Results for profile" />
-                  <Button fx:id="profileBtn" layoutX="411.0" layoutY="262.0" mnemonicParsing="false" onAction="#loadProfile" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="VIEW PROFILE" />
-                  <Button fx:id="exportFamily" layoutX="419.0" layoutY="629.0" mnemonicParsing="false" onAction="#exportFamily" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="EXPORT FAMILY" />
-                  <ImageView fitHeight="194.0" fitWidth="254.0" layoutX="394.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true">
+                  <Text fill="WHITE" layoutX="610.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="CHARACTER SELECT" />
+                  <Label layoutX="121.0" layoutY="69.0" text="CHARACTER 1" />
+                  <Label layoutX="1250.0" layoutY="66.0" text="CHARACTER 2" />
+                  <Label fx:id="dispField" alignment="CENTER" layoutX="602.0" layoutY="81.0" prefHeight="90.0" prefWidth="286.0" text="" textAlignment="CENTER" wrapText="true" styleClass="relationship"/>
+                  <Label fx:id="dispProfile" alignment="TOP_LEFT" layoutX="254.0" layoutY="353.0" prefHeight="216.0" prefWidth="245.0" style="-fx-border-color: #fff;" text="Results for profile" />
+                  <Label fx:id="dispProfile1" alignment="TOP_LEFT" layoutX="965.0" layoutY="342.0" prefHeight="216.0" prefWidth="252.0" style="-fx-border-color: #fff;" text="Results for profile" />
+                  <Button fx:id="profileBtn" layoutX="622.0" layoutY="260.0" mnemonicParsing="false" onAction="#loadProfile" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="VIEW PROFILE" />
+                  <Button fx:id="exportFamily" layoutX="630.0" layoutY="627.0" mnemonicParsing="false" onAction="#exportFamily" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="EXPORT FAMILY" />
+                  <ImageView fitHeight="194.0" fitWidth="254.0" layoutX="605.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../logo.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="dispExportResults" alignment="TOP_LEFT" layoutX="380.0" layoutY="319.0" prefHeight="154.0" prefWidth="326.0" style="-fx-border-color: #fff;" text="Results for export" wrapText="true" />
-                  <Button fx:id="browseBtn" layoutX="572.0" layoutY="491.0" mnemonicParsing="false" onAction="#chooseSaveLocation" prefHeight="36.0" prefWidth="127.0" styleClass="ice-button" text="BROWSE" />
-                  <Label fx:id="dispProfile11" alignment="TOP_LEFT" layoutX="334.0" layoutY="488.0" prefHeight="36.0" prefWidth="190.0" text="Choose a export location " />
-                  <ListView fx:id="characterSelect1" layoutX="50.0" layoutY="426.0" prefHeight="200.0" prefWidth="200.0" />
-                  <ListView fx:id="characterSelect2" layoutX="779.0" layoutY="427.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Label fx:id="dispExportResults" alignment="TOP_LEFT" layoutX="591.0" layoutY="317.0" prefHeight="154.0" prefWidth="326.0" style="-fx-border-color: #fff;" text="Results for export" wrapText="true" />
+                  <ListView fx:id="characterSelect1" onMouseClicked="#list1Clicked" layoutX="21.0" layoutY="141.0" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
+                  <ListView fx:id="characterSelect2" onMouseClicked="#list2Clicked" layoutX="1263.0" layoutY="138.0" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
+                  <Label fx:id="character1" layoutX="254.0" layoutY="600.0" prefHeight="20.0" prefWidth="246.0" styleClass="characterName" />
+                  <Label fx:id="character2" layoutX="968.0" layoutY="600.0" prefHeight="20.0" prefWidth="246.0" styleClass="characterName" />
                </children>
             </AnchorPane>
         </items>
