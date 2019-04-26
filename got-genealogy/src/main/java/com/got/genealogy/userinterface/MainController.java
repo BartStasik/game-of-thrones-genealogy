@@ -111,7 +111,7 @@ public class MainController{
             return;
         }
         //Find relationship - method comes from Genealogy
-        String[] relationship = findRelationship(person1Name, person2Name, "Stark");
+        String[] relationship = findRelationship(person1Name, person2Name, "GOT");
         dispField.setText("");
         
         // Print out list of relationship attributes between two characters
@@ -133,7 +133,7 @@ public class MainController{
         dispExportResults.setText("Exporting to: " + exportPath + "\n");
         // 2. export file using load method
         // 3. Display filepath and array of items that were exported on screen
-        String exportOutput = Arrays.toString(exportDOT(exportPath,"Stark"));
+        String exportOutput = Arrays.toString(exportDOT(exportPath,"GOT"));
         dispExportResults.setText("Exported to: " + exportPath + "\n" + exportOutput);
     }
     // --------------------------- --------------------------- ---------------------------
@@ -156,7 +156,7 @@ public class MainController{
         String displayPerson1Details = "";
 
         //Turn map into string, delete curly branckets and eplace commas with new lines
-        Map<String, String> characterDetails = getPersonDetails(personName1, "Stark");
+        Map<String, String> characterDetails = getPersonDetails(personName1, "GOT");
         for (Map.Entry<String, String> entry : characterDetails.entrySet()) {
             displayPerson1Details = (displayPerson1Details + entry.getKey() + ": " + entry.getValue() + "\n");
         }
@@ -174,7 +174,7 @@ public class MainController{
         String personName2 = character2.getText();
         String displayPerson2Details = "";
 
-        Map<String, String> characterDetails = getPersonDetails(personName2, "Stark");
+        Map<String, String> characterDetails = getPersonDetails(personName2, "GOT");
         for (Map.Entry<String, String> entry : characterDetails.entrySet()) {
             displayPerson2Details = (displayPerson2Details + entry.getKey() + ": " + entry.getValue() + "\n");
         }
@@ -216,7 +216,7 @@ public class MainController{
     }
     
     public void loadCharacters(){
-        String[] charactersNames = Genealogy.getAllCharacters("Stark"); 
+        String[] charactersNames = Genealogy.getAllPeople("GOT"); 
         characterSelect1.getItems().addAll(charactersNames);
         characterSelect2.getItems().addAll(charactersNames);
     }

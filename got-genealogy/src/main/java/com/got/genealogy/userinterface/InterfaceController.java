@@ -67,8 +67,8 @@ public class InterfaceController{
     
     @FXML 
     protected void startGame(ActionEvent event) throws Exception  {
-        loadPersonDetailsFile(ProfileFilePath,"Stark");
-        loadRelationsFile(RelationshipFilePath,"Stark");
+        loadPersonDetailsFile(ProfileFilePath,"GOT");
+        loadRelationsFile(RelationshipFilePath,"GOT");
         
         // load the main scene when "play" is clicked
     	primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
