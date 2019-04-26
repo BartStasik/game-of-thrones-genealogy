@@ -20,7 +20,7 @@
                   <Text fill="WHITE" layoutX="610.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="CHARACTER SELECT" />
                   <Label layoutX="121.0" layoutY="69.0" text="CHARACTER 1" />
                   <Label layoutX="1250.0" layoutY="66.0" text="CHARACTER 2" />
-                  <Label fx:id="dispField" alignment="CENTER" layoutX="602.0" layoutY="81.0" prefHeight="90.0" prefWidth="286.0" text="" textAlignment="CENTER" wrapText="true" styleClass="relationship"/>
+                  <Label fx:id="dispField" alignment="CENTER" layoutX="546.0" layoutY="81.0" prefHeight="90.0" prefWidth="350.0" text="" textAlignment="CENTER" wrapText="true" styleClass="relationship"/>
                   <Label fx:id="dispProfile" alignment="TOP_LEFT" layoutX="254.0" layoutY="353.0" prefHeight="216.0" prefWidth="245.0" style="-fx-border-color: #fff;" text="Results for profile" />
                   <Label fx:id="dispProfile1" alignment="TOP_LEFT" layoutX="965.0" layoutY="342.0" prefHeight="216.0" prefWidth="252.0" style="-fx-border-color: #fff;" text="Results for profile" />
                   <Button fx:id="profileBtn" layoutX="622.0" layoutY="260.0" mnemonicParsing="false" onAction="#loadProfile" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="VIEW PROFILE" />

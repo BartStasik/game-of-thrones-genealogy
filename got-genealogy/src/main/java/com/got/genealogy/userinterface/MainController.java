@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 
 import static com.got.genealogy.core.processor.Genealogy.findRelationship;
 import static com.got.genealogy.core.processor.Genealogy.exportDOT;
+import static com.got.genealogy.core.processor.Genealogy.getPersonDetails;
 import java.util.Arrays;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -147,23 +148,23 @@ public class MainController implements Initializable{
     void loadProfile(ActionEvent event) {
     	
 //        // Get name from textbox
-//        String personName1 = person1.getText();
-//        String personName2 = person2.getText();
+        String personName1 = character1.getText();
+        String personName2 = character2.getText();
 //
-//        //Turn map into string, delete curly branckets and eplace commas with new lines
-//        String displayPerson1Details = getPersonDetails(personName1,"Stark").toString().replaceAll(", ", "\n");
-//        displayPerson1Details = displayPerson1Details.replaceAll("\\{", "");
-//        displayPerson1Details = displayPerson1Details.replaceAll("\\}", "");
-//        dispProfile.setText(displayPerson1Details);
+        //Turn map into string, delete curly branckets and eplace commas with new lines
+        String displayPerson1Details = getPersonDetails(personName1,"Stark").toString().replaceAll(", ", "\n");
+        displayPerson1Details = displayPerson1Details.replaceAll("\\{", "");
+        displayPerson1Details = displayPerson1Details.replaceAll("\\}", "");
+       dispProfile.setText(displayPerson1Details);
         
         //Load profile sceen to display results
     	primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(profileScene);
         
-//        String displayPerson2Details = getPersonDetails(personName2,"Stark").toString().replaceAll(", ", "\n");
-//        displayPerson2Details = displayPerson2Details.replaceAll("\\{", "");
-//        displayPerson2Details = displayPerson2Details.replaceAll("\\}", "");
-//        dispProfile1.setText(displayPerson2Details);
+        String displayPerson2Details = getPersonDetails(personName2,"Stark").toString().replaceAll(", ", "\n");
+        displayPerson2Details = displayPerson2Details.replaceAll("\\{", "");
+        displayPerson2Details = displayPerson2Details.replaceAll("\\}", "");
+        dispProfile1.setText(displayPerson2Details);
     }
 
     @FXML
