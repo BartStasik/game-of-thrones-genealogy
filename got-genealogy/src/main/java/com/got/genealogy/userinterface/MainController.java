@@ -79,18 +79,24 @@ public class MainController {
         
         if(character1.getText().equals("") || character2.getText().equals("")){
             return;
-        }
-        //Find relationship - method comes from Genealogy
-        String[] relationship = 
-                findRelationship(person1Name, person2Name, "GOT");
-        if (relationship == null) {
-            return;
-        }
-        dispField.setText("");
-        
-        // Print out list of relationship attributes between two characters
-        for (String realtionshipType : relationship) {
-            dispField.setText(dispField.getText() + "\n" + realtionshipType);
+        } else if (character1.getText().equals(character2.getText())){
+            dispField.setText("Is");
+        } else{
+            //Find relationship - method comes from Genealogy
+            String[] relationship = 
+                    findRelationship(person1Name, person2Name, "GOT");
+            if (relationship == null) {
+                return;
+            }
+            dispField.setText("");
+
+            // Print out list of relationship attributes between two characters
+            for (String realtionshipType : relationship) {
+                dispField.setText(
+                        dispField.getText()  
+                        + realtionshipType
+                        + "\n");
+            }
         }
     }
 
@@ -114,7 +120,7 @@ public class MainController {
         String[] fileOutput = exportDOT(exportPath
                 .getAbsolutePath(),"GOT");
         String exportOutput = Arrays.toString(fileOutput);
-        dispExportResults.setText("Exported to: " + exportPath + "\n" + 
+        dispExportResults.setText("Exported to: " + exportPath + ".gv \n" + 
                 exportOutput);
     }
     // --------------------------- --------------------------- ---------------------------
@@ -168,9 +174,11 @@ public class MainController {
 
     @FXML
     void loadDataBlocker(ActionEvent event) {
-        URL gotRelations = getClass()
+        URL gotRelations = InterfaceController.class
+                .getClassLoader()
                 .getResource("GOTRelationships.txt");
-        URL gotDetails = getClass()
+        URL gotDetails = InterfaceController.class
+                .getClassLoader()
                 .getResource("PersonDetails.txt");
 
         if (gotRelations == null || gotDetails == null) {
