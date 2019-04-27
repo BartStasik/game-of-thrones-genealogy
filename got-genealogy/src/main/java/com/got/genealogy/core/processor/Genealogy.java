@@ -6,22 +6,15 @@ import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.family.person.Relationship;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static com.got.genealogy.core.family.person.Relationship.*;
-import static com.got.genealogy.core.processor.data.File.exportGVFile;
-import static com.got.genealogy.core.processor.data.File.exportSortedFile;
-import static com.got.genealogy.core.processor.data.File.loadFile;
+import static com.got.genealogy.core.processor.data.File.*;
 import static com.got.genealogy.core.processor.data.InformationPool.*;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
-import static com.got.genealogy.core.processor.data.StringUtils.writeFileExtension;
 
 public class Genealogy {
 
@@ -186,7 +179,9 @@ public class Genealogy {
         return family == null ? null : exportSortedFile(absolutePath, family);
     }
 
-    public static String[] findRelationship(String name1, String name2, String familyName) {
+    public static String[] findRelationship(String name1,
+                                            String name2,
+                                            String familyName) {
         FamilyTree family = getFamily(familyName);
         if (family == null) {
             return null;
@@ -214,14 +209,16 @@ public class Genealogy {
         String[] allPeople = new String[sortedPeople.size()];
 
         Collections.sort(sortedPeople);
-        for (int i = 0; i < sortedPeople.size(); i ++) {
+        for (int i = 0; i < sortedPeople.size(); i++) {
             allPeople[i] = sortedPeople.get(i).getLabel();
         }
 
         return allPeople;
     }
 
-    private static String[] processRelationship(Person person1, Person person2, FamilyTree family) {
+    private static String[] processRelationship(Person person1,
+                                                Person person2,
+                                                FamilyTree family) {
         int x, y, z, p;
         int[] coordinates;
         String relationship;
