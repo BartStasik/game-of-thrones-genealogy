@@ -250,7 +250,6 @@ public class Genealogy {
                 for (String extra : direct.getExtras()) {
                     relationships.add(toTitleCase(extra));
                 }
-                ;
             } else {
                 relationship = getRelationship(gender, direct);
                 if (!relationship.isEmpty()) {
