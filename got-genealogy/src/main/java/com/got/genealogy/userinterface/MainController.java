@@ -13,8 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import static com.got.genealogy.core.processor.Genealogy.*;
+import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Map;
@@ -169,26 +171,17 @@ public class MainController {
 
     @FXML
     void loadDataBlocker(ActionEvent event) {
-        URL gotRelations = InterfaceController.class
-                .getClassLoader()
-                .getResource("GOTRelationships.txt");
-        URL gotDetails = InterfaceController.class
-                .getClassLoader()
-                .getResource("PersonDetails.txt");
+        InputStream gotRelations = decodeResource("GOTRelationships.txt");
+        InputStream gotDetails = decodeResource("PersonDetails.txt");
 
         if (gotRelations == null || gotDetails == null) {
             return;
         }
 
-        String gotRelationsPath = new File(gotRelations.getFile())
-                .getAbsolutePath();
-        String gotDetailsPath = new File(gotDetails.getFile())
-                .getAbsolutePath();
-
         //error if false
-        loadRelationsFile(gotRelationsPath, "GOT");
+        loadRelationsFile(gotRelations, "GOT");
         //error if null
-        loadPersonDetailsFile(gotDetailsPath, "GOT");
+        loadPersonDetailsFile(gotDetails, "GOT");
         loadCharacters("GOT");
         anchorParent.getChildren().remove(loadButton);
     }

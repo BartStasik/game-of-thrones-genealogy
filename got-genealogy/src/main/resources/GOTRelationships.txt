@@ -80,5 +80,4 @@ Gregor Clegane,rivalry,Sandor Clegane
 Gregor Clegane,killed,Elia Martell
 Gregor Clegane,killed,Rhaenys Targaryen
 Gregor Clegane,killed,Aegon Targaryen
-Gregor Clegane,fucked,Aegon Targaryen
 
