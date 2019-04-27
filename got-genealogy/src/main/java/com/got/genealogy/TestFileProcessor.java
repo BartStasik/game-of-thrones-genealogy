@@ -7,6 +7,7 @@ import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Weight;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +25,16 @@ public class TestFileProcessor {
         boolean testPassed = true;
         int i = 0;
 
-        String testRelationPath, testDetailsPath, sourceCodePath;
+        String sourceCodePath;
 
-        testRelationPath = decodeResource("RelationshipTestFile.txt");
-        testDetailsPath = decodeResource("PersonDetailsTestFile.txt");
+        InputStream testResource = decodeResource("RelationshipTestFile.txt");
+        InputStream testDetailsResource = decodeResource("PersonDetailsTestFile.txt");
         URL sourceCodeLocation = TestFileProcessor.class
                 .getProtectionDomain()
                 .getCodeSource()
                 .getLocation();
 
-        if (testRelationPath == null || testDetailsPath == null) {
+        if (testResource == null || testDetailsResource == null) {
             return;
         }
         sourceCodePath = decodeURL(
@@ -41,8 +42,8 @@ public class TestFileProcessor {
 
         // Disregarding case. Different
         // familyName case is intentional.
-        loadRelationsFile(testRelationPath, "TEST");
-        loadPersonDetailsFile(testDetailsPath, "Test");
+        loadRelationsFile(testResource, "TEST");
+        loadPersonDetailsFile(testDetailsResource, "Test");
         exportDOT(sourceCodePath + "TestDOT", "Test");
         exportSorted(sourceCodePath + "TestSorted", "Test");
 

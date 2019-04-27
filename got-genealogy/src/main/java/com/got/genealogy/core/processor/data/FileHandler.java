@@ -7,7 +7,14 @@ import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.property.WeightedVertex;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -21,11 +28,10 @@ import static com.got.genealogy.core.processor.data.StringUtils.writeFileExtensi
 
 public class FileHandler {
 
-    public static String[][] loadFile(String absolutePath) {
+    public static String[][] loadResourceFile(InputStream resourceStream) {
         try {
-            String decodedURL = URLDecoder.decode(absolutePath, "UTF-8");
             BufferedReader br = new BufferedReader(
-                    new FileReader(decodedURL));
+                    new InputStreamReader(resourceStream));
             List<String[]> trimmedFile = new ArrayList<>();
             String[] words;
             String line;
@@ -140,16 +146,14 @@ public class FileHandler {
         }
     }
 
-    public static String decodeResource(String relativeResource) {
-        URL resourceURL = FileHandler.class
+    public static InputStream decodeResource(String relativeResource) {
+        InputStream resourceURL = FileHandler.class
                 .getClassLoader()
-                .getResource(relativeResource);
+                .getResourceAsStream(relativeResource);
         if (resourceURL == null) {
             return null;
         }
-        String resourcePath = new File(resourceURL.getFile())
-                .getAbsolutePath();
-        return decodeURL(resourcePath);
+        return resourceURL;
     }
 
     private static void writeRelationshipLine(String person1,
