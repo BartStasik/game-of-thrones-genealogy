@@ -6,13 +6,14 @@ import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.family.person.Relationship;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static com.got.genealogy.core.family.person.Relationship.*;
-import static com.got.genealogy.core.processor.data.File.*;
+import static com.got.genealogy.core.processor.data.FileHandler.*;
 import static com.got.genealogy.core.processor.data.InformationPool.*;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 
@@ -74,9 +75,9 @@ public class Genealogy {
         return details;
     }
 
-    public static boolean loadPersonDetailsFile(String absolutePath, String familyName) {
+    public static boolean loadPersonDetailsFile(InputStream resourceStream, String familyName) {
         try {
-            String[][] file = loadFile(absolutePath);
+            String[][] file = loadResourceFile(resourceStream);
             FamilyTree family = getFamily(familyName);
 
             String personName;
@@ -120,9 +121,9 @@ public class Genealogy {
         return true;
     }
 
-    public static FamilyTree loadRelationsFile(String absolutePath, String familyName) {
+    public static FamilyTree loadRelationsFile(InputStream resourceStream, String familyName) {
         try {
-            String[][] file = loadFile(absolutePath);
+            String[][] file = loadResourceFile(resourceStream);
             FamilyTree family = getFamily(familyName);
 
             if (file == null) {

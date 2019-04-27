@@ -7,7 +7,15 @@ import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.property.WeightedVertex;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,13 +26,12 @@ import static com.got.genealogy.core.processor.data.InformationPool.getRelations
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 import static com.got.genealogy.core.processor.data.StringUtils.writeFileExtension;
 
-public class File {
+public class FileHandler {
 
-    public static String[][] loadFile(String absolutePath) {
+    public static String[][] loadResourceFile(InputStream resourceStream) {
         try {
-            String decodedURL = URLDecoder.decode(absolutePath, "UTF-8");
             BufferedReader br = new BufferedReader(
-                    new FileReader(decodedURL));
+                    new InputStreamReader(resourceStream));
             List<String[]> trimmedFile = new ArrayList<>();
             String[] words;
             String line;
@@ -128,6 +135,25 @@ public class File {
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             return null;
         }
+    }
+
+    public static String decodeURL(String path) {
+        try {
+            return URLDecoder.decode(path, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static InputStream decodeResource(String relativeResource) {
+        InputStream resourceURL = FileHandler.class
+                .getClassLoader()
+                .getResourceAsStream(relativeResource);
+        if (resourceURL == null) {
+            return null;
+        }
+        return resourceURL;
     }
 
     private static void writeRelationshipLine(String person1,

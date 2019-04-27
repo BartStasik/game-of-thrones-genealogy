@@ -7,13 +7,15 @@ import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
 import com.got.genealogy.core.graph.property.Weight;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import static com.got.genealogy.core.processor.Genealogy.*;
+import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
+import static com.got.genealogy.core.processor.data.FileHandler.decodeURL;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 
 
@@ -23,17 +25,10 @@ public class TestFileProcessor {
         boolean testPassed = true;
         int i = 0;
 
-        String testRelationPath, testDetailsPath, sourceCodePath;
+        String sourceCodePath;
 
-        URL testResource = TestFileProcessor.class
-                .getClassLoader()
-                .getResource("RelationshipTestFile.txt");
-
-        URL testDetailsResource = TestFileProcessor.class
-                .getClassLoader()
-                .getResource("PersonDetailsTestFile.txt");
-
-
+        InputStream testResource = decodeResource("RelationshipTestFile.txt");
+        InputStream testDetailsResource = decodeResource("PersonDetailsTestFile.txt");
         URL sourceCodeLocation = TestFileProcessor.class
                 .getProtectionDomain()
                 .getCodeSource()
@@ -42,18 +37,13 @@ public class TestFileProcessor {
         if (testResource == null || testDetailsResource == null) {
             return;
         }
-        testRelationPath = new File(testResource.getFile())
-                .getAbsolutePath();
-        testDetailsPath = new File(testDetailsResource.getFile())
-                .getAbsolutePath();
-
-        sourceCodePath = new File(sourceCodeLocation.getFile())
-                .getParent() + File.separator;
+        sourceCodePath = decodeURL(
+                new File(sourceCodeLocation.getFile()).getParent() + File.separator);
 
         // Disregarding case. Different
         // familyName case is intentional.
-        loadRelationsFile(testRelationPath, "TEST");
-        loadPersonDetailsFile(testDetailsPath, "Test");
+        loadRelationsFile(testResource, "TEST");
+        loadPersonDetailsFile(testDetailsResource, "Test");
         exportDOT(sourceCodePath + "TestDOT", "Test");
         exportSorted(sourceCodePath + "TestSorted", "Test");
 
