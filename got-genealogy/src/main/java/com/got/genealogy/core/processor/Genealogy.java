@@ -6,22 +6,16 @@ import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.family.person.Relationship;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static com.got.genealogy.core.family.person.Relationship.*;
-import static com.got.genealogy.core.processor.data.File.exportGVFile;
-import static com.got.genealogy.core.processor.data.File.exportSortedFile;
-import static com.got.genealogy.core.processor.data.File.loadFile;
+import static com.got.genealogy.core.processor.data.FileHandler.*;
 import static com.got.genealogy.core.processor.data.InformationPool.*;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
-import static com.got.genealogy.core.processor.data.StringUtils.writeFileExtension;
 
 public class Genealogy {
 
@@ -81,9 +75,9 @@ public class Genealogy {
         return details;
     }
 
-    public static boolean loadPersonDetailsFile(String absolutePath, String familyName) {
+    public static boolean loadPersonDetailsFile(InputStream resourceStream, String familyName) {
         try {
-            String[][] file = loadFile(absolutePath);
+            String[][] file = loadResourceFile(resourceStream);
             FamilyTree family = getFamily(familyName);
 
             String personName;
@@ -94,18 +88,30 @@ public class Genealogy {
             }
 
             for (String[] row : file) {
-                if (row.length == 3) {
-                    personName = row[0];
-                    person = family.getPerson(personName);
-                    if (person == null) {
-                        person = family.addPerson(personName);
-                    }
-                    if (row[1].toUpperCase().equals("GENDER")) {
-                        person.setGender(getInputGender(row[2]));
-                    }
-                    person.addDetail(row[1], row[2]);
-                } else {
+                if (row.length < 2 || row.length > 3)
                     return false;
+
+                personName = row[0];
+                person = family.getPerson(personName);
+
+                if (person == null)
+                    person = family.addPerson(personName);
+
+                if (row[1].toUpperCase().equals("GENDER")) {
+                    if (row.length != 3)
+                        return false;
+                    person.setGender(getInputGender(row[2]));
+                } else {
+                    switch (row.length) {
+                        case 2:
+                            person.addDetail(row[1], "Unknown");
+                            break;
+                        case 3:
+                            person.addDetail(row[1], row[2]);
+                            break;
+                        default:
+                            return false;
+                    }
                 }
             }
         } catch (Exception e) {
@@ -115,9 +121,9 @@ public class Genealogy {
         return true;
     }
 
-    public static FamilyTree loadRelationsFile(String absolutePath, String familyName) {
+    public static FamilyTree loadRelationsFile(InputStream resourceStream, String familyName) {
         try {
-            String[][] file = loadFile(absolutePath);
+            String[][] file = loadResourceFile(resourceStream);
             FamilyTree family = getFamily(familyName);
 
             if (file == null) {
@@ -186,7 +192,9 @@ public class Genealogy {
         return family == null ? null : exportSortedFile(absolutePath, family);
     }
 
-    public static String[] findRelationship(String name1, String name2, String familyName) {
+    public static String[] findRelationship(String name1,
+                                            String name2,
+                                            String familyName) {
         FamilyTree family = getFamily(familyName);
         if (family == null) {
             return null;
@@ -214,14 +222,16 @@ public class Genealogy {
         String[] allPeople = new String[sortedPeople.size()];
 
         Collections.sort(sortedPeople);
-        for (int i = 0; i < sortedPeople.size(); i ++) {
+        for (int i = 0; i < sortedPeople.size(); i++) {
             allPeople[i] = sortedPeople.get(i).getLabel();
         }
 
         return allPeople;
     }
 
-    private static String[] processRelationship(Person person1, Person person2, FamilyTree family) {
+    private static String[] processRelationship(Person person1,
+                                                Person person2,
+                                                FamilyTree family) {
         int x, y, z, p;
         int[] coordinates;
         String relationship;
@@ -240,7 +250,6 @@ public class Genealogy {
                 for (String extra : direct.getExtras()) {
                     relationships.add(toTitleCase(extra));
                 }
-                ;
             } else {
                 relationship = getRelationship(gender, direct);
                 if (!relationship.isEmpty()) {
