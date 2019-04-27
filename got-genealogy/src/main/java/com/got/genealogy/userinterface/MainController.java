@@ -168,11 +168,9 @@ public class MainController {
 
     @FXML
     void loadDataBlocker(ActionEvent event) {
-        URL gotRelations = MainController.class
-                .getClassLoader()
+        URL gotRelations = getClass()
                 .getResource("GOTRelationships.txt");
-        URL gotDetails = MainController.class
-                .getClassLoader()
+        URL gotDetails = getClass()
                 .getResource("PersonDetails.txt");
 
         if (gotRelations == null || gotDetails == null) {

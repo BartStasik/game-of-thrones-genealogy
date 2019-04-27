@@ -76,7 +76,7 @@ public class InterfaceController{
     public void initialize() {
        
        fileChooser = new FileChooser();
-       pathMusic = InterfaceController.class.getClassLoader()
+       pathMusic = getClass()
                .getResource("/MainTheme.mp3")
                .toString();
        if(pathMusic == null){

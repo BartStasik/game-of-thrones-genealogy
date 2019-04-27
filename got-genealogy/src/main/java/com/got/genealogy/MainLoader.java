@@ -19,9 +19,9 @@ public class MainLoader extends Application {
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
         
-        URL interfaceFXML = MainLoader.class.getClassLoader()
+        URL interfaceFXML = getClass()
                .getResource("/fxml/interface.fxml");
-        URL mainFXML = MainLoader.class.getClassLoader()
+        URL mainFXML = getClass()
                .getResource("/fxml/main.fxml");
                 
         if(interfaceFXML == null || mainFXML == null){
@@ -38,15 +38,13 @@ public class MainLoader extends Application {
         Scene interfaceScene = new Scene(interfacePane);
         Scene mainScene = new Scene(mainPane);
         
-        URL gotIcon = MainLoader.class.getClassLoader()
-               .getResource("/icon.png");
+        URL gotIcon = getClass().getResource("/icon.png");
+        
         if(gotIcon == null){
             return;
             //popup
         }
-        else {
-            primaryStage.getIcons().add(new Image(gotIcon.toExternalForm()));
-        }
+        primaryStage.getIcons().add(new Image(gotIcon.toExternalForm()));
         primaryStage.setTitle("Game Of Thrones Genealogy");
         primaryStage.setScene(interfaceScene);
         primaryStage.show();
