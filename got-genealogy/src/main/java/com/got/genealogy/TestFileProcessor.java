@@ -9,6 +9,7 @@ import com.got.genealogy.core.graph.property.Weight;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +28,12 @@ public class TestFileProcessor {
         URL testResource = TestFileProcessor.class
                 .getClassLoader()
                 .getResource("RelationshipTestFile.txt");
+
         URL testDetailsResource = TestFileProcessor.class
                 .getClassLoader()
                 .getResource("PersonDetailsTestFile.txt");
+
+
         URL sourceCodeLocation = TestFileProcessor.class
                 .getProtectionDomain()
                 .getCodeSource()
@@ -42,6 +46,7 @@ public class TestFileProcessor {
                 .getAbsolutePath();
         testDetailsPath = new File(testDetailsResource.getFile())
                 .getAbsolutePath();
+
         sourceCodePath = new File(sourceCodeLocation.getFile())
                 .getParent() + File.separator;
 
