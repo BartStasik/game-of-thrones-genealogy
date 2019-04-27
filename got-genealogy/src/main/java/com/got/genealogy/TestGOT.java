@@ -1,42 +1,39 @@
 package com.got.genealogy;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
-import static com.got.genealogy.core.processor.Genealogy.*;
+import static com.got.genealogy.core.processor.Genealogy.exportDOT;
 import static com.got.genealogy.core.processor.Genealogy.exportSorted;
+import static com.got.genealogy.core.processor.Genealogy.findRelationship;
+import static com.got.genealogy.core.processor.Genealogy.getPersonDetails;
+import static com.got.genealogy.core.processor.Genealogy.loadPersonDetailsFile;
+import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
+import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 
 public class TestGOT {
+
     public static void main(String[] args) {
 
-        String testGenealogyPath, testDetailsPath, sourceCodePath;
+        String sourceCodePath;
 
-        URL testGenealogyTree = TestFileProcessor.class
-                .getClassLoader()
-                .getResource("GenealogyTree.txt");
+        InputStream testGenealogyTree = decodeResource("GenealogyTree.txt");
 
-        URL testDetailsResource = TestFileProcessor.class
-                .getClassLoader()
-                .getResource("PersonDetails.txt");
+        InputStream testDetailsResource = decodeResource("PersonDetails.txt");
 
-        URL sourceCodeLocation = TestFileProcessor.class
+        URL sourceCodeLocation = TestGOT.class
                 .getProtectionDomain()
                 .getCodeSource()
                 .getLocation();
 
-        testDetailsPath = new File(testDetailsResource.getFile())
-                .getAbsolutePath();
-
-        testGenealogyPath = new File(testGenealogyTree.getFile())
-                .getAbsolutePath();
-
         sourceCodePath = new File(sourceCodeLocation.getFile())
                 .getParent() + File.separator;
 
-        loadRelationsFile(testGenealogyPath, "fullTree");
-        loadPersonDetailsFile(testDetailsPath, "fullTree");
+        loadRelationsFile(testGenealogyTree, "fullTree");
+        loadPersonDetailsFile(testDetailsResource, "fullTree");
 
         exportDOT(sourceCodePath + "TestGenealogyDOT", "fullTree");
         exportSorted(sourceCodePath + "TestGenealogySorted", "fullTree");
