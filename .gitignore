@@ -9,3 +9,4 @@ target/
 *.DS_Store
 *.gv
 nb-configuration.xml
+release.properties
