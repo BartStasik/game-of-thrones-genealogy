@@ -1,8 +1,0 @@
-Bilal Rios, Alive, true
-Bilal Rios, Height, 180cm
-Leonardo Love, Alive, false
-Leonardo Love, Height, 166cm
-Brenda Torres, Height, 172cm
-Luke Puckett, House, Test
-Non Connected Dude, Profession, Butler
-Non Connected Dude, Gender, Man

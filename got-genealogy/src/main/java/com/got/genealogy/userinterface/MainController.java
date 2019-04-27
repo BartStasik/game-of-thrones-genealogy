@@ -1,6 +1,5 @@
 package com.got.genealogy.userinterface;
 
-import com.got.genealogy.core.processor.Genealogy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -11,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
 import static com.got.genealogy.core.processor.Genealogy.findRelationship;
@@ -49,9 +47,6 @@ public class MainController {
     @FXML 
     private ListView<String> characterSelect2;
 
-    @FXML 
-    private TextField personProfile;
-
     @FXML
     private Label dispProfile;
     
@@ -86,7 +81,8 @@ public class MainController {
             return;
         }
         //Find relationship - method comes from Genealogy
-        String[] relationship = findRelationship(person1Name, person2Name, "GOT");
+        String[] relationship = 
+                findRelationship(person1Name, person2Name, "GOT");
         if (relationship == null) {
             return;
         }
@@ -136,9 +132,15 @@ public class MainController {
         String displayPerson1Details = "";
 
         //Turn map into string, delete curly branckets and eplace commas with new lines
-        Map<String, String> characterDetails = getPersonDetails(personName1, "GOT");
+        Map<String, String> characterDetails = 
+                getPersonDetails(personName1, "GOT");
+        
         for (Map.Entry<String, String> entry : characterDetails.entrySet()) {
-            displayPerson1Details = (displayPerson1Details + entry.getKey() + ": " + entry.getValue() + "\n");
+            displayPerson1Details = (displayPerson1Details 
+                    + entry.getKey() 
+                    + ": " 
+                    + entry.getValue() 
+                    + "\n");
         }
         dispProfile.setText(displayPerson1Details);
         }
@@ -150,9 +152,14 @@ public class MainController {
         String personName2 = character2.getText();
         String displayPerson2Details = "";
 
-        Map<String, String> characterDetails = getPersonDetails(personName2, "GOT");
+        Map<String, String> characterDetails = 
+                getPersonDetails(personName2, "GOT");
         for (Map.Entry<String, String> entry : characterDetails.entrySet()) {
-            displayPerson2Details = (displayPerson2Details + entry.getKey() + ": " + entry.getValue() + "\n");
+            displayPerson2Details = (displayPerson2Details 
+                    + entry.getKey() 
+                    + ": " 
+                    + entry.getValue() 
+                    + "\n");
         }
         dispProfile1.setText(displayPerson2Details);
         }
@@ -161,10 +168,10 @@ public class MainController {
 
     @FXML
     void loadDataBlocker(ActionEvent event) {
-        URL gotRelations = InterfaceController.class
+        URL gotRelations = MainController.class
                 .getClassLoader()
                 .getResource("GOTRelationships.txt");
-        URL gotDetails = InterfaceController.class
+        URL gotDetails = MainController.class
                 .getClassLoader()
                 .getResource("PersonDetails.txt");
 
@@ -237,13 +244,17 @@ public class MainController {
     }
     
     @FXML public void list1Clicked(MouseEvent arg0) {
-        character1.setText(characterSelect1.getSelectionModel().getSelectedItem());
+        character1.setText(characterSelect1
+                .getSelectionModel()
+                .getSelectedItem());
         displayRelationship();
         loadCharacterProfile1();
 }
     
     @FXML public void list2Clicked(MouseEvent arg0) {
-        character2.setText(characterSelect2.getSelectionModel().getSelectedItem());
+        character2.setText(characterSelect2
+                .getSelectionModel()
+                .getSelectedItem());
         displayRelationship();
         loadCharacterProfile2();
 }

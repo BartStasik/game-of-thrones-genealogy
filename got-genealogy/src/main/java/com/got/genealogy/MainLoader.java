@@ -1,7 +1,7 @@
 package com.got.genealogy;
 
-import com.got.genealogy.userinterface.MainController;
 import com.got.genealogy.userinterface.InterfaceController;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,39 +16,46 @@ public class MainLoader extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 
-         FXMLLoader interfaceLoader = new FXMLLoader();
+        FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
-        FXMLLoader profileLoader = new FXMLLoader();
-
-        interfaceLoader.setLocation(getClass().getResource("/fxml/interface.fxml"));
-        mainLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
-        profileLoader.setLocation(getClass().getResource("/fxml/profile.fxml"));
+        
+        URL interfaceFXML = MainLoader.class.getClassLoader()
+               .getResource("/fxml/interface.fxml");
+        URL mainFXML = MainLoader.class.getClassLoader()
+               .getResource("/fxml/main.fxml");
+                
+        if(interfaceFXML == null || mainFXML == null){
+            return;
+            //popup
+        }
+        
+        interfaceLoader.setLocation(interfaceFXML);
+        mainLoader.setLocation(mainFXML);
 
         AnchorPane interfacePane = interfaceLoader.load();
         VBox mainPane = mainLoader.load();
-        AnchorPane profilePane = profileLoader.load();
 
         Scene interfaceScene = new Scene(interfacePane);
         Scene mainScene = new Scene(mainPane);
-        Scene profileScene = new Scene(profilePane);
         
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+        URL gotIcon = MainLoader.class.getClassLoader()
+               .getResource("/icon.png");
+        if(gotIcon == null){
+            return;
+            //popup
+        }
+        else {
+            primaryStage.getIcons().add(new Image(gotIcon.toExternalForm()));
+        }
         primaryStage.setTitle("Game Of Thrones Genealogy");
         primaryStage.setScene(interfaceScene);
         primaryStage.show();
         
         // inject main.fxml scene into the controller of the interface.fxml scene
-        InterfaceController interfacePaneController = (InterfaceController) interfaceLoader.getController();
+        InterfaceController interfacePaneController = (InterfaceController) 
+                interfaceLoader.getController();
         interfacePaneController.setMainScene(mainScene);
         
-        // inject popup.fxml scene into the controller of the main.fxml scene
-        MainController mainPaneController = (MainController) mainLoader.getController();
-        mainPaneController.setProfileScene(profileScene);
-        
-        // inject main.fxml scene into the controller of the popup.fxml scene
-        MainController profilePaneController = (MainController) profileLoader.getController();
-        profilePaneController.setMainScene(mainScene);
-
     }
     
     public static void main(String[] args) {

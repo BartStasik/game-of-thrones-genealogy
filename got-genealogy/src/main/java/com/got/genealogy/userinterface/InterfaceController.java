@@ -7,12 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
-import static com.got.genealogy.core.processor.Genealogy.loadPersonDetailsFile;
-import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
-import java.io.File;
-import java.net.URL;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -27,22 +22,16 @@ public class InterfaceController{
     String ProfileFilePath;
     String RelationshipFilePath;
     String exportPath;
-    FileChooser fileChooser = new FileChooser();
-    
-    String pathMusic = getClass().getResource("/MainTheme.mp3").toString();
-    Media media = new Media(pathMusic);
-    MediaPlayer player = new MediaPlayer(media); 
+    FileChooser fileChooser;
+    String pathMusic;
+    Media media;
+    MediaPlayer player; 
     
     int toggleAudio;
     
     @FXML
     private Button volumeButton;
     
-    @FXML
-    private Label relationshipFileURL;
-    
-    @FXML
-    private Label profileFileURL;
 
     //set scene to main scene
     private Scene mainScene;
@@ -73,22 +62,38 @@ public class InterfaceController{
         toggleAudio++;
         if ( (toggleAudio & 1) == 0 ){
             player.setVolume(0.0);
-            volumeButton.setStyle("-fx-background-image: url('volume-mute.png')");
+            volumeButton
+                    .setStyle("-fx-background-image: url('volume-mute.png')");
         }
         else {
             player.setVolume(0.3);
-            volumeButton.setStyle("-fx-background-image: url('volume-high.png')");
+            volumeButton
+                    .setStyle("-fx-background-image: url('volume-high.png')");
         }
     }
     
     
-    public void initialize() { 
+    public void initialize() {
+       
+       fileChooser = new FileChooser();
+       pathMusic = InterfaceController.class.getClassLoader()
+               .getResource("/MainTheme.mp3")
+               .toString();
+       if(pathMusic == null){
+           return;
+           //popup no music
+       };
+       media = new Media(pathMusic);
+       player = new MediaPlayer(media); 
        player.play();
        player.setVolume(0.2);
+       
        player.setOnEndOfMedia(new Runnable() {
-       public void run() {
-         player.seek(Duration.ZERO);
-       }
-   });
+            @Override
+            public void run() {
+                player.seek(Duration.ZERO);
+            }
+       
+        });
     }
 }
