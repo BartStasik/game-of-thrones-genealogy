@@ -25,8 +25,7 @@
     -fx-background-color: rgba(0,0,0,0.3);
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    /*-fx-font-family: "Montserrat ExtraBold";*/
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Cinzel";
     -fx-font-size: 28px;
     -fx-font-weight: 800;
     -fx-border-insets: 5;
@@ -46,7 +45,7 @@
 
 
 .h1 {
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Cinzel";
     -fx-font-size: 48px;
     -fx-font-weight: 800;
     -fx-text-fill: #ffffff;
@@ -60,14 +59,14 @@
 }
 
 .h2 {
-	-fx-font-family: "Times New Roman";
-	-fx-font-size: 28px;
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 28px;
     -fx-font-weight: 600;
     -fx-text-fill: #ffffff!important;
 }
 
 .h3 {
-	-fx-font-family: "Times New Roman";
+	-fx-font-family: "Cinzel";
     -fx-font-size: 48px;
     -fx-font-weight: 800;
     -fx-text-fill: #ffffff;
@@ -81,7 +80,7 @@
 }
 
 .label {
-	-fx-font-family: "Times New Roman";
+	-fx-font-family: "Cinzel";
 	-fx-text-fill: #ffffff!important;
 	-fx-font-size: 18px;
 }
@@ -117,4 +116,3 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
 }
-

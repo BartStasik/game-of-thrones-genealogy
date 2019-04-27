@@ -25,7 +25,7 @@
                         <Font size="41.0" />
                      </font></Label>
                   <Label fx:id="dispProfile" alignment="TOP_LEFT" layoutX="254.0" layoutY="353.0" prefHeight="216.0" prefWidth="245.0" style="-fx-border-color: #fff;" text="Results for profile" />
-                  <Label fx:id="dispProfile1" alignment="TOP_LEFT" layoutX="965.0" layoutY="342.0" prefHeight="216.0" prefWidth="252.0" style="-fx-border-color: #fff;" text="Results for profile" />
+                  <Label fx:id="dispProfile1" alignment="TOP_LEFT" layoutX="975.0" layoutY="353.0" prefHeight="216.0" prefWidth="252.0" style="-fx-border-color: #fff;" text="Results for profile" />
                   <Button fx:id="exportFamily" layoutX="749.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportFamily" prefHeight="36.0" prefWidth="200.0" styleClass="ice-button" text="EXPORT FAMILY TREE" />
                   <ImageView fitHeight="194.0" fitWidth="254.0" layoutX="605.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -34,11 +34,11 @@
                   </ImageView>
                   <Label fx:id="dispExportResults" alignment="TOP_LEFT" layoutX="591.0" layoutY="317.0" prefHeight="154.0" prefWidth="326.0" style="-fx-border-color: #fff;" text="Results for export" wrapText="true" />
                   <ListView fx:id="characterSelect1" layoutX="21.0" layoutY="141.0" onMouseClicked="#list1Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
-                  <ListView fx:id="characterSelect2" layoutX="1263.0" layoutY="138.0" onMouseClicked="#list2Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
+                  <ListView fx:id="characterSelect2" layoutX="1258.0" layoutY="129.0" onMouseClicked="#list2Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
                   <Label fx:id="character1" layoutX="236.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
-                  <Label fx:id="character2" layoutX="890.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
+                  <Label fx:id="character2" alignment="CENTER_RIGHT" layoutX="890.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
                   <Button fx:id="sortedList" layoutX="532.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportSortedList" prefHeight="36.0" prefWidth="200.0" styleClass="ice-button" text="EXPORT SORTED LIST" />
-                  <Button fx:id="loadButton" layoutY="-8.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="700.0" prefWidth="1498.0" styleClass="ice-button" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="loadButton" layoutX="-893.0" layoutY="-583.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="692.0" prefWidth="1498.0" styleClass="ice-button" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>
