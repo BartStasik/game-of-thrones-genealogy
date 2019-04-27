@@ -88,18 +88,30 @@ public class Genealogy {
             }
 
             for (String[] row : file) {
-                if (row.length == 3) {
-                    personName = row[0];
-                    person = family.getPerson(personName);
-                    if (person == null) {
-                        person = family.addPerson(personName);
-                    }
-                    if (row[1].toUpperCase().equals("GENDER")) {
-                        person.setGender(getInputGender(row[2]));
-                    }
-                    person.addDetail(row[1], row[2]);
-                } else {
+                if (row.length < 2 || row.length > 3)
                     return false;
+
+                personName = row[0];
+                person = family.getPerson(personName);
+
+                if (person == null)
+                    person = family.addPerson(personName);
+
+                if (row[1].toUpperCase().equals("GENDER")) {
+                    if (row.length != 3)
+                        return false;
+                    person.setGender(getInputGender(row[2]));
+                } else {
+                    switch (row.length) {
+                        case 2:
+                            person.addDetail(row[1], "Unknown");
+                            break;
+                        case 3:
+                            person.addDetail(row[1], row[2]);
+                            break;
+                        default:
+                            return false;
+                    }
                 }
             }
         } catch (Exception e) {
