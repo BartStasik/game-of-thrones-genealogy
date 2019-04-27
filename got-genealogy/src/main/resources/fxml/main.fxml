@@ -1,53 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.MainController">
    <children>
-      <SplitPane dividerPositions="0.1489971346704871, 0.3452722063037249" orientation="VERTICAL" prefWidth="160.0" style="-fx-background-color: #000;" styleClass="face-bg">
+      <SplitPane orientation="VERTICAL" prefWidth="160.0" style="-fx-background-color: #000;" styleClass="face-bg">
         <items>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="1078.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
+            <AnchorPane fx:id="anchorParent" layoutX="10.0" layoutY="10.0" style="-fx-background-color: transparent;" styleClass="trans-bg" stylesheets="@../styles.css">
                <children>
-                  <Button layoutX="765.0" layoutY="195.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="VIEW PROFILE" />
-                  <ComboBox layoutX="765.0" layoutY="148.0" prefHeight="31.0" prefWidth="227.0" promptText="SELECT A CHARACTER" />
-                  <Button layoutX="86.0" layoutY="196.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="LOAD FILES" />
-                  <Button layoutX="86.0" layoutY="147.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="227.0" styleClass="ice-button" text="SAVE" />
-                  <ImageView fitHeight="194.0" fitWidth="254.0" layoutX="412.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                  <Text fill="WHITE" layoutX="610.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="CHARACTER SELECT" />
+                  <Label layoutX="121.0" layoutY="69.0" text="CHARACTER 1" />
+                  <Label layoutX="1250.0" layoutY="66.0" text="CHARACTER 2" />
+                  <Label fx:id="dispField" alignment="CENTER" layoutX="574.0" layoutY="78.0" prefHeight="229.0" prefWidth="350.0" styleClass="relationship" text="" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="41.0" />
+                     </font></Label>
+                  <Label fx:id="dispProfile" alignment="TOP_LEFT" layoutX="254.0" layoutY="353.0" prefHeight="216.0" prefWidth="245.0" style="-fx-border-color: #fff;" text="Results for profile" />
+                  <Label fx:id="dispProfile1" alignment="TOP_LEFT" layoutX="975.0" layoutY="353.0" prefHeight="216.0" prefWidth="252.0" style="-fx-border-color: #fff;" text="Results for profile" />
+                  <Button fx:id="exportFamily" layoutX="749.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportFamily" prefHeight="36.0" prefWidth="200.0" styleClass="ice-button" text="EXPORT FAMILY TREE" />
+                  <ImageView fitHeight="194.0" fitWidth="254.0" layoutX="605.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../logo.png" />
                      </image>
                   </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1078.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
-               <children>
-                  <Text fill="WHITE" layoutX="401.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="FAMILY RELATIONS" />
-                  <TextField layoutX="86.0" layoutY="122.0" prefHeight="31.0" prefWidth="305.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <TextField layoutX="464.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="305.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <Label layoutX="86.0" layoutY="93.0" text="Enter Character 1" />
-                  <Label layoutX="464.0" layoutY="92.0" text="Enter Character 2" />
-                  <Button layoutX="819.0" layoutY="120.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="174.0" styleClass="ice-button" text="SUBMIT" />
-                  <Label contentDisplay="CENTER" layoutX="422.0" layoutY="102.0" prefHeight="54.0" prefWidth="45.0" styleClass="h2" text="+" textAlignment="CENTER" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1100.0" style="-fx-background-color: transparent;" styleClass="trans-bg">
-               <children>
-                  <Text fill="WHITE" layoutX="473.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="HISTORY" />
-                  <TextField layoutX="86.0" layoutY="127.0" prefHeight="31.0" prefWidth="305.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <TextField layoutX="464.0" layoutY="126.0" prefHeight="31.0" prefWidth="305.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #000;;" />
-                  <Label layoutX="86.0" layoutY="98.0" text="Enter Character 1" />
-                  <Label layoutX="464.0" layoutY="97.0" text="Enter Character 2" />
-                  <Button fx:id="submitHistory" layoutX="819.0" layoutY="125.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="174.0" styleClass="ice-button" text="SUBMIT" />
-                  <Label contentDisplay="CENTER" layoutX="419.0" layoutY="117.0" prefHeight="54.0" prefWidth="45.0" styleClass="h2" text="+" textAlignment="CENTER" />
+                  <Label fx:id="dispExportResults" alignment="TOP_LEFT" layoutX="591.0" layoutY="317.0" prefHeight="154.0" prefWidth="326.0" style="-fx-border-color: #fff;" text="Results for export" wrapText="true" />
+                  <ListView fx:id="characterSelect1" layoutX="21.0" layoutY="141.0" onMouseClicked="#list1Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
+                  <ListView fx:id="characterSelect2" layoutX="1258.0" layoutY="129.0" onMouseClicked="#list2Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
+                  <Label fx:id="character1" layoutX="236.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
+                  <Label fx:id="character2" alignment="CENTER_RIGHT" layoutX="890.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
+                  <Button fx:id="sortedList" layoutX="532.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportSortedList" prefHeight="36.0" prefWidth="200.0" styleClass="ice-button" text="EXPORT SORTED LIST" />
+                  <Button fx:id="loadButton" layoutX="-893.0" layoutY="-583.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="692.0" prefWidth="1498.0" styleClass="ice-button" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>
