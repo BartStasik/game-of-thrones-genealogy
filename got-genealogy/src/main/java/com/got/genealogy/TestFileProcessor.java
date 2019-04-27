@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.got.genealogy.core.processor.Genealogy.*;
+import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
+import static com.got.genealogy.core.processor.data.FileHandler.decodeURL;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 
 
@@ -24,26 +26,18 @@ public class TestFileProcessor {
 
         String testRelationPath, testDetailsPath, sourceCodePath;
 
-        URL testResource = TestFileProcessor.class
-                .getClassLoader()
-                .getResource("RelationshipTestFile.txt");
-        URL testDetailsResource = TestFileProcessor.class
-                .getClassLoader()
-                .getResource("PersonDetailsTestFile.txt");
+        testRelationPath = decodeResource("RelationshipTestFile.txt");
+        testDetailsPath = decodeResource("PersonDetailsTestFile.txt");
         URL sourceCodeLocation = TestFileProcessor.class
                 .getProtectionDomain()
                 .getCodeSource()
                 .getLocation();
 
-        if (testResource == null || testDetailsResource == null) {
+        if (testRelationPath == null || testDetailsPath == null) {
             return;
         }
-        testRelationPath = new File(testResource.getFile())
-                .getAbsolutePath();
-        testDetailsPath = new File(testDetailsResource.getFile())
-                .getAbsolutePath();
-        sourceCodePath = new File(sourceCodeLocation.getFile())
-                .getParent() + File.separator;
+        sourceCodePath = decodeURL(
+                new File(sourceCodeLocation.getFile()).getParent() + File.separator);
 
         // Disregarding case. Different
         // familyName case is intentional.

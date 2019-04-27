@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.got.genealogy.core.family.person.Relationship.*;
-import static com.got.genealogy.core.processor.data.File.*;
+import static com.got.genealogy.core.processor.data.FileHandler.*;
 import static com.got.genealogy.core.processor.data.InformationPool.*;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 

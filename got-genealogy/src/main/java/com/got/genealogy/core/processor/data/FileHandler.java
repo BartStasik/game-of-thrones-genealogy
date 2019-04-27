@@ -8,6 +8,7 @@ import com.got.genealogy.core.graph.collection.AdjacencyList;
 import com.got.genealogy.core.graph.property.WeightedVertex;
 
 import java.io.*;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +19,7 @@ import static com.got.genealogy.core.processor.data.InformationPool.getRelations
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 import static com.got.genealogy.core.processor.data.StringUtils.writeFileExtension;
 
-public class File {
+public class FileHandler {
 
     public static String[][] loadFile(String absolutePath) {
         try {
@@ -128,6 +129,27 @@ public class File {
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             return null;
         }
+    }
+
+    public static String decodeURL(String path) {
+        try {
+            return URLDecoder.decode(path, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String decodeResource(String relativeResource) {
+        URL resourceURL = FileHandler.class
+                .getClassLoader()
+                .getResource(relativeResource);
+        if (resourceURL == null) {
+            return null;
+        }
+        String resourcePath = new File(resourceURL.getFile())
+                .getAbsolutePath();
+        return decodeURL(resourcePath);
     }
 
     private static void writeRelationshipLine(String person1,
