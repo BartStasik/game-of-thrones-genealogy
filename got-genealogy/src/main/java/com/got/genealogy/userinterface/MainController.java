@@ -12,13 +12,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import static com.got.genealogy.core.processor.Genealogy.findRelationship;
-import static com.got.genealogy.core.processor.Genealogy.exportDOT;
-import static com.got.genealogy.core.processor.Genealogy.exportSorted;
-import static com.got.genealogy.core.processor.Genealogy.getAllPeople;
-import static com.got.genealogy.core.processor.Genealogy.getPersonDetails;
-import static com.got.genealogy.core.processor.Genealogy.loadPersonDetailsFile;
-import static com.got.genealogy.core.processor.Genealogy.loadRelationsFile;
+import static com.got.genealogy.core.processor.Genealogy.*;
+
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
