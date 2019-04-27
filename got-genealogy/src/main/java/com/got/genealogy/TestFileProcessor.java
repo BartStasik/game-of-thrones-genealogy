@@ -23,19 +23,15 @@ public class TestFileProcessor {
         boolean testPassed = true;
         int i = 0;
 
-        String testRelationPath, testGenealogyPath, testDetailsPath, sourceCodePath;
+        String testRelationPath, testDetailsPath, sourceCodePath;
 
         URL testResource = TestFileProcessor.class
                 .getClassLoader()
                 .getResource("RelationshipTestFile.txt");
 
-        URL testGenealogyTree = TestFileProcessor.class
-                .getClassLoader()
-                .getResource("GenealogyTree.txt");
-
         URL testDetailsResource = TestFileProcessor.class
                 .getClassLoader()
-                .getResource("PersonDetails.txt");
+                .getResource("PersonDetailsTestFile.txt");
 
 
         URL sourceCodeLocation = TestFileProcessor.class
@@ -51,36 +47,13 @@ public class TestFileProcessor {
         testDetailsPath = new File(testDetailsResource.getFile())
                 .getAbsolutePath();
 
-        testGenealogyPath = new File(testGenealogyTree.getFile())
-                .getAbsolutePath();
-
         sourceCodePath = new File(sourceCodeLocation.getFile())
                 .getParent() + File.separator;
 
         loadRelationsFile(testRelationPath, "Test");
-        loadRelationsFile(testGenealogyPath, "fullTree");
-        loadPersonDetailsFile(testDetailsPath, "fullTree");
+        loadPersonDetailsFile(testDetailsPath, "Test");
         exportDOT(sourceCodePath + "TestDOT", "Test");
-        exportDOT(sourceCodePath + "TestGenealogyDOT", "fullTree");
-        exportSorted(sourceCodePath + "TestGenealogySorted", "fullTree");
         exportSorted(sourceCodePath + "TestSorted", "Test");
-        String[] s = findRelationship("Joanna Lannister", "Rhaella Targaryen", "fullTree");
-
-        for (int a = 0; a < s.length; a++) {
-            System.out.println("Relation: " + s[a]);
-
-        }
-        System.out.println();
-        Map<String, String> map;
-        map = getPersonDetails("Rhaego", "fullTree");
-
-        if (map == null) {
-            testPassed = false;
-        } else {
-            map.forEach((k, v) -> {
-                System.out.println(toTitleCase(k) + " : " + toTitleCase(v));
-            });
-        }
 
         FamilyTree testFamily = getFamily("Test");
 

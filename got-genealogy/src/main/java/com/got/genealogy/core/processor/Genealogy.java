@@ -88,16 +88,14 @@ public class Genealogy {
             }
 
             for (String[] row : file) {
-                if (row.length < 1 || row.length > 3)
+                if (row.length < 2 || row.length > 3)
                     return false;
 
                 personName = row[0];
                 person = family.getPerson(personName);
 
-                if (row.length > 1 && row.length <= 3) {
-                    if (person == null)
-                        person = family.addPerson(personName);
-                }
+                if (person == null)
+                    person = family.addPerson(personName);
 
                 if (row[1].toUpperCase().equals("GENDER")) {
                     if (row.length != 3)
