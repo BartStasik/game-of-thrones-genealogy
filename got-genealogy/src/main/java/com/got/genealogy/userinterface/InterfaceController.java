@@ -61,20 +61,20 @@ public class InterfaceController{
     public void muteMusicAction(){
         toggleAudio++;
         if ( (toggleAudio & 1) == 0 ){
-            player.setVolume(0.0);
             volumeButton
                     .setStyle("-fx-background-image: url('volume-mute.png')");
+            player.setVolume(0.0);
         }
         else {
-            player.setVolume(0.3);
             volumeButton
                     .setStyle("-fx-background-image: url('volume-high.png')");
+            player.setVolume(0.2);
         }
     }
     
     
     public void initialize() {
-       
+       toggleAudio = 1;
        fileChooser = new FileChooser();
        pathMusic = getClass()
                .getResource("/MainTheme.mp3")
