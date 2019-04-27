@@ -22,12 +22,6 @@ Tywin Lannister,Allegiance,House Lannister; House Baratheon of King's Landing; H
 Tywin Lannister,Culture,Andal
 Tywin Lannister,House,Lannister
 
-Tyrion Lannister,Life Status,Alive
-Tyrion Lannister,Origin,Casterly Rock
-Tyrion Lannister,Allegiance,House Lannister; House Targaryen
-Tyrion Lannister,Culture,Andal
-Tyrion Lannister,House,Lannister
-
 Joanna Lannister,Life Status,Dead
 Joanna Lannister,Origin
 Joanna Lannister,Allegiance,House Lannister
@@ -49,7 +43,7 @@ Jeyne Lannister,House,Lannister
 Cersei Lannister,Life Status,Alive
 Cersei Lannister,Origin,Casterly Rock
 Cersei Lannister,Allegiance,House Lannister; House Baratheon of King's Landing
-Cersei Lannister,Culture,Andal 
+Cersei Lannister,Culture,Andal
 Cersei Lannister,House,Lannister
 
 Jaime Lannister,Life Status,Alive
@@ -171,4 +165,3 @@ Gregor Clegane,Origin,Clegane's Keep
 Gregor Clegane,Allegiance,House Clegane; House Lannister; Queensguard; Kingsguard;
 Gregor Clegane,Culture,Andal
 Gregor Clegane,House,Lannister
-

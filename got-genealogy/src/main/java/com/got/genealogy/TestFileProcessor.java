@@ -50,12 +50,23 @@ public class TestFileProcessor {
         sourceCodePath = new File(sourceCodeLocation.getFile())
                 .getParent() + File.separator;
 
-        loadRelationsFile(testRelationPath, "Test");
+        // Disregarding case. Different
+        // familyName case is intentional.
+        loadRelationsFile(testRelationPath, "TEST");
         loadPersonDetailsFile(testDetailsPath, "Test");
         exportDOT(sourceCodePath + "TestDOT", "Test");
         exportSorted(sourceCodePath + "TestSorted", "Test");
 
         FamilyTree testFamily = getFamily("Test");
+
+        if (testFamily == null) {
+            System.out.println("\nTEST FAILED");
+            return;
+        }
+
+        // Shouldn't add this person.
+        // Disregarding case.
+        testFamily.addPerson("bartosz StAsIk");
 
         class Pair {
             private String key, value;
@@ -123,7 +134,7 @@ public class TestFileProcessor {
         relations.add(new Pair("Nina Barnard", "Ebony Mohamed"));
 
         // Hates
-        relations.add(new Pair("Nina Barnard", "Bartosz Stasik"));
+        relations.add(new Pair("nina barnard", "bartosz Stasik"));
 
         String[] expectedRelationshipsInOrder = new String[]{
                 "Grandaunt",
@@ -194,7 +205,11 @@ public class TestFileProcessor {
         }
 
         for (String person : expectedPeopleForDetails) {
-            Map<String, String> details = getPersonDetails(person, "Test");
+            // Setting to lowercase, to ensure
+            // it's not case sensitive
+            Map<String, String> details = getPersonDetails(
+                    person.toLowerCase(),
+                    "Test");
             if (details == null) {
                 testPassed = false;
             } else {
@@ -205,13 +220,25 @@ public class TestFileProcessor {
             }
         }
 
+        String[] allPeople = getAllPeople("Test");
+
+        if (allPeople == null) {
+            System.out.println("\nTEST PASSED");
+            return;
+        }
+
+        System.out.println();
+
+        for (String person : allPeople) {
+            System.out.println(person);
+        }
+
         if (!testPassed) {
             System.out.println("\nTEST FAILED");
         } else {
             System.out.println("\nTEST PASSED");
         }
     }
-
 
     private static void printGraph(FamilyTree graph) {
         AdjacencyMatrix<Weight<Relation>> matrix = graph.getAdjacencyMatrix();

@@ -7,13 +7,12 @@ import com.got.genealogy.core.family.person.Relation;
 import com.got.genealogy.core.family.person.Relationship;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static com.got.genealogy.core.family.person.Relationship.*;
-import static com.got.genealogy.core.processor.data.File.exportGVFile;
-import static com.got.genealogy.core.processor.data.File.exportSortedFile;
-import static com.got.genealogy.core.processor.data.File.loadFile;
+import static com.got.genealogy.core.processor.data.File.*;
 import static com.got.genealogy.core.processor.data.InformationPool.*;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 
@@ -102,23 +101,18 @@ public class Genealogy {
                         return false;
                     person.setGender(getInputGender(row[2]));
                 } else {
-
                     switch (row.length) {
-
                         case 2:
                             person.addDetail(row[1], "Unknown");
                             break;
-
                         case 3:
                             person.addDetail(row[1], row[2]);
                             break;
-
                         default:
                             return false;
                     }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -197,7 +191,9 @@ public class Genealogy {
         return family == null ? null : exportSortedFile(absolutePath, family);
     }
 
-    public static String[] findRelationship(String name1, String name2, String familyName) {
+    public static String[] findRelationship(String name1,
+                                            String name2,
+                                            String familyName) {
         FamilyTree family = getFamily(familyName);
         if (family == null) {
             return null;
@@ -213,7 +209,28 @@ public class Genealogy {
         return processRelationship(person1, person2, family);
     }
 
-    private static String[] processRelationship(Person person1, Person person2, FamilyTree family) {
+    public static String[] getAllPeople(String familyName) {
+        if (familyName == null) {
+            return null;
+        }
+        FamilyTree family = getFamily(familyName);
+        if (family == null) {
+            return null;
+        }
+        List<Person> sortedPeople = new ArrayList<>(family.getVertices().keySet());
+        String[] allPeople = new String[sortedPeople.size()];
+
+        Collections.sort(sortedPeople);
+        for (int i = 0; i < sortedPeople.size(); i++) {
+            allPeople[i] = sortedPeople.get(i).getLabel();
+        }
+
+        return allPeople;
+    }
+
+    private static String[] processRelationship(Person person1,
+                                                Person person2,
+                                                FamilyTree family) {
         int x, y, z, p;
         int[] coordinates;
         String relationship;
@@ -232,7 +249,6 @@ public class Genealogy {
                 for (String extra : direct.getExtras()) {
                     relationships.add(toTitleCase(extra));
                 }
-
             } else {
                 relationship = getRelationship(gender, direct);
                 if (!relationship.isEmpty()) {
