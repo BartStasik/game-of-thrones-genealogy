@@ -678,6 +678,9 @@ public class Graph<V extends Vertex, E extends Edge> {
      * @param vertex2 Goal vertex, to reach after
      *                traversing all relatives of
      *                vertex1.
+     * @param filter  used to ignore adjacent
+     *                vertices, according the
+     *                BiFunction.
      * @return Return the shortestPath of the inner
      * class, after graph traversal.
      */
