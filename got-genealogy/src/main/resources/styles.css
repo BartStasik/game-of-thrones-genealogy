@@ -1,9 +1,3 @@
-@font-face {
-    font-family: 'Cinzel';
-    src: url('/fonts/Cinzel-Regular.ttf');
-}
-
-
 .main-bg {
 	-fx-background-image: url('bg.jpg');
 	-fx-background-size: cover;
@@ -32,24 +26,33 @@
     -fx-width:100%;
 }
 
+.button:pressed {
+    -fx-translate-y: 4px;
+}
+
 .ice-button {
     -fx-background-image: url('button-bg.jpg');
     -fx-background-size: cover;
-    -fx-border-color: black;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 18px;
-    -fx-border-insets: 0;
-    -fx-border-width: 2px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10,0,0,0);
+    -fx-border-color: rgba(0,0,0,0);
+    -fx-text-fill: #fff;
 }
+.ice-button .text{
+    -fx-font-size: 50px;
+    -fx-effect: dropshadow(gaussian, Black, 30, 0, 0, 0); 
+}
+.ice-button:pressed {
+    -fx-background-image: url('button-bg-cracked.jpg');
+    -fx-translate-y: 0px;
+}
+
 
 
 .h1 {
     -fx-font-family: "Cinzel";
     -fx-font-size: 48px;
     -fx-font-weight: 800;
-    -fx-text-fill: #ffffff;
-    -fx-border-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
     -fx-border-style: solid;
     -fx-border-width: 2px;
     -fx-padding: 10px;
@@ -62,15 +65,15 @@
     -fx-font-family: "Cinzel";
     -fx-font-size: 28px;
     -fx-font-weight: 600;
-    -fx-text-fill: #ffffff!important;
+    -fx-text-fill: #000000!important;
 }
 
 .h3 {
-	-fx-font-family: "Cinzel";
+    -fx-font-family: "Cinzel";
     -fx-font-size: 48px;
     -fx-font-weight: 800;
-    -fx-text-fill: #ffffff;
-    -fx-border-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
     -fx-border-style: solid;
     -fx-border-width: 2px;
     -fx-padding: 10px;
@@ -81,7 +84,7 @@
 
 .label {
 	-fx-font-family: "Cinzel";
-	-fx-text-fill: #ffffff!important;
+	-fx-text-fill: #000000!important;
 	-fx-font-size: 18px;
 }
 
@@ -96,12 +99,49 @@
     -fx-font-family: "Cinzel";
     -fx-font-size: 30px;
 }
+.characterDetail {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 18px;
+}
+
 
 .list-view {
     -fx-font-family: "Cinzel";
     -fx-background-color: transparent;
-    -fx-text-fill: #ffffff;
-    
+    -fx-font-size: 14px;
+}
+.list-cell {
+    -fx-background-color: rgba(50,50,0,0.1);
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-width: 0.5;
+    -fx-border-color: black;
+}
+.list-cell:selected {
+    -fx-background-color: rgba(50,50,50,0.3);
+}
+.scroll-bar{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: rgba(0,0,0,0);
+}
+.scroll-bar .thumb{
+    -fx-background-color: rgba(210,179,100,1);
+    -fx-border-color: transparent;
+    -fx-background-radius: 2.0em;
+    -fx-border-radius :2.0em;
+}
+.scroll-bar .thumb:hover{
+    -fx-background-color: rgba(220,189,110,1);
+}
+.scroll-bar .increment-button ,
+.scroll-bar .decrement-button {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-radius: 0.0em;
+    -fx-padding:0 15 0 0;
+}
+ .scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding:0;
 }
 .relationship{
     -fx-font-family: "Cinzel";
@@ -110,6 +150,7 @@
 }
 
 .muteButton {
+    -fx-background-color: rgba(0,0,0,0);
     -fx-border-width: 0;
     -fx-background-image: url('volume-high.png');
     -fx-background-size: 100%;

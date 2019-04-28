@@ -15,6 +15,8 @@ import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 import java.net.URL;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class InterfaceController {
@@ -25,6 +27,7 @@ public class InterfaceController {
     String pathMusic;
     Media media;
     MediaPlayer player;
+    URL musicFile;
 
     int toggleAudio;
 
@@ -70,12 +73,18 @@ public class InterfaceController {
 
 
     public void initialize() {
+        Alert musicAlert = new Alert(AlertType.ERROR);
+        musicAlert.setTitle("Error");
+        musicAlert.setHeaderText(null);
+        musicAlert.setContentText("Failed to load music!");
+
+        
         try {
-            URL musicFile = getClass()
+            musicFile = getClass()
                     .getResource("/MainTheme.mp3");
             if (musicFile == null) {
+                musicAlert.showAndWait();
                 return;
-                //popup no music
             }
 
             pathMusic = musicFile.toURI().toString();
@@ -83,15 +92,14 @@ public class InterfaceController {
             toggleAudio = 1;
             fileChooser = new FileChooser();
 
-            media = new Media(pathMusic);
-            player = new MediaPlayer(media);
-            player.play();
-            player.setVolume(0.2);
-
-            player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
         } catch (URISyntaxException e) {
-            e.printStackTrace();
-            //popup
+            musicAlert.showAndWait();
         }
+        media = new Media(pathMusic);
+        player = new MediaPlayer(media);
+        player.play();
+        player.setVolume(0.2);
+        
+        player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
     }
 }

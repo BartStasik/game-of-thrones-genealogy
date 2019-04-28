@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1080.0" styleClass="main-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.InterfaceController">
    
    <children>
-      <Button layoutX="135.0" layoutY="431.0" mnemonicParsing="false" onAction="#startGame" prefHeight="63.0" prefWidth="330.0" text="Play" />
-      <Button layoutX="135.0" layoutY="502.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="63.0" prefWidth="330.0" text="Exit" />
-      <ImageView fitHeight="196.0" fitWidth="265.0" layoutX="140.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="playButton" layoutX="600.0" layoutY="428.0" mnemonicParsing="false" onAction="#startGame" prefHeight="63.0" prefWidth="330.0" text="Play" />
+      <Button layoutX="600.0" layoutY="524.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="63.0" prefWidth="330.0" text="Exit" />
+      <ImageView fitHeight="253.0" fitWidth="448.0" layoutX="545.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../logo.png" />
          </image>
       </ImageView>
-      <Text fontSmoothingType="LCD" layoutX="140.0" layoutY="304.0" smooth="false" stroke="BLACK" strokeType="INSIDE" styleClass="h1" text="GENEALOGY" underline="true">
-         <fill>
-            <LinearGradient endX="1.0" endY="0.4807692307692308" startX="1.0">
-               <stops>
-                  <Stop color="GREY" />
-                  <Stop color="BLACK" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Text>
-      <Button fx:id="volumeButton" layoutX="1020.0" layoutY="732.0" mnemonicParsing="false" onAction="#muteMusic" styleClass="muteButton" prefHeight="47.0" prefWidth="47.0" />
+      <Button fx:id="volumeButton" layoutX="1019.0" layoutY="732.0" mnemonicParsing="false" onAction="#muteMusic" prefHeight="47.0" prefWidth="47.0" styleClass="muteButton" />
    </children>
 </AnchorPane>

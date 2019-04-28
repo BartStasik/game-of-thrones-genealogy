@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -16,29 +17,107 @@
       <SplitPane orientation="VERTICAL" prefWidth="160.0" style="-fx-background-color: #000;" styleClass="face-bg">
         <items>
             <AnchorPane fx:id="anchorParent" layoutX="10.0" layoutY="10.0" style="-fx-background-color: transparent;" styleClass="trans-bg" stylesheets="@../styles.css">
-               <children>
-                  <Text fill="WHITE" layoutX="610.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="CHARACTER SELECT" />
-                  <Label layoutX="121.0" layoutY="69.0" text="CHARACTER 1" />
-                  <Label layoutX="1250.0" layoutY="66.0" text="CHARACTER 2" />
-                  <Label fx:id="dispField" alignment="CENTER" layoutX="574.0" layoutY="78.0" prefHeight="229.0" prefWidth="350.0" styleClass="relationship" text="" textAlignment="CENTER" wrapText="true">
+                <children>
+                  <ImageView fitHeight="45.0" fitWidth="319.0" layoutX="584.0" layoutY="173.0" opacity="0.28" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../arrow.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="dispField" alignment="CENTER" layoutX="581.0" layoutY="78.0" prefHeight="229.0" prefWidth="325.0" styleClass="relationship" text="" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="41.0" />
                      </font></Label>
-                  <Label fx:id="dispProfile" alignment="TOP_LEFT" layoutX="254.0" layoutY="353.0" prefHeight="216.0" prefWidth="245.0" style="-fx-border-color: #fff;" text="Results for profile" />
-                  <Label fx:id="dispProfile1" alignment="TOP_LEFT" layoutX="975.0" layoutY="353.0" prefHeight="216.0" prefWidth="252.0" style="-fx-border-color: #fff;" text="Results for profile" />
-                  <Button fx:id="exportFamily" layoutX="749.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportFamily" prefHeight="36.0" prefWidth="200.0" styleClass="ice-button" text="EXPORT FAMILY TREE" />
-                  <ImageView fitHeight="194.0" fitWidth="254.0" layoutX="605.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true">
+                  <Pane layoutX="905.0" layoutY="163.0" prefHeight="471.0" prefWidth="350.0" style="-fx-background-color: rgba(0,0,0,0.1)" />
+                  <Pane layoutX="231.0" layoutY="163.0" prefHeight="471.0" prefWidth="350.0" style="-fx-background-color: rgba(0,0,0,0.1)" />
+                  <Text layoutX="565.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 40px;" styleClass="h2" text="CHARACTER SELECT" />
+                  <Label layoutX="21.0" layoutY="102.0" text="CHARACTER 1" />
+                  <Label alignment="CENTER_RIGHT" layoutX="1325.0" layoutY="102.0" text="CHARACTER 2" />
+                  <ImageView fitHeight="140.0" fitWidth="326.0" layoutX="580.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../logo.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="dispExportResults" alignment="TOP_LEFT" layoutX="591.0" layoutY="317.0" prefHeight="154.0" prefWidth="326.0" style="-fx-border-color: #fff;" text="Results for export" wrapText="true" />
-                  <ListView fx:id="characterSelect1" layoutX="21.0" layoutY="141.0" onMouseClicked="#list1Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
-                  <ListView fx:id="characterSelect2" layoutX="1258.0" layoutY="129.0" onMouseClicked="#list2Clicked" prefHeight="531.0" prefWidth="200.0" styleClass="list-view" />
-                  <Label fx:id="character1" layoutX="236.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
-                  <Label fx:id="character2" alignment="CENTER_RIGHT" layoutX="890.0" layoutY="600.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
-                  <Button fx:id="sortedList" layoutX="532.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportSortedList" prefHeight="36.0" prefWidth="200.0" styleClass="ice-button" text="EXPORT SORTED LIST" />
-                  <Button fx:id="loadButton" layoutX="-893.0" layoutY="-583.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="692.0" prefWidth="1498.0" styleClass="ice-button" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ListView fx:id="characterSelect1" layoutX="21.0" layoutY="129.0" onMouseClicked="#list1Clicked" prefHeight="531.0" prefWidth="210.0" styleClass="list-view" />
+                  <ListView fx:id="characterSelect2" layoutX="1258.0" layoutY="129.0" onMouseClicked="#list2Clicked" prefHeight="531.0" prefWidth="210.0" styleClass="list-view" />
+                  <Label fx:id="character1" layoutX="237.0" layoutY="173.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
+                  <Label fx:id="character2" alignment="CENTER_RIGHT" layoutX="890.0" layoutY="169.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
+                  <Button fx:id="sortedList" layoutX="532.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportSortedList" prefHeight="36.0" prefWidth="200.0" style="-fx-font-size: 15px;" text="EXPORT SORTED LIST" />
+                  <Button fx:id="exportFamily" layoutX="749.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportFamily" prefHeight="36.0" prefWidth="200.0" style="-fx-font-size: 15px;" text="EXPORT FAMILY TREE" />
+                  <ImageView fx:id="genderIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-gender.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="statusIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-status.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="allianceIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-alliance.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="cultureIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-culture.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="houseIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-house.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="originIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-origin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="genderIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-gender.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="statusIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-status.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="allianceIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-alliance.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="cultureIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-culture.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="houseIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-house.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="originIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../i-origin.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="character1Alliance" alignment="TOP_LEFT" layoutX="275.0" layoutY="477.0" prefHeight="200.0" prefWidth="284.0" styleClass="characterDetail" wrapText="true" />
+                  <Label fx:id="character1Culture" layoutX="275.0" layoutY="427.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character1House" layoutX="275.0" layoutY="377.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character1Origin" layoutX="275.0" layoutY="327.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character1Status" layoutX="275.0" layoutY="277.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character1Gender" layoutX="273.0" layoutY="227.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character2Alliance" alignment="TOP_RIGHT" layoutX="924.0" layoutY="480.0" prefHeight="200.0" prefWidth="284.0" styleClass="characterDetail" wrapText="true" />
+                  <Label fx:id="character2Culture" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="430.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character2House" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="380.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character2Origin" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="330.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character2Status" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="280.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  <Label fx:id="character2Gender" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="230.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+                  
+                                                                  <Button fx:id="loadButton" layoutX="-385.0" layoutY="566.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="698.0" prefWidth="1498.0" styleClass="ice-button" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               
                </children>
             </AnchorPane>
         </items>

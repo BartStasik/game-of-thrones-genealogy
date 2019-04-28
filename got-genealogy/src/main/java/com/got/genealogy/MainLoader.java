@@ -14,13 +14,31 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
+import javafx.scene.control.Alert;
+import javafx.scene.text.Font;
 
 public class MainLoader extends Application {
+    
+    Alert error;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-
+        
+        error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("Error");
+        error.setHeaderText(null);
+        
+        URL fontURL = getClass()
+                .getResource("/fonts/Cinzel.ttf");
+        
+        if (fontURL == null) {
+            error.setContentText("Could not set font from URL: " + fontURL);
+            error.showAndWait();
+            return;
+        }
+        
+        Font.loadFont(fontURL.toExternalForm(), 10);
+        
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
 
@@ -30,8 +48,9 @@ public class MainLoader extends Application {
                 .getResource("/fxml/main.fxml");
 
         if (interfaceFXML == null || mainFXML == null) {
+            error.setContentText("Could not load GUI FXML files");
+            error.showAndWait();
             return;
-            //popup
         }
 
         interfaceLoader.setLocation(interfaceFXML);
@@ -46,8 +65,9 @@ public class MainLoader extends Application {
         InputStream gotIcon = decodeResource("icon.png");
 
         if (gotIcon == null) {
+            error.setContentText("Could not load application icon");
+            error.showAndWait();
             return;
-            //popup
         }
 
         primaryStage.getIcons().add(new Image(gotIcon));
