@@ -2,6 +2,9 @@
 
 == Setup
 
+IMPORTANT: Must use Java 1.8, otherwise the JavaFX 8 GUI won't work as expected
+
+* Install Java 1.8 JDK
 * Install Git
 * Install Maven
 * `(Optional)` Configure IDE to run with Maven
