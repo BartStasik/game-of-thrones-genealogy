@@ -165,7 +165,7 @@ Gregor Clegane,Origin,Clegane's Keep
 Gregor Clegane,Allegiance,House Clegane; House Lannister; Queensguard; Kingsguard
 Gregor Clegane,Culture,Andal
 Gregor Clegane,House,Lannister
-=======
+
 Dorna Lannister,Life Status,Alive
 Dorna Lanister,Origin,Cornfield
 Dorna Lanister,Allegiance,House Swyft; House Lannister
@@ -577,7 +577,7 @@ Robb Stark,House,Stark
 Lyanna Stark,Life Status,Dead
 Lyanna Stark,Origin,Winterfell
 Lyanna Stark,Allegiance,House Stark; House Targaryen
-Lyanna Stark,Culture, Northmen
+Lyanna Stark,Culture,Northmen
 Lyanna Stark,House,Stark
 
 Bran Stark,Life Status,Alive

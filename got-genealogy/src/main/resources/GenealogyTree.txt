@@ -177,5 +177,5 @@ Robert Baratheon,rivalry,Balon Greyjoy
 Robert Baratheon,killed,Maron Greyjoy
 Robert Baratheon,killed,Rodrik Cassel
 Catelyn Stark,hates,Jon Snow
-Jon Snow, son, Lyanna Stark,
-Jon Snow, son, Rhaegar Targaryen
+Jon Snow,son,Lyanna Stark
+Jon Snow,son,Rhaegar Targaryen

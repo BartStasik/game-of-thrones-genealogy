@@ -29,13 +29,6 @@
 .buttons:pressed {
     -fx-translate-y: 4px;
 }
-
-.ice-button {
-    -fx-background-image: url('button-bg.jpg');
-    -fx-background-size: cover;
-    -fx-border-color: rgba(0,0,0,0);
-    -fx-text-fill: #fff;
-}
 .control-button-close {
     -fx-background-image: url('close.png');
     -fx-background-size: cover;
@@ -58,16 +51,6 @@
 .control-button-close:hover {
     -fx-opacity: 100%;
 }
-.ice-button .text{
-    -fx-font-size: 50px;
-    -fx-effect: dropshadow(gaussian, Black, 30, 0, 0, 0); 
-}
-.ice-button:pressed {
-    -fx-translate-y: 0px;
-}
-
-
-
 .h1 {
     -fx-font-family: "Cinzel";
     -fx-font-size: 48px;
@@ -169,7 +152,6 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 29px;
 }
-
 .muteButton {
     -fx-background-color: rgba(0,0,0,0);
     -fx-border-width: 0;
@@ -177,4 +159,19 @@
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
+}
+.loadButton {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-width: 0;
+    -fx-text-fill: #ffffff;
+    -fx-background-image: url('button-bg.jpg');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+.loadButton .text{
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 60px;
+    -fx-effect: dropshadow(gaussian, Black, 30, 0, 0, 0); 
 }

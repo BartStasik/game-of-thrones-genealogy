@@ -262,7 +262,8 @@ public class MainController {
     // --------------------------- --------------------------- ---------------------------
     @FXML
     void loadDataBlocker(ActionEvent event) {
-        loadButton.setStyle("-fx-background-image: url('button-bg-cracked.jpg');");
+        crack();
+        
         InputStream gotRelations = decodeResource("GenealogyTree.txt");
         InputStream gotDetails = decodeResource("PersonDetails.txt");
 
@@ -286,16 +287,20 @@ public class MainController {
         }
         
         loadCharacters("GOT");
-        
-        //pause to show ice breaking
+   
+        anchorParent.getChildren().remove(loadButton);
+
+    }
+    
+    void crack() {
+        loadButton.setStyle("-fx-background-image: url('button-bg-cracked.jpg')");
+                //pause to show ice breaking
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(MainController.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
-        
-        anchorParent.getChildren().remove(loadButton);
     }
 
     @FXML
@@ -318,7 +323,7 @@ public class MainController {
                 + exportPath);
         info.showAndWait();
     }
-
+    
     void loadCharacters(String familyName) {
         String[] charactersNames = getAllPeople(familyName);
         if (charactersNames == null) {
