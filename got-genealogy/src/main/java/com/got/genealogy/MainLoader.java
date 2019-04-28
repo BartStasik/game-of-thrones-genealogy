@@ -14,12 +14,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.stage.StageStyle;
 
 public class MainLoader extends Application {
     
     Alert error;
+    
+    private double xOffset = 0;
+    private double yOffset = 0;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -57,7 +64,7 @@ public class MainLoader extends Application {
         mainLoader.setLocation(mainFXML);
 
         AnchorPane interfacePane = interfaceLoader.load();
-        VBox mainPane = mainLoader.load();
+        AnchorPane mainPane = mainLoader.load();
 
         Scene interfaceScene = new Scene(interfacePane);
         Scene mainScene = new Scene(mainPane);
@@ -73,11 +80,47 @@ public class MainLoader extends Application {
         primaryStage.getIcons().add(new Image(gotIcon));
         primaryStage.setTitle("Game Of Thrones Genealogy");
         primaryStage.setScene(interfaceScene);
+        primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
 
         // inject main.fxml scene into the controller of the interface.fxml scene
         InterfaceController interfacePaneController = interfaceLoader.getController();
         interfacePaneController.setMainScene(mainScene);
+        
+        interfaceScene.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        
+        //move around here
+        interfaceScene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                primaryStage.setX(event.getScreenX() - xOffset);
+                primaryStage.setY(event.getScreenY() - yOffset);
+            }
+        });
+        
+        mainScene.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        
+        //move around here
+         mainScene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                primaryStage.setX(event.getScreenX() - xOffset);
+                primaryStage.setY(event.getScreenY() - yOffset);
+            }
+        });
 
     }
 

@@ -71,6 +71,16 @@ public class InterfaceController {
         }
     }
 
+    @FXML
+    public void minimizeClicked(ActionEvent arg0) {
+        primaryStage = (Stage) ((Node) arg0.getSource()).getScene().getWindow();
+        primaryStage.setIconified(true);
+    }
+    
+    @FXML
+    public void closeClicked(ActionEvent arg0) {
+        Platform.exit();
+    }
 
     public void initialize() {
         Alert musicAlert = new Alert(AlertType.ERROR);

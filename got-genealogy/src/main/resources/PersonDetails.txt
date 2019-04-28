@@ -1,6 +1,6 @@
 Dorna Lannister,Life Status,Alive
-Dorna Lanister,Origin,Cornfield
-Dorna Lanister,Allegiance,House Swyft; House Lannister
+Dorna Lannister,Origin,Cornfield
+Dorna Lannister,Allegiance,House Swyft; House Lannister
 Dorna Lannister,Culture,Andal
 Dorna Lannister,House,Lannister
 
@@ -162,6 +162,6 @@ Sandor Clegane,House,Baratheon
 
 Gregor Clegane,Life Status,Alive
 Gregor Clegane,Origin,Clegane's Keep
-Gregor Clegane,Allegiance,House Clegane; House Lannister; Queensguard; Kingsguard;
+Gregor Clegane,Allegiance,House Clegane; House Lannister; Queensguard; Kingsguard
 Gregor Clegane,Culture,Andal
 Gregor Clegane,House,Lannister

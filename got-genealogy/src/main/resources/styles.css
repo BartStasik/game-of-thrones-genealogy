@@ -15,7 +15,7 @@
 	-fx-background-position: center center;
 }
 
-.button {
+.buttons {
     -fx-background-color: rgba(0,0,0,0.3);
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
@@ -26,7 +26,7 @@
     -fx-width:100%;
 }
 
-.button:pressed {
+.buttons:pressed {
     -fx-translate-y: 4px;
 }
 
@@ -36,12 +36,33 @@
     -fx-border-color: rgba(0,0,0,0);
     -fx-text-fill: #fff;
 }
+.control-button-close {
+    -fx-background-image: url('close.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-style: none;
+    -fx-opacity: 70%;
+}
+.control-button-minimize {
+    -fx-background-image: url('minimize.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-style: none;
+    -fx-opacity: 70%;
+}
+.control-button-minimize:hover {
+    -fx-opacity: 100%;
+}
+.control-button-close:hover {
+    -fx-opacity: 100%;
+}
 .ice-button .text{
     -fx-font-size: 50px;
     -fx-effect: dropshadow(gaussian, Black, 30, 0, 0, 0); 
 }
 .ice-button:pressed {
-    -fx-background-image: url('button-bg-cracked.jpg');
     -fx-translate-y: 0px;
 }
 

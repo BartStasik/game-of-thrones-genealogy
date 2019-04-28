@@ -3,16 +3,22 @@ package com.got.genealogy.userinterface;
 import com.got.genealogy.core.family.FamilyTree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -21,11 +27,9 @@ import java.util.Map;
 import static com.got.genealogy.core.processor.Genealogy.*;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeURL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
+import javafx.application.Platform;
+import javafx.scene.Node;
+
 
 public class MainController {
     
@@ -34,9 +38,7 @@ public class MainController {
     Alert error;
     Alert info;
 
-    String exportPath;
-    FileChooser fileChooser;
-    ObservableList characters;
+    private FileChooser fileChooser;
 
     @FXML
     private Button loadButton;
@@ -186,13 +188,12 @@ public class MainController {
             return;
         }
 
-        // 2. export file using load method
-        // 3. Display filepath and array of items that were exported on screen
-        String[] fileOutput = exportDOT(exportPathDecoded, "GOT");
+        // 2. export file
+        exportDOT(exportPathDecoded, "GOT");
 
-        String exportOutput = Arrays.toString(fileOutput);
+        // 3. Display filepath 
         info.setContentText((
-                "Familt tree successfully exported to: "
+                "Family tree successfully exported to: "
                 + exportPathDecoded
                 + ".gv"));
         info.showAndWait();
@@ -224,7 +225,7 @@ public class MainController {
         character1Origin.setText(character1Details.get("ORIGIN"));
         character1House.setText(character1Details.get("HOUSE"));
         character1Culture.setText(character1Details.get("CULTURE"));
-        character1Alliance.setText(character1Details.get("ALLEGIANCE"));
+        character1Alliance.setText(character1Details.get("ALLEGIANCE").replace("; ", "\n"));
     }
 
     void loadCharacterProfile2() {
@@ -249,12 +250,13 @@ public class MainController {
         character2Origin.setText(character2Details.get("ORIGIN"));
         character2House.setText(character2Details.get("HOUSE"));
         character2Culture.setText(character2Details.get("CULTURE"));
-        character2Alliance.setText(character2Details.get("ALLEGIANCE"));
+        character2Alliance.setText(character2Details.get("ALLEGIANCE").replace("; ", "\n"));
     }
 
     // --------------------------- --------------------------- ---------------------------
     @FXML
     void loadDataBlocker(ActionEvent event) {
+        loadButton.setStyle("-fx-background-image: url('button-bg-cracked.jpg');");
         InputStream gotRelations = decodeResource("GenealogyTree.txt");
         InputStream gotDetails = decodeResource("PersonDetails.txt");
 
@@ -271,8 +273,8 @@ public class MainController {
             error.showAndWait();
         }
 
-        Boolean detailsFileLoad = loadPersonDetailsFile(gotDetails, "GOT");
-        if(detailsFileLoad == false){
+        boolean detailsFileLoad = loadPersonDetailsFile(gotDetails, "GOT");
+        if(!detailsFileLoad){
             error.setContentText("Could not load the Characters details file fropm system!");
             error.showAndWait();
         }
@@ -281,7 +283,7 @@ public class MainController {
         
         //pause to show ice breaking
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -340,6 +342,17 @@ public class MainController {
                 .getSelectedItem());
         displayRelationship();
         loadCharacterProfile2();
+    }
+    
+    @FXML
+    public void minimizeClicked(ActionEvent arg0) {
+        primaryStage = (Stage) ((Node) arg0.getSource()).getScene().getWindow();
+        primaryStage.setIconified(true);
+    }
+    
+    @FXML
+    public void closeClicked(ActionEvent arg0) {
+        Platform.exit();
     }
 
     public void initialize() {
