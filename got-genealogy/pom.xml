@@ -14,7 +14,7 @@
 
         <!-- Plugin Versions -->
         <jar.plugin.version>3.1.1</jar.plugin.version>
-		<release.plugin.version>2.5.3</release.plugin.version>
+	<release.plugin.version>2.5.3</release.plugin.version>
         <install.plugin.version>3.0.0-M1</install.plugin.version>
         <compiler.plugin.version>3.8.0</compiler.plugin.version>
         <assembly.plugin.version>3.1.1</assembly.plugin.version>
@@ -25,7 +25,7 @@
 
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com/BartStasik/game-of-thrones-genealogy</developerConnection>
-        <tag>HEAD</tag>
+	        <tag>HEAD</tag>
 	</scm>
 	
     <build>
@@ -36,23 +36,23 @@
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${jar.plugin.version}</version>
                     <configuration>
-						<archive>
-						  <manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>com.got.genealogy.MainLoader</mainClass>
-						  </manifest>
-						</archive>
+			<archive>
+			  <manifest>
+				<addClasspath>true</addClasspath>
+				<mainClass>com.got.genealogy.MainLoader</mainClass>
+			  </manifest>
+			</archive>
                     </configuration>
                 </plugin>
 
-				<plugin>
+		<plugin>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${release.plugin.version}</version>
                     <configuration>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <goals>install</goals>
                         <useReleaseProfile>false</useReleaseProfile>
-                        <tagNameFormat>service/@{version}</tagNameFormat>
+                        <tagNameFormat>Game_of_Thrones_Genealogy/@{version}</tagNameFormat>
                     </configuration>
                 </plugin>
 				
