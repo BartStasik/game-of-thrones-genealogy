@@ -8,32 +8,32 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class AdjacencyList<Vert extends Vertex, Arc extends Edge> {
+public class AdjacencyList<V extends Vertex, E extends Edge> {
 
-    private Map<Vert, Set<WeightedVertex<Vert, Arc>>> list;
+    private Map<V, Set<WeightedVertex<V, E>>> list;
 
     public AdjacencyList() {
         list = new HashMap<>();
     }
 
-    public Map<Vert, Set<WeightedVertex<Vert, Arc>>> getList() {
+    public Map<V, Set<WeightedVertex<V, E>>> getList() {
         return list;
     }
 
-    public void setList(Map<Vert, Set<WeightedVertex<Vert, Arc>>> list) {
+    public void setList(Map<V, Set<WeightedVertex<V, E>>> list) {
         this.list = list;
     }
 
-    public Set<WeightedVertex<Vert, Arc>> get(Vert keyVertex) {
+    public Set<WeightedVertex<V, E>> get(V keyVertex) {
         return list.get(keyVertex);
     }
 
-    public void put(Vert vertex, Set<WeightedVertex<Vert, Arc>> adjacentVertices) {
+    public void put(V vertex, Set<WeightedVertex<V, E>> adjacentVertices) {
         list.put(vertex, adjacentVertices);
     }
 
-    public WeightedVertex<Vert, Arc> getWeightedVertex(Vert keyVertex, Vert adjacentVertex) {
-        for (WeightedVertex<Vert, Arc> vertex : this.list.get(keyVertex)) {
+    public WeightedVertex<V, E> getWeightedVertex(V keyVertex, V adjacentVertex) {
+        for (WeightedVertex<V, E> vertex : this.list.get(keyVertex)) {
             if (vertex.getKey().equals(adjacentVertex)) {
                 return vertex;
             }
@@ -41,8 +41,8 @@ public class AdjacencyList<Vert extends Vertex, Arc extends Edge> {
         return null;
     }
 
-    public void setWeightedVertex(Vert keyVertex, Vert adjacentVertex, Arc edge) {
-        WeightedVertex<Vert, Arc> weightedVertex = getWeightedVertex(keyVertex, adjacentVertex);
+    public void setWeightedVertex(V keyVertex, V adjacentVertex, E edge) {
+        WeightedVertex<V, E> weightedVertex = getWeightedVertex(keyVertex, adjacentVertex);
         if (weightedVertex != null) {
             list.get(keyVertex)
                     .remove(weightedVertex);
@@ -50,13 +50,13 @@ public class AdjacencyList<Vert extends Vertex, Arc extends Edge> {
         }
     }
 
-    public void addWeightedVertex(Vert keyVertex, Vert adjacentVertex, Arc edge) {
+    public void addWeightedVertex(V keyVertex, V adjacentVertex, E edge) {
         list.get(keyVertex).add(
                 new WeightedVertex<>(adjacentVertex, edge));
     }
 
-    public void removeWeightedVertex(Vert keyVertex, Vert adjacentVertex) {
-        WeightedVertex<Vert, Arc> weightedVertex = getWeightedVertex(keyVertex, adjacentVertex);
+    public void removeWeightedVertex(V keyVertex, V adjacentVertex) {
+        WeightedVertex<V, E> weightedVertex = getWeightedVertex(keyVertex, adjacentVertex);
         if (weightedVertex != null) {
             list.get(keyVertex)
                     .remove(weightedVertex);
