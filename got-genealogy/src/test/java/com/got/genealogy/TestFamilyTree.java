@@ -1,27 +1,139 @@
 package com.got.genealogy;
 
 import com.got.genealogy.core.family.FamilyTree;
+import com.got.genealogy.core.family.person.Gender;
 import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
-import com.got.genealogy.core.graph.collection.AdjacencyMatrix;
-import com.got.genealogy.core.graph.property.Weight;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static com.got.genealogy.core.family.person.Gender.*;
+import static com.got.genealogy.core.family.person.Relationship.PARENT;
+import static com.got.genealogy.core.family.person.Relationship.SPOUSE;
 import static com.got.genealogy.core.processor.Genealogy.*;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeURL;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
+import static org.junit.jupiter.api.Assertions.fail;
 
+public class TestFamilyTree {
 
-public class TestFileProcessor {
+    @Test
+    void gotStarkTest() {
+        GraphUtils<Person, Relation> graphUtils = new GraphUtils<>();
+        FamilyTree family = new FamilyTree("Stark");
 
-    public static void main(String[] args) {
+        HashMap<String, Gender> names = new HashMap<>();
+
+        // Based purely on example input
+        // file, mentioned in the cw spec.
+        names.put("Eddard Stark", MALE);
+        names.put("Arya Stark", FEMALE);
+        names.put("Robb Stark", UNSPECIFIED);
+        names.put("Sansa Stark", UNSPECIFIED);
+        names.put("Bran Stark", UNSPECIFIED);
+        names.put("Rickon Stark", UNSPECIFIED);
+        names.put("Lyanna Stark", FEMALE);
+        names.put("Rickard Stark", MALE);
+        names.put("Catelyn Tully", FEMALE);
+        names.put("Jon Snow", UNSPECIFIED);
+        names.put("Rhaegar Targaryen", MALE);
+
+        // Add person with name and gender
+        names.forEach(family::addPerson);
+
+        family.addPerson("Robb Stark", MALE);
+
+        // Both mother/father will be generic
+        // and gender will be injected when
+        // getting.
+        // Eddard Stark, father
+        family.addRelation("Eddard Stark",
+                "Arya Stark",
+                PARENT);
+        family.addRelation("Eddard Stark",
+                "Robb Stark",
+                PARENT);
+        family.addRelation("Eddard Stark",
+                "Sansa Stark",
+                PARENT);
+        family.addRelation("Eddard Stark",
+                "Bran Stark",
+                PARENT);
+
+        family.addRelation("Eddard Stark",
+                "Catelyn Tully",
+                SPOUSE);
+
+        // Catelyn Tully, mother
+        family.addRelation("Catelyn Tully",
+                "Arya Stark",
+                PARENT);
+        family.addRelation("Catelyn Tully",
+                "Robb Stark",
+                PARENT);
+        family.addRelation("Catelyn Tully",
+                "Sansa Stark",
+                PARENT);
+        family.addRelation("Catelyn Tully",
+                "Bran Stark",
+                PARENT);
+        family.addRelation("Catelyn Tully",
+                "Rickon Stark",
+                PARENT);
+
+        // Rickard Stark, father
+        family.addRelation("Rickard Stark",
+                "Eddard Stark",
+                PARENT);
+        family.addRelation("Rickard Stark",
+                "Lyanna Stark",
+                PARENT);
+
+        // Lyanna Stark, mother
+        family.addRelation("Lyanna Stark",
+                "Jon Snow",
+                PARENT);
+
+        // Rhaegar Targaryen, father
+        family.addRelation("Rhaegar Targaryen",
+                "Jon Snow",
+                PARENT);
+
+        // Rhaegar Targaryen, father
+        family.addExtraRelation("Rhaegar Targaryen",
+                "Rickon Stark",
+                "Tests out");
+
+        // Both mother and father are
+        // 6 characters long.
+        graphUtils.printGraph(family);
+
+        System.out.println();
+
+        graphUtils.printList(family.adjacencyListWeighted());
+
+        System.out.println();
+        List<Person> people = new ArrayList<>(family.getVertices().keySet());
+        people.forEach((e) -> System.out.println(e.getLabel()));
+
+        Collections.sort(people);
+        System.out.println();
+        people.forEach((e) -> System.out.println(e.getLabel()));
+
+        System.out.println();
+        int[] coordinates = family.calculateRelationCoords(family.getPerson("Rickon Stark"), family.getPerson("Eddard Stark"));
+        System.out.printf("[%s, %s, %s, %s]", coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
+        System.out.println();
+    }
+
+    @Test
+    void genericFamilyTest() {
+        GraphUtils<Person, Relation> graphUtils = new GraphUtils<>();
         boolean testPassed = true;
         int i = 0;
 
@@ -29,13 +141,13 @@ public class TestFileProcessor {
 
         InputStream testResource = decodeResource("RelationshipTestFile.txt");
         InputStream testDetailsResource = decodeResource("PersonDetailsTestFile.txt");
-        URL sourceCodeLocation = TestFileProcessor.class
+        URL sourceCodeLocation = TestFamilyTree.class
                 .getProtectionDomain()
                 .getCodeSource()
                 .getLocation();
 
         if (testResource == null || testDetailsResource == null) {
-            return;
+            fail("Correct resource files don't exist!");
         }
         sourceCodePath = decodeURL(
                 new File(sourceCodeLocation.getFile()).getParent() + File.separator);
@@ -50,8 +162,7 @@ public class TestFileProcessor {
         FamilyTree testFamily = getFamily("Test");
 
         if (testFamily == null) {
-            System.out.println("\nTEST FAILED");
-            return;
+            fail("No family named \"Test\"!");
         }
 
         // Shouldn't add this person.
@@ -67,7 +178,7 @@ public class TestFileProcessor {
             }
         }
 
-        printGraph(testFamily);
+        graphUtils.printGraph(testFamily);
 
         List<Pair> relations = new ArrayList<>();
 
@@ -213,7 +324,7 @@ public class TestFileProcessor {
         String[] allPeople = getAllPeople("Test");
 
         if (allPeople == null) {
-            System.out.println("\nTEST PASSED");
+            fail("No family named \"Test\"!");
             return;
         }
 
@@ -224,63 +335,47 @@ public class TestFileProcessor {
         }
 
         if (!testPassed) {
-            System.out.println("\nTEST FAILED");
-        } else {
-            System.out.println("\nTEST PASSED");
+            fail("Invalid family relationships!");
         }
     }
 
-    private static void printGraph(FamilyTree graph) {
-        AdjacencyMatrix<Weight<Relation>> matrix = graph.getAdjacencyMatrix();
-        Map<Person, Integer> vertices = graph.getVertices();
+    @Test
+    void gotFamilyTest() {
 
-        int size = matrix.size();
-        // Print column labels
-        System.out.println();
-        System.out.print("   ");
-        for (int i = 0; i < size; i++) {
-            for (Map.Entry<Person, Integer> vertex : vertices.entrySet()) {
-                // TODO: Replace with LinkedHashMap
-                if (i == vertex.getValue()) {
-                    System.out.print(vertex.getKey().getLabel() + "  ");
-                }
-            }
+        String sourceCodePath;
+
+        InputStream testGenealogyTree = decodeResource("GenealogyTree.txt");
+        InputStream testDetailsResource = decodeResource("PersonDetails.txt");
+        URL sourceCodeLocation = TestFamilyTree.class
+                .getProtectionDomain()
+                .getCodeSource()
+                .getLocation();
+
+        sourceCodePath = new File(sourceCodeLocation.getFile())
+                .getParent() + File.separator;
+
+        if (testGenealogyTree == null || testDetailsResource == null) {
+            fail("Correct resource files don't exist!");
         }
-        // Print matrix
-        System.out.println();
-        for (int i = 0; i < size; i++) {
-            // HashMap isn't ordered, so
-            // get correct vertex label
-            // and print with space.
-            for (Map.Entry<Person, Integer> vertex : vertices.entrySet()) {
-                if (i == vertex.getValue()) {
-                    System.out.print(vertex.getKey().getLabel() + "  ");
-                }
-            }
-            // Print weights for vertices,
-            // for this row.
-            for (int j = 0; j < size; j++) {
-                String spacer = (j != size - 1) ? ", " : "";
-                Weight<Relation> weight = matrix.getCell(i, j);
-                Object weightValue;
-                // Allow for custom operation,
-                // e.g. get something other
-                // than label.
-                if (weight != null) {
-                    weightValue = weight.getWeight()
-                            .getLabel();
-                    if (weightValue == null) {
-                        weightValue = weight.getWeight().getTopExtra();
-                        if (weightValue == null) {
-                            weightValue = "______";
-                        }
-                    }
-                } else {
-                    weightValue = "______";
-                }
-                System.out.print(weightValue + spacer);
-            }
-            System.out.println();
+
+        loadRelationsFile(testGenealogyTree, "fullTree");
+        loadPersonDetailsFile(testDetailsResource, "fullTree");
+
+        exportDOT(sourceCodePath + "TestGenealogyDOT", "fullTree");
+        exportSorted(sourceCodePath + "TestGenealogySorted", "fullTree");
+
+        String[] s = findRelationship("Joanna Lannister", "Lancel Lannister", "fullTree");
+
+        for (int a = 0; a < s.length; a++) {
+            System.out.println("Relation: " + s[a]);
+
         }
+        System.out.println();
+        Map<String, String> map;
+        map = getPersonDetails("Rhaego", "fullTree");
+
+        map.forEach((k, v) -> {
+            System.out.println(toTitleCase(k) + " : " + toTitleCase(v));
+        });
     }
 }
