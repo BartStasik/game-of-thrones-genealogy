@@ -22,7 +22,7 @@ import java.util.function.Function;
 /**
  * Graph object, storing vertices of type Vertex
  * and edges of type Edge, in an AdjacencyMatrix.
- *
+ * <p>
  * Edges are wrapped in the Weight wrapper class,
  * to distinguish between null edges (signifying
  * a lack of an Edge) and edges with null weights
@@ -608,6 +608,9 @@ public class Graph<V extends Vertex, E extends Edge> {
      * and returns a Boolean.
      *
      * @param vertex Starting vertex.
+     * @param filter used to ignore adjacent
+     *               vertices, according the
+     *               BiFunction.
      * @return ArrayList of vertices, in order
      * of the path.
      */
