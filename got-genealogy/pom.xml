@@ -49,13 +49,12 @@
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${jar.plugin.version}</version>
                     <configuration>
-						<archive>
-						  <manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>com.got.genealogy.MainLoader</mainClass>
-						  </manifest>
-						</archive>
-
+                        <archive>
+                          <manifest>
+                          <addClasspath>true</addClasspath>
+                          <mainClass>com.got.genealogy.MainLoader</mainClass>
+                          </manifest>
+                        </archive>
                     </configuration>
                 </plugin>
 
@@ -67,7 +66,7 @@
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <goals>install</goals>
                         <useReleaseProfile>false</useReleaseProfile>
-                        <tagNameFormat>service/@{version}</tagNameFormat>
+                        <tagNameFormat>Game_of_Thrones_Genealogy/@{version}</tagNameFormat>
                     </configuration>
                 </plugin>
 
