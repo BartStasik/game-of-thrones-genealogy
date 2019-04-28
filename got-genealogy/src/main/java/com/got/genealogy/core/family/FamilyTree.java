@@ -158,11 +158,10 @@ public class FamilyTree extends Graph<Person, Relation> {
                             Relationship relationship) {
         Person person1 = getPerson(name1);
         Person person2 = getPerson(name2);
-        // Todo: check this
-        Relation relationFrom1 = editRelation(name1, name2, relationship);
-        Relation relationFrom2;
 
         if (!(person1 == null) && !(person2 == null)) {
+            Relation relationFrom1 = editRelation(name1, name2, relationship);
+            Relation relationFrom2;
             if (relationship.equals(CHILD)) {
                 relationFrom2 = editRelation(name2, name1, PARENT);
                 addRelation(person2, person1, relationFrom2);
