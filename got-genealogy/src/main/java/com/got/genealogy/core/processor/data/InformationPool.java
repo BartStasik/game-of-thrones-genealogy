@@ -12,11 +12,25 @@ import static com.got.genealogy.core.family.person.Gender.*;
 import static com.got.genealogy.core.family.person.Relationship.*;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 
+/**
+ * InformationPool, used to hold pools of enums
+ * and Strings, to extract Gender and Relationship
+ * enums, or non-enum relationship strings.
+ */
 public class InformationPool {
 
+    /**
+     * x_RELATIONSHIP Maps, used to pair Relationship
+     * enums to their gender-equivalent String outputs.
+     */
     public final static Map<Relationship, String> MALE_RELATIONSHIPS;
     public final static Map<Relationship, String> FEMALE_RELATIONSHIPS;
 
+    /**
+     * x_COORDS Relationship arrays, used by relationship
+     * equations, to find the relationship between two
+     * people, to an infinite degree.
+     */
     public final static Relationship[] PARENT_COORDS = new Relationship[]{
             PARENT,
             GRANDPARENT,
@@ -42,6 +56,11 @@ public class InformationPool {
             GREAT_GRANDNIECE_OR_NEPHEW
     };
 
+    /**
+     * x_INPUTS String arrays, used to specify the valid
+     * input relationship Strings, for which a Gender can
+     * be extracted.
+     */
     public final static String[] MALE_INPUTS = new String[]{
             "Man",
             "Male",
@@ -108,14 +127,43 @@ public class InformationPool {
         FEMALE_RELATIONSHIPS = Collections.unmodifiableMap(femaleRelationships);
     }
 
+    /**
+     * Returns the male output String, correlating to
+     * the provided Relationship enum.
+     *
+     * @param relationship Relationship enum.
+     * @return the male output String, correlating to
+     * the provided Relationship enum.
+     */
     public static String getMaleRelationship(Relationship relationship) {
         return MALE_RELATIONSHIPS.get(relationship);
     }
 
+    /**
+     * Returns the female output String, correlating to
+     * the provided Relationship enum.
+     *
+     * @param relationship Relationship enum.
+     * @return the female output String, correlating to
+     * the provided Relationship enum.
+     */
     public static String getFemaleRelationship(Relationship relationship) {
         return FEMALE_RELATIONSHIPS.get(relationship);
     }
 
+    /**
+     * Returns the relationship between two people in
+     * String format.
+     * <p>
+     * If the Relation stores a valid Relationship enum,
+     * a Gender infusion is attempted, otherwise the
+     * Relation label is returned in Title Case.
+     *
+     * @param gender   of the Person.
+     * @param relation between two Person objects.
+     * @return the relationship between two people in
+     * String format.
+     */
     public static String getRelationship(Gender gender, Relation relation) {
         try {
             Relationship relationship = Relationship.valueOf(relation.getLabel());
@@ -125,6 +173,17 @@ public class InformationPool {
         }
     }
 
+    /**
+     * Returns the Relationship enum as a String, if
+     * a corresponding output String exists. This is
+     * where the Gender gets infused.
+     *
+     * @param gender       of the Person.
+     * @param relationship Relationship enum.
+     * @return the Relationship enum as a String, if
+     * * a corresponding output String exists. This is
+     * * where the Gender gets infused.
+     */
     public static String getRelationship(Gender gender, Relationship relationship) {
         switch (gender) {
             case MALE:
@@ -136,6 +195,16 @@ public class InformationPool {
         }
     }
 
+    /**
+     * Extracts either SPOUSE, PARENT or CHILD
+     * Relationship enums, if the provided input String
+     * is valid.
+     *
+     * @param relationship input relationship String.
+     * @return either SPOUSE, PARENT or CHILD
+     * Relationship enums, if the provided input String
+     * is valid.
+     */
     public static Relationship getFilteredInputRelationship(String relationship) {
         switch (relationship.toUpperCase()) {
             case "HUSBAND":
@@ -156,10 +225,16 @@ public class InformationPool {
         }
     }
 
+    /**
+     * Extracts the Gender enum from an input String.
+     *
+     * @param gender input gender String.
+     * @return UNSPECIFIED if a valid Gender could
+     * not be extracted.
+     */
     public static Gender getInputGender(String gender) {
         Gender male = getMaleInputGender(gender);
         Gender female = getFemaleInputGender(gender);
-
         if (male == null && female == null) {
             return UNSPECIFIED;
         } else if (male == null) {
@@ -171,6 +246,14 @@ public class InformationPool {
         }
     }
 
+    /**
+     * Returns null if a valid male input String
+     * could not be found in MALE_INPUTS.
+     *
+     * @param gender input male String.
+     * @return null if a valid male input String
+     * could not be found in MALE_INPUTS.
+     */
     public static Gender getMaleInputGender(String gender) {
         for (String male : MALE_INPUTS) {
             String genderUp = gender.toUpperCase();
@@ -182,6 +265,14 @@ public class InformationPool {
         return null;
     }
 
+    /**
+     * Returns null if a valid male input String
+     * could not be found in FEMALE_INPUTS.
+     *
+     * @param gender input female String.
+     * @return null if a valid male input String
+     * could not be found in FEMALE_INPUTS.
+     */
     public static Gender getFemaleInputGender(String gender) {
         for (String female : FEMALE_INPUTS) {
             String genderUp = gender.toUpperCase();
