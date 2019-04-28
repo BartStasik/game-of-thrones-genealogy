@@ -2,6 +2,7 @@ package com.got.genealogy;
 
 import com.got.genealogy.userinterface.InterfaceController;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -22,8 +23,7 @@ public class MainLoader extends Application {
     Alert error;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        
+    public void start(Stage primaryStage) throws IOException {
         error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("Error");
         error.setHeaderText(null);
@@ -38,7 +38,7 @@ public class MainLoader extends Application {
         }
         
         Font.loadFont(fontURL.toExternalForm(), 10);
-        
+  
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
 
@@ -78,11 +78,9 @@ public class MainLoader extends Application {
         // inject main.fxml scene into the controller of the interface.fxml scene
         InterfaceController interfacePaneController = interfaceLoader.getController();
         interfacePaneController.setMainScene(mainScene);
-
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
 }

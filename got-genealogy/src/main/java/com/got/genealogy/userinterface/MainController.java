@@ -140,6 +140,9 @@ public class MainController {
     }
 
     void displayRelationship() {
+        if (character1 == null || character2 == null) {
+            return;
+        }
         String person1Name = character1.getText();
         String person2Name = character2.getText();
 
