@@ -8,8 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -21,7 +19,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import java.io.File;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Map;
 
 import static com.got.genealogy.core.processor.Genealogy.*;
@@ -142,6 +139,9 @@ public class MainController {
     }
 
     void displayRelationship() {
+        if (character1 == null || character2 == null) {
+            return;
+        }
         String person1Name = character1.getText();
         String person2Name = character2.getText();
 
@@ -215,7 +215,9 @@ public class MainController {
                 = getPersonDetails(personName1, "GOT");
 
         if (character1Details == null) {
-            error.setContentText("Error could not load " + personName1 + "'s details");
+            error.setContentText("Error could not load " 
+                    + personName1 
+                    + "'s details");
             error.showAndWait();
             return;
         }
@@ -225,7 +227,8 @@ public class MainController {
         character1Origin.setText(character1Details.get("ORIGIN"));
         character1House.setText(character1Details.get("HOUSE"));
         character1Culture.setText(character1Details.get("CULTURE"));
-        character1Alliance.setText(character1Details.get("ALLEGIANCE").replace("; ", "\n"));
+        character1Alliance.setText(character1Details.get("ALLEGIANCE")
+                .replace("; ", "\n"));
     }
 
     void loadCharacterProfile2() {
@@ -240,7 +243,9 @@ public class MainController {
                 = getPersonDetails(personName2, "GOT");
 
         if (character2Details == null) {
-            error.setContentText("Error could not load " + personName2 + "'s details");
+            error.setContentText("Error could not load " 
+                    + personName2 
+                    + "'s details");
             error.showAndWait();
             return;
         }
@@ -250,7 +255,8 @@ public class MainController {
         character2Origin.setText(character2Details.get("ORIGIN"));
         character2House.setText(character2Details.get("HOUSE"));
         character2Culture.setText(character2Details.get("CULTURE"));
-        character2Alliance.setText(character2Details.get("ALLEGIANCE").replace("; ", "\n"));
+        character2Alliance.setText(character2Details.get("ALLEGIANCE")
+                .replace("; ", "\n"));
     }
 
     // --------------------------- --------------------------- ---------------------------
@@ -269,13 +275,13 @@ public class MainController {
 
         FamilyTree realtionsFileLoad = loadRelationsFile(gotRelations, "GOT");
         if(realtionsFileLoad == null){
-            error.setContentText("Could not load the Relationships data file fropm system!");
+            error.setContentText("Could not load the Relationships data file from system!");
             error.showAndWait();
         }
 
         boolean detailsFileLoad = loadPersonDetailsFile(gotDetails, "GOT");
         if(!detailsFileLoad){
-            error.setContentText("Could not load the Characters details file fropm system!");
+            error.setContentText("Could not load the Characters details file from system!");
             error.showAndWait();
         }
         
@@ -285,7 +291,8 @@ public class MainController {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         
         anchorParent.getChildren().remove(loadButton);
@@ -307,7 +314,8 @@ public class MainController {
         }
 
         exportSorted(exportPath, "GOT");
-        info.setContentText("Sorted list successfully exported to: " + exportPath);
+        info.setContentText("Sorted list successfully exported to: " 
+                + exportPath);
         info.showAndWait();
     }
 
