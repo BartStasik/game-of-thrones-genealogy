@@ -69,7 +69,7 @@ public class InformationPool {
         maleRelationships.put(DESCENDANT_COUSIN, "Descendant Cousin");
         maleRelationships.put(GRANDAUNT_OR_UNCLE, "Granduncle");
         maleRelationships.put(GRANDCHILD, "Grandson");
-        femaleRelationships.put(GRANDNIECE_OR_NEPHEW, "Grandnephew");
+        maleRelationships.put(GRANDNIECE_OR_NEPHEW, "Grandnephew");
         maleRelationships.put(GRANDPARENT, "Grandfather");
         maleRelationships.put(GREAT_GRANDAUNT_OR_UNCLE, "Great Granduncle");
         maleRelationships.put(GREAT_GRANDCHILD, "Great Grandson");

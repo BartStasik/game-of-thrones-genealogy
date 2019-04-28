@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 class GraphUtils<V extends Vertex, E extends Edge> {
-
     void printList(AdjacencyList<V, E> list) {
         list.getList()
                 .forEach((k, v) -> {
@@ -47,8 +46,8 @@ class GraphUtils<V extends Vertex, E extends Edge> {
     }
 
     void printGraph(Graph<V, E> graph,
-                                   Edge nullValue,
-                                   Function<Edge, Object> function) {
+                    Edge nullValue,
+                    Function<Edge, Object> function) {
         AdjacencyMatrix<Weight<E>> matrix = graph.getAdjacencyMatrix();
         Map<V, Integer> vertices = graph.getVertices();
 
@@ -93,5 +92,20 @@ class GraphUtils<V extends Vertex, E extends Edge> {
             }
             System.out.println();
         }
+    }
+}
+
+class Pair {
+
+    public String key, value;
+
+    public Pair() {
+        key = "";
+        value = "";
+    }
+
+    public Pair(String k, String v) {
+        key = k;
+        value = v;
     }
 }
