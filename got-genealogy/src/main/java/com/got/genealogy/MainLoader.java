@@ -2,6 +2,7 @@ package com.got.genealogy;
 
 import com.got.genealogy.userinterface.InterfaceController;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -18,9 +19,7 @@ import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 public class MainLoader extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-
-
+    public void start(Stage primaryStage) throws IOException {
         FXMLLoader interfaceLoader = new FXMLLoader();
         FXMLLoader mainLoader = new FXMLLoader();
 
