@@ -284,7 +284,7 @@ public class Genealogy {
             }
             if (p > 1) {
                 return finalRelationship(relationships,
-                        "but a Relative is Married to their Relative");
+                        "Not Related, but a Relative is Married to their Relative");
             } else if (p == 1) {
                 inLaw = true;
             }
