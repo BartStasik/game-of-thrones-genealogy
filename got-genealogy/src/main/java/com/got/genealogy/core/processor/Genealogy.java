@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.got.genealogy.core.family.person.Relationship.*;
 import static com.got.genealogy.core.processor.data.FileHandler.*;
@@ -59,7 +60,8 @@ public class Genealogy {
         families.remove(familyTree);
     }
 
-    public static Map<String, String> getPersonDetails(String personName, String familyName) {
+    public static Map<String, String> getPersonDetails(String personName,
+                                                       String familyName) {
         FamilyTree family = getFamily(familyName);
         Map<String, String> details;
         Person person;
@@ -75,7 +77,8 @@ public class Genealogy {
         return details;
     }
 
-    public static boolean loadPersonDetailsFile(InputStream resourceStream, String familyName) {
+    public static boolean loadPersonDetailsFile(InputStream resourceStream,
+                                                String familyName) {
         try {
             String[][] file = loadResourceFile(resourceStream);
             FamilyTree family = getFamily(familyName);
@@ -121,7 +124,8 @@ public class Genealogy {
         return true;
     }
 
-    public static FamilyTree loadRelationsFile(InputStream resourceStream, String familyName) {
+    public static FamilyTree loadRelationsFile(InputStream resourceStream,
+                                               String familyName) {
         try {
             String[][] file = loadResourceFile(resourceStream);
             FamilyTree family = getFamily(familyName);
@@ -218,7 +222,8 @@ public class Genealogy {
         if (family == null) {
             return null;
         }
-        List<Person> sortedPeople = new ArrayList<>(family.getVertices().keySet());
+        Set<Person> people = family.getVertices().keySet();
+        List<Person> sortedPeople = new ArrayList<>(people);
         String[] allPeople = new String[sortedPeople.size()];
 
         Collections.sort(sortedPeople);
@@ -279,7 +284,7 @@ public class Genealogy {
             }
             if (p > 1) {
                 return finalRelationship(relationships,
-                        "Not Related, but someone in family is married to their relative");
+                        "Not Related, but Relative are Married");
             } else if (p == 1) {
                 inLaw = true;
             }
@@ -300,11 +305,16 @@ public class Genealogy {
                 if (y > 3) {
                     return finalRelationship(
                             relationships,
-                            countRepeatedTimes(y - 2, inLaw, gender, GREAT_GRANDPARENT));
+                            countRepeatedTimes(y - 2,
+                                    inLaw,
+                                    gender,
+                                    GREAT_GRANDPARENT));
                 }
                 return finalRelationship(
                         relationships,
-                        countInLaw(inLaw, gender, PARENT_COORDS[y - 1]));
+                        countInLaw(inLaw,
+                                gender,
+                                PARENT_COORDS[y - 1]));
             }
             if (isAuntUncle(x, y)) {
                 // Linear: positive of y
@@ -313,11 +323,16 @@ public class Genealogy {
                 if (y > 3) {
                     return finalRelationship(
                             relationships,
-                            countRepeatedTimes(y - 2, inLaw, gender, GREAT_GRANDAUNT_OR_UNCLE));
+                            countRepeatedTimes(y - 2,
+                                    inLaw,
+                                    gender,
+                                    GREAT_GRANDAUNT_OR_UNCLE));
                 }
                 return finalRelationship(
                         relationships,
-                        countInLaw(inLaw, gender, AUNT_UNCLE_COORDS[y - 1]));
+                        countInLaw(inLaw,
+                                gender,
+                                AUNT_UNCLE_COORDS[y - 1]));
             }
             if (isSiblingCousin(x, y)) {
                 // Linear: x
@@ -325,11 +340,16 @@ public class Genealogy {
                 if (x > 2) {
                     return finalRelationship(
                             relationships,
-                            countRepeatedTimes(x - 1, inLaw, gender, COUSIN));
+                            countRepeatedTimes(x - 1,
+                                    inLaw,
+                                    gender,
+                                    COUSIN));
                 }
                 return finalRelationship(
                         relationships,
-                        countInLaw(inLaw, gender, SIBLING_COORDS[x - 1]));
+                        countInLaw(inLaw,
+                                gender,
+                                SIBLING_COORDS[x - 1]));
             }
             if (isSpouse(x, y)) {
                 // Constant: x
@@ -344,30 +364,48 @@ public class Genealogy {
                 if (y > 3) {
                     return finalRelationship(
                             relationships,
-                            countRepeatedTimes(y - 2, inLaw, gender, GREAT_GRANDCHILD));
+                            countRepeatedTimes(
+                                    y - 2,
+                                    inLaw,
+                                    gender,
+                                    GREAT_GRANDCHILD));
                 }
                 return finalRelationship(
                         relationships,
-                        countInLaw(inLaw, gender, CHILD_COORDS[x - 1]));
+                        countInLaw(
+                                inLaw,
+                                gender,
+                                CHILD_COORDS[x - 1]));
             }
             if (isNieceNephew(x, y)) {
                 // Linear: x
                 // Linear: y
                 return finalRelationship(
                         relationships,
-                        countInLaw(inLaw, gender, NIECE_NEPHEW_COORDS[x - 2]));
+                        countInLaw(
+                                inLaw,
+                                gender,
+                                NIECE_NEPHEW_COORDS[x - 2]));
             }
             if (isDescCousin(x, y)) {
                 // Linear: x
                 // Linear: positive of y
                 return finalRelationship(
                         relationships,
-                        countRepeatedTimes(x - 1, inLaw, gender, DESCENDANT_COUSIN));
+                        countRepeatedTimes(
+                                x - 1,
+                                inLaw,
+                                gender,
+                                DESCENDANT_COUSIN));
             }
             if (isAscCousin(x, y)) {
                 return finalRelationship(
                         relationships,
-                        countRepeatedTimes(x - 2, inLaw, gender, ASCENDANT_COUSIN));
+                        countRepeatedTimes(
+                                x - 2,
+                                inLaw,
+                                gender,
+                                ASCENDANT_COUSIN));
             }
         }
         return finalRelationship(relationships, "Not Related");
