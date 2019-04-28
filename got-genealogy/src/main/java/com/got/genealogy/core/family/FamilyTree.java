@@ -22,23 +22,63 @@ import static com.got.genealogy.core.family.person.Relationship.SPOUSE;
 
 public class FamilyTree extends Graph<Person, Relation> {
 
+    /**
+     * FamilyTree constructor, forcing the specification
+     * of a label.
+     *
+     * @param label of the tree, used to differentiate
+     *              between multiple FamilyTree objects.
+     */
     public FamilyTree(String label) {
         super(label, true);
     }
 
+    /**
+     * Get a Person object, using their label.
+     *
+     * @param name of the person being pulled.
+     * @return the Person object, if existing or null if
+     * they don't.
+     */
     public Person getPerson(String name) {
         // Regardless of case
         return getVertex(name, String::toUpperCase);
     }
 
+    /**
+     * Adds a new vertex in the graph, using a person's
+     * name, so long as they don't already exist.
+     * <p>
+     * The Gender of a new person defaults to UNSPECIFIED.
+     *
+     * @param name of the new person.
+     * @return the new Person object, or one that exists
+     * with that name.
+     */
     public Person addPerson(String name) {
         Person person = getPerson(name);
         if (person != null) {
-            return null;
+            return person;
         }
         return addPerson(new Person(name));
     }
 
+    /**
+     * Adds a new vertex in the graph, using a person's
+     * name.
+     * <p>
+     * The Person object is given a Gender, which is
+     * only overwritten if the enum is something other
+     * than UNSPECIFIED.
+     * <p>
+     * If the Person object is already stored in the
+     * graph, their gender is updated, following the
+     * rules above.
+     *
+     * @param name   of the new/existing person.
+     * @param gender of the new/existing person.
+     * @return the new or already-existing Person object.
+     */
     public Person addPerson(String name, Gender gender) {
         Person person = getPerson(name);
         if (person == null) {
@@ -51,28 +91,77 @@ public class FamilyTree extends Graph<Person, Relation> {
         return person;
     }
 
+    /**
+     * Adds a new vertex in the graph, if they don't
+     * already exit.
+     *
+     * @param person is a Person object to be added as a
+     *               vertex in the graph.
+     * @return the new or already-existing Person object.
+     */
     public Person addPerson(Person person) {
         return addVertex(person);
     }
 
+    /**
+     * Returns the edge between people, using their
+     * label, only if they and the edge itself, actually
+     * exist.
+     *
+     * @param name1 label of person1.
+     * @param name2 label of person2.
+     * @return the Relation object if it exists, otherwise
+     * return null.
+     */
     public Relation getRelation(String name1, String name2) {
         return getEdge(name1, name2);
     }
 
+    /**
+     * Returns the edge between people, only if they,
+     * and the edge itself, actually exist.
+     *
+     * @param person1 is a Person object that has to be
+     *                an existing vertex in the graph.
+     * @param person2 is a Person object that has to be
+     *                an existing vertex in the graph.
+     * @return the Relation object if it exists,
+     * otherwise return null.
+     */
     public Relation getRelation(Person person1, Person person2) {
         return getEdge(person1, person2);
     }
 
+    /**
+     * Add a new edge between two people, using their
+     * names and a valid family-tree Relationship enum.
+     * <p>
+     * If an edge already exists between them, the
+     * label is overwritten, but the extras are kept
+     * the same.
+     * <p>
+     * For a CHILD Relationship enum, an edge is added,
+     * in the opposite direction, and with the PARENT
+     * Relationship enum.
+     * <p>
+     * For a SPOUSE Relationship enum, an edge is also
+     * added in the opposite direction.
+     *
+     * @param name1        label of person1.
+     * @param name2        label of person2.
+     * @param relationship is the Relationship enum,
+     *                     allowing for only valid
+     *                     values.
+     */
     public void addRelation(String name1,
                             String name2,
                             Relationship relationship) {
         Person person1 = getPerson(name1);
         Person person2 = getPerson(name2);
-        // Todo: check this
-        Relation relationFrom1 = editRelation(name1, name2, relationship);
-        Relation relationFrom2;
 
         if (!(person1 == null) && !(person2 == null)) {
+            Relation relationFrom1 = editRelation(name1, name2, relationship);
+            Relation relationFrom2;
             if (relationship.equals(CHILD)) {
                 relationFrom2 = editRelation(name2, name1, PARENT);
                 addRelation(person2, person1, relationFrom2);
@@ -86,6 +175,20 @@ public class FamilyTree extends Graph<Person, Relation> {
         }
     }
 
+    /**
+     * Add a new edge between two people, preventing
+     * self-loops.
+     * <p>
+     * The addEdge() method prevents adding edges if one
+     * already exists.
+     *
+     * @param person1  is a Person object that has to be
+     *                 an existing vertex in the graph.
+     * @param person2  is a Person object that has to be
+     *                 an existing vertex in the graph.
+     * @param relation is the new edge between two people,
+     *                 later wrapped in the Weight class.
+     */
     public void addRelation(Person person1,
                             Person person2,
                             Relation relation) {
@@ -95,18 +198,39 @@ public class FamilyTree extends Graph<Person, Relation> {
         addEdge(person1, person2, new Weight<>(relation));
     }
 
+    /**
+     * Add a new edge between two people. If it
+     * already exists, replace the relationship label,
+     * but keep all extras.
+     *
+     * @param name1        label of person1.
+     * @param name2        label of person2.
+     * @param relationship is a valid family-tree
+     *                     relationship.
+     * @return the new or existing Relation object
+     * itself.
+     */
     public Relation editRelation(String name1,
                                  String name2,
                                  Relationship relationship) {
         Relation relation = getRelation(name1, name2);
         if (relation == null) {
             relation = new Relation(relationship);
-        } else if (relation.getLabel() != null){
+        } else if (relation.getLabel() != null) {
             relation.setLabel(relationship.toString());
         }
         return relation;
     }
 
+    /**
+     * Add a relationship, directly to the extras map,
+     * if the same one doesn't already exist between
+     * people.
+     *
+     * @param name1        label of person1.
+     * @param name2        label of person2.
+     * @param relationship is the extra relationship.
+     */
     public void addExtraRelation(String name1,
                                  String name2,
                                  String relationship) {
@@ -231,6 +355,15 @@ public class FamilyTree extends Graph<Person, Relation> {
         return new int[]{height, generation, noBloodCount, inLawCount};
     }
 
+    /**
+     * Filter, returning a BiFunction that only
+     * accepts SPOUSE or PARENT Relationship enums.
+     *
+     * @return a BiFunction to be used as a
+     * parameter for all methods, filtering
+     * Relation objects, wrapped in the Weight
+     * wrapper, stored in a List.
+     */
     private BiFunction<List<Weight<Relation>>, Integer, Boolean> filterPathRelation() {
         return (weights, index) -> {
             Relation relation = weights.get(index)
@@ -246,6 +379,14 @@ public class FamilyTree extends Graph<Person, Relation> {
         };
     }
 
+    /**
+     * Filter, returning a Function that only
+     * accepts SPOUSE or PARENT Relationship enums.
+     *
+     * @return a Function to be used as a parameter
+     * for all methods, filtering Relation objects
+     * and using a boolean to exclude others.
+     */
     private Function<Relation, Boolean> filterRelation() {
         return e -> e.getLabel()
                 .equals(SPOUSE.toString()) ||
@@ -253,14 +394,12 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     /**
-     * Shortcut, determining the difference
-     * between two integers and returning
-     * the smaller value.
+     * Shortcut, determining the difference between
+     * two integers and returning the smaller value.
      *
      * @param newInt New integer.
      * @param oldInt Old integer.
-     * @return Return the smaller
-     * integer value.
+     * @return Return the smaller integer value.
      */
     private int getMinInt(int newInt, int oldInt) {
         if (oldInt < newInt) {
@@ -270,14 +409,12 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 
     /**
-     * Shortcut, determining the difference
-     * between two integers and returning
-     * the larger value.
+     * Shortcut, determining the difference between
+     * two integers and returning the larger value.
      *
      * @param newInt New integer.
      * @param oldInt Old integer.
-     * @return Return the larger
-     * integer value.
+     * @return Return the larger integer value.
      */
     private int getMaxInt(int newInt, int oldInt) {
         if (oldInt > newInt) {
@@ -287,6 +424,11 @@ public class FamilyTree extends Graph<Person, Relation> {
     }
 }
 
+/**
+ * Enum used by calculateRelationCoords.
+ * Determines fixed "virtual" tree
+ * traversal values.
+ */
 enum Direction {
     UP,
     DOWN,

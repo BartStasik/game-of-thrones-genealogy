@@ -57,7 +57,6 @@ class GraphUtils<V extends Vertex, E extends Edge> {
         System.out.print("   ");
         for (int i = 0; i < size; i++) {
             for (Map.Entry<V, Integer> vertex : vertices.entrySet()) {
-                // TODO: Replace with LinkedHashMap
                 if (i == vertex.getValue()) {
                     System.out.print(vertex.getKey().getLabel() + "  ");
                 }

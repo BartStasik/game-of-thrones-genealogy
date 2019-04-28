@@ -62,10 +62,6 @@ public class TestGraph {
         System.out.println("\n\nAdded edge [c -> d]");
         graphUtils.printGraph(graph1, defaultNull);
 
-        System.out.println("\n\nGet [a] annotation: " + a.getAnnotation());
-        a.setAnnotation("A");
-        System.out.println("Set [a] annotation: " + a.getAnnotation());
-
         System.out.println("\n\n[a] visited: " + a.isVisited());
         a.setVisited(true);
         System.out.println("\nVisited [a]");
