@@ -19,10 +19,10 @@ import java.util.Stack;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public class Graph<Vert extends Vertex, Arc extends Edge> {
+public class Graph<V extends Vertex, E extends Edge> {
 
-    private AdjacencyMatrix<Weight<Arc>> matrix;
-    private Map<Vert, Integer> vertices;
+    private AdjacencyMatrix<Weight<E>> matrix;
+    private Map<V, Integer> vertices;
     private boolean directed;
     private String label;
 
@@ -45,11 +45,11 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         this.label = label;
     }
 
-    public AdjacencyMatrix<Weight<Arc>> getAdjacencyMatrix() {
+    public AdjacencyMatrix<Weight<E>> getAdjacencyMatrix() {
         return matrix;
     }
 
-    public Map<Vert, Integer> getVertices() {
+    public Map<V, Integer> getVertices() {
         return vertices;
     }
 
@@ -82,31 +82,31 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return Objects.hash(directed, label);
     }
 
-    public Arc getEdge(String label1, String label2) {
-        Vert vertex1 = getVertex(label1);
-        Vert vertex2 = getVertex(label2);
+    public E getEdge(String label1, String label2) {
+        V vertex1 = getVertex(label1);
+        V vertex2 = getVertex(label2);
         return getEdge(vertex1, vertex2);
     }
 
-    public Arc getEdge(Vert vertex1, Vert vertex2) {
+    public E getEdge(V vertex1, V vertex2) {
         return getEdge(vertex1, vertex2, (e) -> true);
     }
 
-    public Arc getEdge(Vert vertex1, Vert vertex2, Function<Arc, Boolean> filter) {
-        Weight<Arc> edge = getEdgeWeighted(vertex1, vertex2);
+    public E getEdge(V vertex1, V vertex2, Function<E, Boolean> filter) {
+        Weight<E> edge = getEdgeWeighted(vertex1, vertex2);
         if (edge != null && filter.apply(edge.getWeight())) {
             return edge.getWeight();
         }
         return null;
     }
 
-    public Weight<Arc> getEdgeWeighted(String label1, String label2) {
-        Vert vertex1 = getVertex(label1);
-        Vert vertex2 = getVertex(label2);
+    public Weight<E> getEdgeWeighted(String label1, String label2) {
+        V vertex1 = getVertex(label1);
+        V vertex2 = getVertex(label2);
         return getEdgeWeighted(vertex1, vertex2);
     }
 
-    public Weight<Arc> getEdgeWeighted(Vert vertex1, Vert vertex2) {
+    public Weight<E> getEdgeWeighted(V vertex1, V vertex2) {
         if (existingVertex(vertex1, vertex2)) {
             int fromVertex = vertices.get(vertex1);
             int toVertex = vertices.get(vertex2);
@@ -115,15 +115,15 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return null;
     }
 
-    public void addEdge(Vert vertex1, Vert vertex2) {
+    public void addEdge(V vertex1, V vertex2) {
         addEdge(vertex1, vertex2, new Weight<>());
     }
 
-    public void addEdge(Vert vertex1, Vert vertex2, Weight<Arc> weight) {
+    public void addEdge(V vertex1, V vertex2, Weight<E> weight) {
         if (existingVertex(vertex1, vertex2)) {
             // Get index numbers of vertices
-            Vert vertexItem1 = getVertex(vertex1.getLabel());
-            Vert vertexItem2 = getVertex(vertex2.getLabel());
+            V vertexItem1 = getVertex(vertex1.getLabel());
+            V vertexItem2 = getVertex(vertex2.getLabel());
             int fromVertex = vertices.get(vertexItem1);
             int toVertex = vertices.get(vertexItem2);
             // Add outgoing edge
@@ -135,14 +135,14 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         }
     }
 
-    public void removeEdge(Vert vertex1, Vert vertex2) {
+    public void removeEdge(V vertex1, V vertex2) {
         if (existingEdge(vertex1, vertex2)) {
             addEdge(vertex1, vertex2, null);
         }
     }
 
-    public Vert getVertex(int index) {
-        for (Map.Entry<Vert, Integer> vertex : vertices.entrySet()) {
+    public V getVertex(int index) {
+        for (Map.Entry<V, Integer> vertex : vertices.entrySet()) {
             if (vertex.getValue().equals(index)) {
                 return vertex.getKey();
             }
@@ -150,14 +150,14 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return null;
     }
 
-    public Vert getVertex(String label) {
+    public V getVertex(String label) {
         // No filter
         return getVertex(label, (e) -> e);
     }
 
-    public Vert getVertex(String label,
-                          Function<String, String> filter) {
-        for (Vert vertex : vertices.keySet()) {
+    public V getVertex(String label,
+                       Function<String, String> filter) {
+        for (V vertex : vertices.keySet()) {
             String vertexFiltered = filter.apply(vertex.getLabel());
             String labelFiltered = filter.apply(label);
             if (vertexFiltered.equals(labelFiltered)) {
@@ -167,7 +167,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return null;
     }
 
-    public Vert addVertex(Vert vertex) {
+    public V addVertex(V vertex) {
         if (existingVertex(vertex)) {
             return null;
         }
@@ -183,9 +183,9 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         return vertex;
     }
 
-    public void removeVertex(Vert vertex) {
+    public void removeVertex(V vertex) {
         if (existingVertex(vertex)) {
-            Vert vertexItem = getVertex(vertex.getLabel());
+            V vertexItem = getVertex(vertex.getLabel());
             Integer index = vertices.get(vertexItem);
             // Remove and shift left
             vertices.remove(vertexItem);
@@ -198,41 +198,41 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
         }
     }
 
-    public boolean existingEdge(Vert vertex1, Vert vertex2) {
+    public boolean existingEdge(V vertex1, V vertex2) {
         return getEdge(vertex1, vertex2) != null;
     }
 
-    public boolean existingVertex(Vert vertex) {
+    public boolean existingVertex(V vertex) {
         if (vertex == null) {
             return false;
         }
-        Vert vertexItem = getVertex(vertex.getLabel());
+        V vertexItem = getVertex(vertex.getLabel());
         return vertices.containsKey(vertexItem);
     }
 
-    public boolean existingVertex(Vert vertex1, Vert vertex2) {
+    public boolean existingVertex(V vertex1, V vertex2) {
         return existingVertex(vertex1) && existingVertex(vertex2);
     }
 
-    public boolean isAdjacent(Vert vertex1, Vert vertex2) {
+    public boolean isAdjacent(V vertex1, V vertex2) {
         return getEdge(vertex1, vertex2) != null;
     }
 
-    public Set<Vert> adjacentVertices(Vert vertex) {
+    public Set<V> adjacentVertices(V vertex) {
         return adjacentVertices(vertex, (list, index) -> true);
     }
 
-    public Set<Vert> adjacentVertices(Vert vertex, BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
+    public Set<V> adjacentVertices(V vertex, BiFunction<List<Weight<E>>, Integer, Boolean> filter) {
         if (existingVertex(vertex)) {
             int vertexIndex = vertices.get(vertex);
-            Set<Vert> adjacentVertices = new HashSet<>();
-            List<Weight<Arc>> row, column;
+            Set<V> adjacentVertices = new HashSet<>();
+            List<Weight<E>> row, column;
 
             row = matrix.getRow(vertexIndex);
             column = matrix.getColumn(vertexIndex);
 
             for (int i = 0; i < row.size(); i++) {
-                for (Map.Entry<Vert, Integer> vertexItem : vertices.entrySet()) {
+                for (Map.Entry<V, Integer> vertexItem : vertices.entrySet()) {
                     // TODO: Replace with LinkedHashMap
                     // Get vertex with corresponding
                     // index in the HashMap.
@@ -266,18 +266,18 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      * @return AdjacencyList of vertices
      * adjacent to weighted vertices.
      */
-    public AdjacencyList<Vert, Arc> adjacencyListWeighted() {
-        AdjacencyList<Vert, Arc> adjacencyList = new AdjacencyList<>();
+    public AdjacencyList<V, E> adjacencyListWeighted() {
+        AdjacencyList<V, E> adjacencyList = new AdjacencyList<>();
         // For each vertex, check adjacent
         // vertices and attach a weight to
         // them.
         vertices.forEach((vertex, vertexIndex) -> {
-            List<Weight<Arc>> row = matrix.getRow(vertexIndex);
-            Set<WeightedVertex<Vert, Arc>> adjacentVertices = new HashSet<>();
+            List<Weight<E>> row = matrix.getRow(vertexIndex);
+            Set<WeightedVertex<V, E>> adjacentVertices = new HashSet<>();
             // Get edge and add to set
-            for (Map.Entry<Vert, Integer> vertexItem : vertices.entrySet()) {
-                Vert adjacentVertex = vertexItem.getKey();
-                Arc weight = getEdge(vertex, adjacentVertex);
+            for (Map.Entry<V, Integer> vertexItem : vertices.entrySet()) {
+                V adjacentVertex = vertexItem.getKey();
+                E weight = getEdge(vertex, adjacentVertex);
                 if (weight != null) {
                     adjacentVertices.add(
                             new WeightedVertex<>(
@@ -299,7 +299,7 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      * @return Boolean after running DFS
      * traversal.
      */
-    public boolean pathExistsBetween(Vert vertex1, Vert vertex2) {
+    public boolean pathExistsBetween(V vertex1, V vertex2) {
         return depthFirstTraversal(vertex1).contains(vertex2);
     }
 
@@ -311,20 +311,21 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      * @return ArrayList of vertices,
      * in order of the path.
      */
-    public List<Vert> depthFirstTraversal(Vert vertex) {
+    public List<V> depthFirstTraversal(V vertex) {
         return depthFirstTraversal(vertex, (list, index) -> true);
     }
 
-    public List<Vert> depthFirstTraversal(Vert vertex, BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
-        Stack<Vert> stack = new Stack<>();
-        List<Vert> path = new ArrayList<>();
+    public List<V> depthFirstTraversal(V vertex,
+                                       BiFunction<List<Weight<E>>, Integer, Boolean> filter) {
+        Stack<V> stack = new Stack<>();
+        List<V> path = new ArrayList<>();
         // Un-visit all vertices before
         // traversing. Push starting
         // vertex onto the stack.
         vertices.forEach((k, v) -> k.setVisited(false));
         stack.push(vertex);
         while (!stack.empty()) {
-            Vert topVertex = stack.pop();
+            V topVertex = stack.pop();
             if (!topVertex.isVisited()) {
                 path.add(topVertex);
                 topVertex.setVisited(true);
@@ -333,9 +334,9 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
                 // (regardless of direction)
                 // and push unvisited onto
                 // stack.
-                Iterator<Vert> adjacentVertices = adjacentVertices(topVertex, filter).iterator();
+                Iterator<V> adjacentVertices = adjacentVertices(topVertex, filter).iterator();
                 while (adjacentVertices.hasNext()) {
-                    Vert adjacentVertex = adjacentVertices.next();
+                    V adjacentVertex = adjacentVertices.next();
                     if (!adjacentVertex.isVisited()) {
                         // Push unvisited neighbour
                         stack.push(adjacentVertex);
@@ -362,20 +363,20 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      * of the inner class,
      * after graph traversal.
      */
-    public List<Vert> getShortestUnweightedPath(Vert vertex1, Vert vertex2) {
+    public List<V> getShortestUnweightedPath(V vertex1, V vertex2) {
         return getShortestUnweightedPath(vertex1, vertex2, (list, index) -> true);
     }
 
-    public List<Vert> getShortestUnweightedPath(Vert vertex1,
-                                                Vert vertex2,
-                                                BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
+    public List<V> getShortestUnweightedPath(V vertex1,
+                                             V vertex2,
+                                             BiFunction<List<Weight<E>>, Integer, Boolean> filter) {
         // Need to use an inner class, to use
         // with the adjacentVertices() method
         // from the inherited Graph class.
         class PathProcessor {
             // Can directly access shortestPath
             // outside this nested class.
-            private List<Vert> shortestPath = new ArrayList<>();
+            private List<V> shortestPath = new ArrayList<>();
 
             /**
              * Prepare an empty directed path list and
@@ -387,10 +388,10 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
              * @param vertex2   Goal vertex, to reach
              *                  after traversing.
              */
-            private PathProcessor(Vert vertex1,
-                                  Vert vertex2,
-                                  BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
-                List<Vert> tempPath = new ArrayList<>();
+            private PathProcessor(V vertex1,
+                                  V vertex2,
+                                  BiFunction<List<Weight<E>>, Integer, Boolean> filter) {
+                List<V> tempPath = new ArrayList<>();
                 tempPath.add(vertex1);
                 processAllPaths(vertex1, vertex2, tempPath, filter);
             }
@@ -413,10 +414,10 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
              *                  possible paths.
              * @param currentPath   Path-so-far tracker.
              */
-            private void processAllPaths(Vert vertex1,
-                                         Vert vertex2,
-                                         List<Vert> currentPath,
-                                         BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
+            private void processAllPaths(V vertex1,
+                                         V vertex2,
+                                         List<V> currentPath,
+                                         BiFunction<List<Weight<E>>, Integer, Boolean> filter) {
                 vertex1.setVisited(true);
                 if (vertex1.equals(vertex2)) {
                     // Need to un-visit node to
@@ -433,9 +434,9 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
                 // Get all relatives and
                 // traverse graph over all
                 // unvisited relatives.
-                Iterator<Vert> adjacentVertices = adjacentVertices(vertex1, filter).iterator();
+                Iterator<V> adjacentVertices = adjacentVertices(vertex1, filter).iterator();
                 while (adjacentVertices.hasNext()) {
-                    Vert adjacentVertex = adjacentVertices.next();
+                    V adjacentVertex = adjacentVertices.next();
                     if (!adjacentVertex.isVisited()) {
                         currentPath.add(adjacentVertex);
                         // Recursively traverse neighbours
@@ -468,10 +469,10 @@ public class Graph<Vert extends Vertex, Arc extends Edge> {
      * or column position with its position in
      * a list of weights.
      */
-    private boolean containsAdjacent(List<Weight<Arc>> weights,
+    private boolean containsAdjacent(List<Weight<E>> weights,
                                      int vertexPosition,
                                      int index,
-                                     BiFunction<List<Weight<Arc>>, Integer, Boolean> filter) {
+                                     BiFunction<List<Weight<E>>, Integer, Boolean> filter) {
         if (weights.size() == vertices.size() && weights.get(index) != null) {
             return vertexPosition == index && filter.apply(weights, index);
         }

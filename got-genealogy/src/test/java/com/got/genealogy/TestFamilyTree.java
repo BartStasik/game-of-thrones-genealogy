@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,6 @@ public class TestFamilyTree {
     void gotStarkTest() {
         GraphUtils<Person, Relation> graphUtils = new GraphUtils<>();
         FamilyTree family = new FamilyTree("Stark");
-
         HashMap<String, Gender> names = new HashMap<>();
 
         // Based purely on example input
@@ -130,8 +130,14 @@ public class TestFamilyTree {
         people.forEach((e) -> System.out.println(e.getLabel()));
 
         System.out.println();
-        int[] coordinates = family.calculateRelationCoords(family.getPerson("Rickon Stark"), family.getPerson("Eddard Stark"));
-        System.out.printf("[%s, %s, %s, %s]", coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
+        int[] coordinates = family.calculateRelationCoords(
+                family.getPerson("Rickon Stark"),
+                family.getPerson("Eddard Stark"));
+        System.out.printf("[%s, %s, %s, %s]",
+                coordinates[0],
+                coordinates[1],
+                coordinates[2],
+                coordinates[3]);
         System.out.println();
     }
 
@@ -140,8 +146,6 @@ public class TestFamilyTree {
         GraphUtils<Person, Relation> graphUtils = new GraphUtils<>();
         boolean testPassed = true;
         int i = 0;
-
-        String sourceCodePath;
 
         InputStream testResource = decodeResource("RelationshipTestFile.txt");
         InputStream testDetailsResource = decodeResource("PersonDetailsTestFile.txt");
@@ -153,8 +157,8 @@ public class TestFamilyTree {
         if (testResource == null || testDetailsResource == null) {
             fail("Correct resource files don't exist!");
         }
-        sourceCodePath = decodeURL(
-                new File(sourceCodeLocation.getFile()).getParent() + File.separator);
+        File file = new File(sourceCodeLocation.getFile());
+        String sourceCodePath = decodeURL(file.getParent() + File.separator);
 
         // Disregarding case. Different
         // familyName case is intentional.
@@ -172,15 +176,6 @@ public class TestFamilyTree {
         // Shouldn't add this person.
         // Disregarding case.
         testFamily.addPerson("bartosz StAsIk");
-
-        class Pair {
-            private String key, value;
-
-            private Pair(String k, String v) {
-                key = k;
-                value = v;
-            }
-        }
 
         graphUtils.printGraph(testFamily);
 
@@ -241,43 +236,40 @@ public class TestFamilyTree {
         // Hates
         relations.add(new Pair("nina barnard", "bartosz Stasik"));
 
-        String[] expectedRelationshipsInOrder = new String[]{
-                "Grandaunt",
-                "Aunt",
-                "Sister",
-                "Daughter",
-                "Mother",
-                "Grandmother",
-                "Granddaughter",
-                "Niece",
-                "Niece",
-                "Cousin",
-                "1x Descendant Cousin",
-                "Great Granddaughter",
-                "Grandniece",
-                "1x Ascendant Cousin",
-                "2x Cousin",
-                "2x Descendant Cousin",
-                "2x Descendant Cousin",
-                "2x Descendant Cousin",
-                "2x Great Granddaughter",
-                "Great Grandniece",
-                "2x Ascendant Cousin",
-                "2x Ascendant Cousin",
-                "3x Cousin",
-                "3x Descendant Cousin",
-                "3x Descendant Cousin",
-                "Not Related",
-                "Great Granddaughter In-Law",
-                "Not Related, but someone in family is married to their relative",
-                "Not Related, but someone in family is married to their relative",
-                "Not Blood-Related",
-                "Likes",
-                "Husband",
-                "Loves",
-                "Great Grandmother",
-                "Kind Of Hates",
-                "Not Related"
+        String[][] expectedRelationshipsInOrder = new String[][]{
+                new String[]{"Grandaunt"},
+                new String[]{"Aunt"},
+                new String[]{"Sister"},
+                new String[]{"Daughter"},
+                new String[]{"Mother"},
+                new String[]{"Grandmother"},
+                new String[]{"Granddaughter"},
+                new String[]{"Niece"},
+                new String[]{"Niece"},
+                new String[]{"Cousin"},
+                new String[]{"1x Descendant Cousin"},
+                new String[]{"Great Granddaughter"},
+                new String[]{"Grandniece"},
+                new String[]{"1x Ascendant Cousin"},
+                new String[]{"2x Cousin"},
+                new String[]{"2x Descendant Cousin"},
+                new String[]{"2x Descendant Cousin"},
+                new String[]{"2x Descendant Cousin"},
+                new String[]{"2x Great Granddaughter"},
+                new String[]{"Great Grandniece"},
+                new String[]{"2x Ascendant Cousin"},
+                new String[]{"2x Ascendant Cousin"},
+                new String[]{"3x Cousin"},
+                new String[]{"3x Descendant Cousin"},
+                new String[]{"3x Descendant Cousin"},
+                new String[]{"Not Related"},
+                new String[]{"Great Granddaughter In-Law"},
+                new String[]{"Not Related, but Relative are Married"},
+                new String[]{"Not Related, but Relative are Married"},
+                new String[]{"Not Blood-Related"},
+                new String[]{"Likes", "Husband"},
+                new String[]{"Loves", "Great Grandmother"},
+                new String[]{"Kind Of Hates", "Not Related"}
         };
 
         String[] expectedPeopleForDetails = new String[]{
@@ -288,14 +280,23 @@ public class TestFamilyTree {
         };
 
         for (Pair e : relations) {
-            String[] relationships = findRelationship(e.key, e.value, "Test");
+            String[] relationships = findRelationship(
+                    e.key,
+                    e.value,
+                    "Test");
             if (relationships == null) {
                 testPassed = false;
                 System.out.println("Error");
                 break;
             }
             for (String relationship : relationships) {
-                boolean correctRelationship = relationship.equals(expectedRelationshipsInOrder[i]);
+                boolean correctRelationship = false;
+                for (String extraRelationship : expectedRelationshipsInOrder[i]) {
+                    correctRelationship = relationship.equals(extraRelationship);
+                    if (correctRelationship) {
+                        break;
+                    }
+                }
                 if (!correctRelationship) {
                     testPassed = false;
                 }
@@ -304,9 +305,9 @@ public class TestFamilyTree {
                         e.value,
                         correctRelationship,
                         relationship,
-                        expectedRelationshipsInOrder[i]);
-                i++;
+                        Arrays.toString(expectedRelationshipsInOrder[i]));
             }
+            i++;
         }
 
         for (String person : expectedPeopleForDetails) {
@@ -345,9 +346,6 @@ public class TestFamilyTree {
 
     @Test
     void gotFamilyTest() {
-
-        String sourceCodePath;
-
         InputStream testGenealogyTree = decodeResource("GenealogyTree.txt");
         InputStream testDetailsResource = decodeResource("PersonDetails.txt");
         URL sourceCodeLocation = TestFamilyTree.class
@@ -355,7 +353,7 @@ public class TestFamilyTree {
                 .getCodeSource()
                 .getLocation();
 
-        sourceCodePath = new File(sourceCodeLocation.getFile())
+        String sourceCodePath = new File(sourceCodeLocation.getFile())
                 .getParent() + File.separator;
 
         if (testGenealogyTree == null || testDetailsResource == null) {
@@ -364,20 +362,26 @@ public class TestFamilyTree {
 
         loadRelationsFile(testGenealogyTree, "fullTree");
         loadPersonDetailsFile(testDetailsResource, "fullTree");
-
         exportDOT(sourceCodePath + "TestGenealogyDOT", "fullTree");
         exportSorted(sourceCodePath + "TestGenealogySorted", "fullTree");
 
-        String[] s = findRelationship("Joanna Lannister", "Lancel Lannister", "fullTree");
-
-        for (int a = 0; a < s.length; a++) {
-            System.out.println("Relation: " + s[a]);
-
+        String[] s = findRelationship(
+                "Joanna Lannister",
+                "Lancel Lannister",
+                "fullTree");
+        if (s == null) {
+            fail("Either person or family name doesn't exist!");
+        }
+        for (String value : s) {
+            System.out.println("Relation: " + value);
         }
         System.out.println();
+
         Map<String, String> map;
         map = getPersonDetails("Rhaego", "fullTree");
-
+        if (map == null) {
+            fail("Either person or family name doesn't exist!");
+        }
         map.forEach((k, v) -> {
             System.out.println(toTitleCase(k) + " : " + toTitleCase(v));
         });
