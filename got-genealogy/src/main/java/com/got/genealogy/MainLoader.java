@@ -31,9 +31,18 @@ public class MainLoader extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        
         error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("Error");
         error.setHeaderText(null);
+        
+        String javaVersion = Runtime.class.getPackage().getImplementationVersion();
+        if(!javaVersion.equals("1.8.0_212")){
+            error.setContentText("Program failed to start."
+                    + "\nPlease make sure you are using Java8");
+            error.showAndWait();
+            return;
+        }
         
         URL fontURL = getClass()
                 .getResource("/fonts/Cinzel.ttf");
