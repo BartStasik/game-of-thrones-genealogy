@@ -11,7 +11,6 @@ Jaime Lannister,male
 Robert Baratheon,male
 Joffrey Baratheon,male
 Myrcella Baratheon,female
-Tommen Baratheon,male
 Aerys II Targaryen,male
 Rhaella Targaryen,female
 Aegon V Targaryen,male
@@ -41,10 +40,8 @@ Margaery Tyrell,female
 Garlan Tyrell,male
 Willas Tyrell,male
 Mace Tyrell,male
-Rodrik Cassel,male
 Maron Greyjoy,male
 Asha Greyjoy,female
-Balon Greyjoy,male
 Theon Greyjoy,male
 Hodor,male
 Old Nan,female
@@ -67,12 +64,11 @@ Arya Stark,female
 Sansa Stark,male
 Robb Stark,male
 Lyanna Stark,female
-Bran Stark,male
+Brandon Stark,male
 Benjen Stark,male
 Rickard Stark,male
 Petyr Baelish,male
 Pycelle,male
-Joyeuse Frey,female
 Walder Frey,male
 
 Dorna Lannister,spouse,Kevan Lannister
@@ -123,10 +119,12 @@ Elia Martell,mother,Aegon Targaryen
 Rhaegar Targaryen,father,Rhaenys Targaryen
 Rhaegar Targaryen,father,Aegon Targaryen
 Gregor Clegane,rivalry,Sandor Clegane
+Sandor Clegane,rivalry,Gregor Clegane
 Gregor Clegane,killed,Elia Martell
 Gregor Clegane,killed,Rhaenys Targaryen
 Gregor Clegane,killed,Aegon Targaryen
 Loras Tyrell,friendship,Renly Baratheon
+Renly Baratheon,friendship,Loras Tyrell
 Steffon Baratheon,father,Robert Baratheon
 Steffon Baratheon,father,Stannis Baratheon
 Steffon Baratheon,father,Renly Baratheon
@@ -138,10 +136,10 @@ Mace Tyrell,father,Willas Tyrell
 Mace Tyrell,father,Garlan Tyrell
 Mace Tyrell,father,Margaery Tyrell
 Mace Tyrell,father,Loras Tyrell
-Balon Greyjoy,father,Asha Greyjoy
-Balon Greyjoy,father,Maron Greyjoy
-Balon Greyjoy,father,Rodrik Cassel
-Balon Greyjoy,father,Theon Greyjoy
+Balon Greyjoy,parent,Asha Greyjoy
+Balon Greyjoy,parent,Maron Greyjoy
+Balon Greyjoy,parent,Rodrik Cassel
+Balon Greyjoy,parent,Theon Greyjoy
 Hodor,spouse,Old Nan
 Jon Arryn,father,Robin Arryn
 Hoster Tully,father,Catelyn Stark
@@ -149,31 +147,36 @@ Hoster Tully,father,Lysa Arryn
 Hoster Tully,father,Edmure Tully
 Catelyn Stark,spouse,Eddard Stark
 Wylla,sexual relationship,Eddard Stark
+Eddard Stark,sexual relationship,Wylla
 Eddard Stark,adoptive father,Jon Snow
-Jon Snow,adoptive son,Eddard Stark
 Eddard Stark,father,Robb Stark
 Eddard Stark,father,Sansa Stark
 Eddard Stark,father,Arya Stark
 Eddard Stark,father,Bran Stark
 Eddard Stark,father,Rickon Stark
-Catelyn Stark,adoptive mother,Jon Snow
-Jon Snow,adoptive son,Catelyn Stark
 Catelyn Stark,mother,Robb Stark
 Catelyn Stark,mother,Sansa Stark
 Catelyn Stark,mother,Arya Stark
 Catelyn Stark,mother,Bran Stark
 Catelyn Stark,mother,Rickon Stark
 Robb Stark,friendship,Jon Snow
+Jon Snow,friendship,Robb Stark
 Rickard Stark,father,Benjen Stark
+Rickard Stark,father,Brandon Stark
 Rickard Stark,father,Lyanna Stark
 Rickard Stark,father,Eddard Stark
 Walder Frey,spouse,Joyeuse Frey
 Arya Stark,friendship,Jon Snow
-Eddard Stark,friendship,Robert Baratheon 
+Jon Snow,friendship,Arya Stark
+Eddard Stark,friendship,Robert Baratheon
+Robert Baratheon,friendship,Eddard Stark
 Jory Cassel,friendship,Eddard Stark
+Eddard Stark,friendship,Jory Cassel
 Arya Stark,likes,Jory Cassel
 Robb Stark,friendship,Theon Greyjoy
+Theon Greyjoy,friendship,Robb Stark
 Robert Baratheon,rivalry,Balon Greyjoy
+Balon Greyjoy,rivalry,Robert Baratheon
 Robert Baratheon,killed,Maron Greyjoy
 Robert Baratheon,killed,Rodrik Cassel
 Catelyn Stark,hates,Jon Snow
