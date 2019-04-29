@@ -6,7 +6,7 @@ IMPORTANT: Must use Java 1.8, otherwise the JavaFX 8 GUI won't work as expected
 
 * Install Java 1.8 JDK
 * Install Git
-* Install Maven 4.0.0
+* Install Maven
 * Import `pom.xml` into your IDE
 * `(Optional)` Configure IDE to run with Maven attributes, using the `got-genealogy` working directory:
 ** `mvn clean install` - compile
