@@ -7,15 +7,7 @@ import com.got.genealogy.core.graph.property.Vertex;
 import com.got.genealogy.core.graph.property.Weight;
 import com.got.genealogy.core.graph.property.WeightedVertex;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -742,9 +734,11 @@ public class Graph<V extends Vertex, E extends Edge> {
                     vertex1.setVisited(false);
                     boolean shorterPath = currentPath.size() < this.shortestPath.size();
                     boolean emptyGlobalPath = this.shortestPath.size() == 0;
-
                     if (shorterPath || emptyGlobalPath) {
                         // Update shortest path variable
+                        // only if this path is shorter
+                        // or if there isn't an existing
+                        // path yet.
                         this.shortestPath = new ArrayList<>(currentPath);
                     }
                 }
@@ -754,9 +748,26 @@ public class Graph<V extends Vertex, E extends Edge> {
                 Iterator<V> adjacentVertices = adjacentVertices(vertex1, filter).iterator();
                 while (adjacentVertices.hasNext()) {
                     V adjacentVertex = adjacentVertices.next();
-                    if (!adjacentVertex.isVisited()) {
+                    boolean shorterPath = false;
+                    if (this.shortestPath.size() == 0) {
+                        // If path not yet found
+                        // keep traversing.
+                        shorterPath = true;
+                    } else if (currentPath.size() < this.shortestPath.size()) {
+                        // Keep traversing only
+                        // if the length of the
+                        // current path isn't
+                        // longer than the one
+                        // already found.
+                        shorterPath = true;
+                    }
+                    if (!adjacentVertex.isVisited() && shorterPath) {
+                        // Add the neighbour to
+                        // the temporary path
+                        // and recursively
+                        // traverse its
+                        // neighbours - DFS.
                         currentPath.add(adjacentVertex);
-                        // Recursively traverse neighbours
                         processAllPaths(adjacentVertex, vertex2, currentPath, filter);
                         currentPath.remove(adjacentVertex);
                     }
