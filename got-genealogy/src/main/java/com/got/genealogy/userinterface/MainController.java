@@ -25,8 +25,6 @@ import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeURL;
 import com.got.genealogy.core.processor.data.StringUtils;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -43,9 +41,6 @@ public class MainController {
 
     @FXML
     private Button loadButton;
-    
-    @FXML
-    private Button loadButtonCrack;
 
     @FXML
     private AnchorPane anchorParent;
@@ -342,6 +337,9 @@ public class MainController {
             error.setContentText("Could not load the Relationships data file from system!");
             error.showAndWait();
         }
+        
+        info.setContentText("Sucessfully imported relations data file");
+        info.showAndWait();
 
         boolean detailsFileLoad = loadPersonDetailsFile(gotDetails, "GOT");
         if(!detailsFileLoad){
@@ -349,20 +347,11 @@ public class MainController {
             error.showAndWait();
         }
         
+        info.setContentText("Sucessfully imported characters details data file");
+        info.showAndWait();
+        
         loadCharacters("GOT");
         
-        crack();
-    }
-    
-    void crack() {
-        anchorParent.getChildren().add(loadButtonCrack);
-        
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        anchorParent.getChildren().remove(loadButtonCrack);
         anchorParent.getChildren().remove(loadButton);
     }
 
@@ -435,9 +424,6 @@ public class MainController {
     }
 
     public void initialize() {
-        
-        anchorParent.getChildren().remove(loadButtonCrack);
-        
         error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("Error");
         error.setHeaderText(null);

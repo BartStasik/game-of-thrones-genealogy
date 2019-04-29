@@ -1,5 +1,5 @@
 .main-bg {
-	-fx-background-image: url('/images/dark-blue-bg.jpg');
+	-fx-background-image: url('/images/main-bg.jpg');
 	-fx-background-size: cover;
 	-fx-background-position: center center;
 }
