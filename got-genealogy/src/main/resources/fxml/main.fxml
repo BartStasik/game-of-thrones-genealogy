@@ -110,8 +110,7 @@
         <Label fx:id="character2Origin" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="323.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
         <Label fx:id="character2Status" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="273.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
         <Label fx:id="character2Gender" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="223.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />     
-        <Button fx:id="loadButton" layoutX="-62.0" layoutY="37.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="700.0" prefWidth="1500.0" styleClass="loadButton" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />    
-        <Button fx:id="loadButtonCrack" layoutX="-93.0" layoutY="63.0" mnemonicParsing="false" prefHeight="700.0" prefWidth="1500.0" styleClass="loadButtonCrack" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Button fx:id="loadButton" layoutX="-62.0" layoutY="37.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="700.0" prefWidth="1500.0" styleClass="loadButton" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Button layoutX="1429.0" layoutY="7.0" mnemonicParsing="false" onAction="#closeClicked" prefHeight="33.0" prefWidth="66.0" styleClass="control-button-close" />
         <Button layoutX="1355.0" layoutY="7.0" mnemonicParsing="false" onAction="#minimizeClicked" prefHeight="27.0" prefWidth="66.0" styleClass="control-button-minimize" />  
     </children>
