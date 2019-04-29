@@ -4,7 +4,6 @@ import com.got.genealogy.core.family.FamilyTree;
 import com.got.genealogy.core.family.person.Gender;
 import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
-import com.got.genealogy.core.graph.property.Edge;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
