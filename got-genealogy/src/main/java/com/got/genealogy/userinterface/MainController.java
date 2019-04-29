@@ -226,37 +226,40 @@ public class MainController {
         }
         
         String status1 = character1Details.get("LIFE STATUS");
-        if (status1.equals("")) {
+        if (status1 == null) {
             status1 = "None";
         }
         String gender1 = character1Details.get("GENDER");
-        if (gender1.equals("")) {
+        if (gender1 == null) {
             gender1 = "None";
         }
         String origin1 = character1Details.get("ORIGIN");
-        if (origin1.equals("")) {
+        if (origin1 == null) {
             origin1 = "None";
         }
         String house1 = character1Details.get("HOUSE");
-        if (house1.equals("")) {
+        if (house1 == null) {
             house1 = "None";
         }
         String culture1 = character1Details.get("CULTURE");
-        if (culture1.equals("")) {
+        if (culture1 == null) {
             culture1 = "None";
         }
         String alleigance1 = character1Details.get("ALLEGIANCE");
-        if (alleigance1.equals("")) {
+        if (alleigance1 == null) {
             alleigance1 = "None";
         }
-        alleigance1.replace("; ", "\n");
+        culture1 = culture1.replace(";", " & ")
+                .trim();
+        origin1 = origin1.replace(";", " & ")
+                .trim();
         
         character1Gender.setText(toTitleCase(gender1));
         character1Status.setText(toTitleCase(status1));
         character1Origin.setText(toTitleCase(origin1));
         character1House.setText(toTitleCase(house1));
         character1Culture.setText(toTitleCase(culture1));
-        character1Alliance.setText(toTitleCase(alleigance1));
+        character1Alliance.setText(toTitleCase(alleigance1).replace("; ", "\n"));
     }
 
     void loadCharacterProfile2() {
@@ -278,37 +281,40 @@ public class MainController {
             return;
         }
         String status2 = character2Details.get("LIFE STATUS");
-        if (status2.equals("")) {
+        if (status2 == null) {
             status2 = "None";
         }
         String gender2 = character2Details.get("GENDER");
-        if (gender2.equals("")) {
+        if (gender2 == null) {
             gender2 = "None";
         }
         String origin2 = character2Details.get("ORIGIN");
-        if (origin2.equals("")) {
+        if (origin2 == null) {
             origin2 = "None";
         }
         String house2 = character2Details.get("HOUSE");
-        if (house2.equals("")) {
+        if (house2 == null) {
             house2 = "None";
         }
         String culture2 = character2Details.get("CULTURE");
-        if (culture2.equals("")) {
+        if (culture2 == null) {
             culture2 = "None";
         }
         String alleigance2 = character2Details.get("ALLEGIANCE");
-        if (alleigance2.equals("")) {
+        if (alleigance2 == null) {
             alleigance2 = "None";
         }
-        alleigance2.replace("; ", "\n");
+        culture2 = culture2.replace(";", " & ")
+                .trim();
+        origin2 = origin2.replace(";", " & ")
+                .trim();
         
         character2Gender.setText(toTitleCase(gender2));
         character2Status.setText(toTitleCase(status2));
         character2Origin.setText(toTitleCase(origin2));
         character2House.setText(toTitleCase(house2));
         character2Culture.setText(toTitleCase(culture2));
-        character2Alliance.setText(toTitleCase(alleigance2));
+        character2Alliance.setText(toTitleCase(alleigance2).replace("; ", "\n"));
     }
 
     // --------------------------- --------------------------- ---------------------------

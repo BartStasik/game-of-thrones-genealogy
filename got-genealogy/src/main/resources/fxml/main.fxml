@@ -34,84 +34,84 @@
         </ImageView>
         <ListView fx:id="characterSelect1" layoutX="21.0" layoutY="129.0" onMouseClicked="#list1Clicked" prefHeight="531.0" prefWidth="210.0" styleClass="list-view" />
         <ListView fx:id="characterSelect2" layoutX="1258.0" layoutY="129.0" onMouseClicked="#list2Clicked" prefHeight="531.0" prefWidth="210.0" styleClass="list-view" />
-        <Label fx:id="character1" layoutX="237.0" layoutY="173.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
-        <Label fx:id="character2" alignment="CENTER_RIGHT" layoutX="890.0" layoutY="169.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
+        <Label fx:id="character1" layoutX="237.0" layoutY="162.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
+        <Label fx:id="character2" alignment="CENTER_RIGHT" layoutX="890.0" layoutY="162.0" prefHeight="20.0" prefWidth="360.0" styleClass="characterName" />
         <Button fx:id="sortedList" layoutX="532.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportSortedList" prefHeight="36.0" prefWidth="200.0" style="-fx-font-size: 15px;" styleClass="buttons" text="EXPORT SORTED LIST" />
         <Button fx:id="exportFamily" layoutX="749.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportFamily" prefHeight="36.0" prefWidth="200.0" style="-fx-font-size: 15px;" styleClass="buttons" text="EXPORT FAMILY TREE" />
-        <ImageView fx:id="genderIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="genderIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-gender.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="statusIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="statusIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-status.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="allianceIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="allianceIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="463.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-alliance.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="cultureIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="cultureIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-culture.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="houseIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="houseIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-house.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="originIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="originIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-origin.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="genderIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="genderIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-gender.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="statusIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="statusIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-status.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="allianceIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="allianceIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-alliance.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="cultureIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="cultureIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-culture.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="houseIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="houseIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-house.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="originIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="originIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/i-origin.png" />
             </image>
         </ImageView>
-        <Label fx:id="character1Alliance" alignment="TOP_LEFT" layoutX="275.0" layoutY="477.0" prefHeight="200.0" prefWidth="284.0" styleClass="characterDetail" wrapText="true" />
-        <Label fx:id="character1Culture" layoutX="275.0" layoutY="427.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character1House" layoutX="275.0" layoutY="377.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character1Origin" layoutX="275.0" layoutY="327.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character1Status" layoutX="275.0" layoutY="277.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character1Gender" layoutX="273.0" layoutY="227.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character2Alliance" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="924.0" layoutY="480.0" prefHeight="200.0" prefWidth="284.0" styleClass="characterDetail" textAlignment="RIGHT" wrapText="true" />
-        <Label fx:id="character2Culture" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="430.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character2House" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="380.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character2Origin" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="330.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character2Status" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="280.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
-        <Label fx:id="character2Gender" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="230.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character1Alliance" alignment="TOP_LEFT" layoutX="275.0" layoutY="466.0" prefHeight="200.0" prefWidth="284.0" styleClass="characterDetail" wrapText="true" />
+        <Label fx:id="character1Culture" layoutX="275.0" layoutY="416.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character1House" layoutX="275.0" layoutY="366.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character1Origin" layoutX="275.0" layoutY="316.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character1Status" layoutX="275.0" layoutY="266.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character1Gender" layoutX="273.0" layoutY="216.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character2Alliance" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="924.0" layoutY="473.0" prefHeight="200.0" prefWidth="284.0" styleClass="characterDetail" textAlignment="RIGHT" wrapText="true" />
+        <Label fx:id="character2Culture" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="423.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character2House" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="373.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character2Origin" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="323.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character2Status" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="273.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
+        <Label fx:id="character2Gender" alignment="CENTER_RIGHT" layoutX="924.0" layoutY="223.0" prefHeight="20.0" prefWidth="284.0" styleClass="characterDetail" />
         <Button layoutX="1429.0" layoutY="7.0" mnemonicParsing="false" onAction="#closeClicked" prefHeight="33.0" prefWidth="66.0" styleClass="control-button-close" />
         <Button layoutX="1355.0" layoutY="7.0" mnemonicParsing="false" onAction="#minimizeClicked" prefHeight="27.0" prefWidth="66.0" styleClass="control-button-minimize" />     
-        <Button fx:id="loadButton" layoutX="-153.0" layoutY="-150.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="700.0" prefWidth="1500.0" styleClass="loadButton" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />      
+        <Button fx:id="loadButton" layoutX="-1298.0" layoutY="-20.0" mnemonicParsing="false" onAction="#loadDataBlocker" prefHeight="700.0" prefWidth="1500.0" styleClass="loadButton" text="CLICK TO LOAD DATA" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />      
     </children>
 </AnchorPane>

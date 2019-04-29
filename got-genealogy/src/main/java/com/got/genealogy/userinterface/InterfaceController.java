@@ -15,10 +15,8 @@ import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 import java.net.URL;
-import javafx.scene.ImageCursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 
 
 public class InterfaceController {
