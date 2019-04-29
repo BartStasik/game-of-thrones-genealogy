@@ -7,13 +7,18 @@ IMPORTANT: Must use Java 1.8, otherwise the JavaFX 8 GUI won't work as expected
 * Install Java 1.8 JDK
 * Install Git
 * Install Maven
-* `(Optional)` Configure IDE to run with Maven
+* Import `pom.xml` into your IDE
+* `(Optional)` Configure IDE to run with Maven attributes, using the `got-genealogy` working directory:
+** `mvn clean install` - compile
+** `mvn exec:java` - build
+
+NOTE: The main class is `com.got.genealogy.MainLoader`
 
 === Maven on Windows
 
-* Download `Binary zip archive`
+* Download `Binary zip archive` from https://maven.apache.org/
 * Unpack into a directory, e.g. `C:\Program Files\Apache Software Foundation\apache-maven-3.6.0`
-* Add `bin` folder into PATH
+* Add `apache-maven-3.6.0\bin` folder into PATH
 
 == Compiling and Building
 
