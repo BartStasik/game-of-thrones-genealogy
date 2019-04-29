@@ -10,11 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" styleClass="face-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.MainController">
+<AnchorPane fx:id="anchorParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" styleClass="main-bg" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.MainController">
     <children>
         <ImageView fitHeight="45.0" fitWidth="319.0" layoutX="584.0" layoutY="173.0" opacity="0.28" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../arrow.png" />
+                <Image url="@../images/arrow.png" />
             </image>
         </ImageView>
         <Label fx:id="dispField" alignment="CENTER" layoutX="581.0" layoutY="78.0" prefHeight="229.0" prefWidth="325.0" styleClass="relationship" text="" textAlignment="CENTER" wrapText="true">
@@ -29,7 +29,7 @@
         <Label alignment="CENTER_RIGHT" layoutX="1325.0" layoutY="102.0" text="CHARACTER 2" />
         <ImageView fitHeight="140.0" fitWidth="326.0" layoutX="580.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../logo.png" />
+                <Image url="@../images/logo.png" />
             </image>
         </ImageView>
         <ListView fx:id="characterSelect1" layoutX="21.0" layoutY="129.0" onMouseClicked="#list1Clicked" prefHeight="531.0" prefWidth="210.0" styleClass="list-view" />
@@ -40,62 +40,62 @@
         <Button fx:id="exportFamily" layoutX="749.0" layoutY="640.0" mnemonicParsing="false" onAction="#exportFamily" prefHeight="36.0" prefWidth="200.0" style="-fx-font-size: 15px;" styleClass="buttons" text="EXPORT FAMILY TREE" />
         <ImageView fx:id="genderIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-gender.png" />
+                <Image url="@../images/i-gender.png" />
             </image>
         </ImageView>
         <ImageView fx:id="statusIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-status.png" />
+                <Image url="@../images/i-status.png" />
             </image>
         </ImageView>
         <ImageView fx:id="allianceIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-alliance.png" />
+                <Image url="@../images/i-alliance.png" />
             </image>
         </ImageView>
         <ImageView fx:id="cultureIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-culture.png" />
+                <Image url="@../images/i-culture.png" />
             </image>
         </ImageView>
         <ImageView fx:id="houseIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-house.png" />
+                <Image url="@../images/i-house.png" />
             </image>
         </ImageView>
         <ImageView fx:id="originIcon1" fitHeight="36.0" fitWidth="42.0" layoutX="237.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-origin.png" />
+                <Image url="@../images/i-origin.png" />
             </image>
         </ImageView>
         <ImageView fx:id="genderIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-gender.png" />
+                <Image url="@../images/i-gender.png" />
             </image>
         </ImageView>
         <ImageView fx:id="statusIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-status.png" />
+                <Image url="@../images/i-status.png" />
             </image>
         </ImageView>
         <ImageView fx:id="allianceIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-alliance.png" />
+                <Image url="@../images/i-alliance.png" />
             </image>
         </ImageView>
         <ImageView fx:id="cultureIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-culture.png" />
+                <Image url="@../images/i-culture.png" />
             </image>
         </ImageView>
         <ImageView fx:id="houseIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-house.png" />
+                <Image url="@../images/i-house.png" />
             </image>
         </ImageView>
         <ImageView fx:id="originIcon2" fitHeight="36.0" fitWidth="42.0" layoutX="1210.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../i-origin.png" />
+                <Image url="@../images/i-origin.png" />
             </image>
         </ImageView>
         <Label fx:id="character1Alliance" alignment="TOP_LEFT" layoutX="275.0" layoutY="477.0" prefHeight="200.0" prefWidth="284.0" styleClass="characterDetail" wrapText="true" />

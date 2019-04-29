@@ -1,20 +1,13 @@
 .main-bg {
-	-fx-background-image: url('bg.jpg');
+	-fx-background-image: url('/images/dark-blue-bg.jpg');
 	-fx-background-size: cover;
 	-fx-background-position: center center;
 }
-
-.trans-bg {
-	-fx-background-color: transparent;
-	-fx-background-image: none;
-}
-
-.face-bg {
-	-fx-background-image: url('dark-blue-bg.jpg');
+.interface-bg {
+	-fx-background-image: url('/images/bg.jpg');
 	-fx-background-size: cover;
 	-fx-background-position: center center;
 }
-
 .buttons {
     -fx-background-color: rgba(0,0,0,0.3);
     -fx-border-color: #ffffff;
@@ -25,12 +18,11 @@
     -fx-border-insets: 5;
     -fx-width:100%;
 }
-
 .buttons:pressed {
     -fx-translate-y: 4px;
 }
 .control-button-close {
-    -fx-background-image: url('close.png');
+    -fx-background-image: url('/images/close.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-color: rgba(0,0,0,0);
@@ -38,7 +30,7 @@
     -fx-opacity: 70%;
 }
 .control-button-minimize {
-    -fx-background-image: url('minimize.png');
+    -fx-background-image: url('/images/minimize.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-color: rgba(0,0,0,0);
@@ -64,14 +56,12 @@
     -fx-background-color: rgba(0,0,0,0.3);
     
 }
-
 .h2 {
     -fx-font-family: "Cinzel";
     -fx-font-size: 28px;
     -fx-font-weight: 600;
     -fx-text-fill: #000000!important;
 }
-
 .h3 {
     -fx-font-family: "Cinzel";
     -fx-font-size: 48px;
@@ -85,20 +75,11 @@
     -fx-background-color: rgba(255,255,0,0.3);
     
 }
-
 .label {
 	-fx-font-family: "Cinzel";
 	-fx-text-fill: #000000!important;
 	-fx-font-size: 18px;
 }
-
-.split-pane:vertical>*.split-pane-divider {
-	-fx-background-image: url('button-bg.jpg');
-	-fx-opacity: 0.3;
-	-fx-height: 2px;
-
-}
-
 .characterName {
     -fx-font-family: "Cinzel";
     -fx-font-size: 30px;
@@ -107,8 +88,6 @@
     -fx-font-family: "Cinzel";
     -fx-font-size: 18px;
 }
-
-
 .list-view {
     -fx-font-family: "Cinzel";
     -fx-background-color: transparent;
@@ -119,6 +98,9 @@
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-width: 0.5;
     -fx-border-color: black;
+}
+.list-cell:hover {
+    -fx-background-color: rgba(50,50,50,0.2);
 }
 .list-cell:selected {
     -fx-background-color: rgba(50,50,50,0.3);
@@ -155,7 +137,7 @@
 .muteButton {
     -fx-background-color: rgba(0,0,0,0);
     -fx-border-width: 0;
-    -fx-background-image: url('volume-high.png');
+    -fx-background-image: url('/images/volume-high.png');
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
@@ -164,7 +146,7 @@
     -fx-background-color: rgba(0,0,0,0);
     -fx-border-width: 0;
     -fx-text-fill: #ffffff;
-    -fx-background-image: url('button-bg.jpg');
+    -fx-background-image: url('/images/button-bg.jpg');
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;

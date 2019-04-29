@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 import javafx.event.EventHandler;
+import javafx.scene.ImageCursor;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
@@ -67,8 +68,21 @@ public class MainLoader extends Application {
 
         Scene interfaceScene = new Scene(interfacePane);
         Scene mainScene = new Scene(mainPane);
+        
+        Image cursorImage = new Image(getClass()
+                .getResource("/images/cursor.png").toExternalForm());
+        
+        if (cursorImage == null) {
+            error.setContentText("Could not load custom cursor from " 
+                    + cursorImage);
+            error.showAndWait();
+            return;
+        }
+        
+        interfaceScene.setCursor(new ImageCursor(cursorImage));
+        mainScene.setCursor(new ImageCursor(cursorImage));
 
-        InputStream gotIcon = decodeResource("icon.png");
+        InputStream gotIcon = decodeResource("images/icon.png");
 
         if (gotIcon == null) {
             error.setContentText("Could not load application icon");
@@ -86,7 +100,6 @@ public class MainLoader extends Application {
         // inject main.fxml scene into the controller of the interface.fxml scene
         InterfaceController interfacePaneController = interfaceLoader.getController();
         interfacePaneController.setMainScene(mainScene);
-
         
         interfaceScene.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

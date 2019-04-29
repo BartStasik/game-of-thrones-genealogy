@@ -15,8 +15,10 @@ import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 import java.net.URL;
+import javafx.scene.ImageCursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 
 
 public class InterfaceController {
@@ -62,11 +64,11 @@ public class InterfaceController {
         toggleAudio++;
         if ((toggleAudio & 1) == 0) {
             volumeButton
-                    .setStyle("-fx-background-image: url('volume-mute.png')");
+                    .setStyle("-fx-background-image: url('images/volume-mute.png')");
             player.setVolume(0.0);
         } else {
             volumeButton
-                    .setStyle("-fx-background-image: url('volume-high.png')");
+                    .setStyle("-fx-background-image: url('images/volume-high.png')");
             player.setVolume(0.2);
         }
     }
@@ -91,7 +93,7 @@ public class InterfaceController {
         
         try {
             musicFile = getClass()
-                    .getResource("/MainTheme.mp3");
+                    .getResource("/music/MainTheme.mp3");
             if (musicFile == null) {
                 musicAlert.showAndWait();
                 return;

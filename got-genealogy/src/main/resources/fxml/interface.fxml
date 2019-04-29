@@ -5,14 +5,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1080.0" styleClass="main-bg" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.InterfaceController">
-   
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1080.0" styleClass="interface-bg" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.got.genealogy.userinterface.InterfaceController"> 
    <children>
       <Button fx:id="playButton" layoutX="600.0" layoutY="428.0" mnemonicParsing="false" onAction="#startGame" prefHeight="63.0" prefWidth="330.0" styleClass="buttons" text="Play" />
       <Button layoutX="600.0" layoutY="524.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="63.0" prefWidth="330.0" styleClass="buttons" text="Exit" />
       <ImageView fitHeight="253.0" fitWidth="448.0" layoutX="545.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../logo.png" />
+            <Image url="@../images/logo.png" />
          </image>
       </ImageView>
       <Button fx:id="volumeButton" layoutX="1019.0" layoutY="732.0" mnemonicParsing="false" onAction="#muteMusic" prefHeight="47.0" prefWidth="47.0" styleClass="muteButton" />

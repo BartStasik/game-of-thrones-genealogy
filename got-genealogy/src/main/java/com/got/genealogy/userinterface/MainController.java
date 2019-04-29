@@ -24,6 +24,7 @@ import java.util.Map;
 import static com.got.genealogy.core.processor.Genealogy.*;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeURL;
+import com.got.genealogy.core.processor.data.StringUtils;
 import javafx.application.Platform;
 import javafx.scene.Node;
 
@@ -145,7 +146,8 @@ public class MainController {
         String person1Name = character1.getText();
         String person2Name = character2.getText();
 
-        if (character1.getText().equals("") || character2.getText().equals("")) {
+        if (character1.getText().equals("") 
+                || character2.getText().equals("")) {
             //Both characters have not been selected there is no relationship to display
             return;
         } else if (character1.getText().equals(character2.getText())) {
@@ -183,7 +185,8 @@ public class MainController {
         }
         String exportPathDecoded = decodeURL(exportPath.getAbsolutePath());
         if (exportPathDecoded == null) {
-            error.setContentText("Family tree was not exported!\n Error with path.");
+            error.setContentText("Family tree was not exported!"
+                    + "\n Error with path.");
             error.showAndWait();
             return;
         }
@@ -221,14 +224,23 @@ public class MainController {
             error.showAndWait();
             return;
         }
-
-        character1Gender.setText(character1Details.get("GENDER"));
-        character1Status.setText(character1Details.get("LIFE STATUS"));
-        character1Origin.setText(character1Details.get("ORIGIN"));
-        character1House.setText(character1Details.get("HOUSE"));
-        character1Culture.setText(character1Details.get("CULTURE"));
-        character1Alliance.setText(character1Details.get("ALLEGIANCE")
-                .replace("; ", "\n"));
+        
+        String alleigance1 = character1Details.get("ALLEGIANCE")
+                .replace("; ", "\n");
+        if (alleigance1.equals("")) {
+            alleigance1 = "None";
+        }
+        character1Gender.setText(StringUtils.toTitleCase(character1Details
+                .get("GENDER")));
+        character1Status.setText(StringUtils.toTitleCase(character1Details
+                .get("LIFE STATUS")));
+        character1Origin.setText(StringUtils.toTitleCase(character1Details
+                .get("ORIGIN")));
+        character1House.setText(StringUtils.toTitleCase(character1Details
+                .get("HOUSE")));
+        character1Culture.setText(StringUtils.toTitleCase(character1Details
+                .get("CULTURE")));
+        character1Alliance.setText(StringUtils.toTitleCase(alleigance1));
     }
 
     void loadCharacterProfile2() {
@@ -249,14 +261,24 @@ public class MainController {
             error.showAndWait();
             return;
         }
-
-        character2Gender.setText(character2Details.get("GENDER"));
-        character2Status.setText(character2Details.get("LIFE STATUS"));
-        character2Origin.setText(character2Details.get("ORIGIN"));
-        character2House.setText(character2Details.get("HOUSE"));
-        character2Culture.setText(character2Details.get("CULTURE"));
-        character2Alliance.setText(character2Details.get("ALLEGIANCE")
-                .replace("; ", "\n"));
+        
+        String alleigance2 = character2Details.get("ALLEGIANCE")
+                .replace("; ", "\n");
+        if (alleigance2.equals("")) {
+            alleigance2 = "None";
+        }
+        
+        character2Gender.setText(StringUtils.toTitleCase(character2Details
+                .get("GENDER")));
+        character2Status.setText(StringUtils.toTitleCase(character2Details
+                .get("LIFE STATUS")));
+        character2Origin.setText(StringUtils.toTitleCase(character2Details
+                .get("ORIGIN")));
+        character2House.setText(StringUtils.toTitleCase(character2Details
+                .get("HOUSE")));
+        character2Culture.setText(StringUtils.toTitleCase(character2Details
+                .get("CULTURE")));
+        character2Alliance.setText(StringUtils.toTitleCase(alleigance2));
     }
 
     // --------------------------- --------------------------- ---------------------------
@@ -264,8 +286,8 @@ public class MainController {
     void loadDataBlocker(ActionEvent event) {
         crack();
         
-        InputStream gotRelations = decodeResource("GenealogyTree.txt");
-        InputStream gotDetails = decodeResource("PersonDetails.txt");
+        InputStream gotRelations = decodeResource("data/GenealogyTree.txt");
+        InputStream gotDetails = decodeResource("data/PersonDetails.txt");
 
         if (gotRelations == null || gotDetails == null) {
             error.setContentText("Could not load the input files!");
@@ -293,7 +315,7 @@ public class MainController {
     }
     
     void crack() {
-        loadButton.setStyle("-fx-background-image: url('button-bg-cracked.jpg')");
+        loadButton.setStyle("-fx-background-image: url('/images/button-bg-cracked.jpg')");
                 //pause to show ice breaking
         try {
             Thread.sleep(1000);
@@ -313,7 +335,8 @@ public class MainController {
 
         String exportPath = decodeURL(exportListPath.getAbsolutePath());
         if (exportPath == null) {
-            error.setContentText("Error could not export sorted list!\n Error with path. ");
+            error.setContentText("Error could not export sorted list!"
+                    + "\n Error with path. ");
             error.showAndWait();
             return;
         }
