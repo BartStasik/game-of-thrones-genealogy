@@ -1,0 +1,40 @@
+Father: 		Tytos Lannister,	Tywin Lannister
+Mother: 		Joanna Lannister,	Cersei Lannister
+Son: 			Tyrion Lannister,	Joanna Lannister
+Daughter: 		Cersei Lannister,	Joanna Lannister
+Parent:			Balon Greyjoy,		Rodrik Cassel
+Child (descendant):	Rodrik Cassel,		Balon Greyjoy
+
+Brother: 		Tyrion Lannister,	Cersei Lannister
+Sister: 		Cersei Lannister,	Tyrion Lannister
+Sibling: 		Rodrik Cassel,		Maron Greyjoy
+Cousin: 		Aegon Targaryen,	Rhaego
+
+Husband: 		Tywin Lannister,	Joanna Lannister
+Wife: 			Joanna Lannister, 	Tywin Lannister
+Spouse (partner):	Joyeuse Frey, 		Walder Frey
+
+Grandfather: 		Tywin Lannister,	Tommen Baratheon
+Grandmother: 		Joanna Lannister,	Tommen Baratheon
+Grandson:		Joffrey Baratheon,	Joanna Lannister
+Granddaughter:		Myrcella Baratheon,	Joanna Lannister
+Grandchild:		Tommen Baratheon,	Joanna Lannister
+
+Nephew: 		Joffrey Baratheon,	Jaime Lannister
+Niece:			Myrcella Baratheon,	Jaime Lannister
+Uncle: 			Jaime Lannister,	Myrcella Baratheon
+Aunt:			Daenerys Targaryen,	Aegon Targaryen
+
+Not Related:		Joffrey Baratheon,	Aegon Targaryen
+
+
+Aunt In-Law: 		Joanna Lannister,	Lancel Lannister
+Nephew In-Law:		Lancel Lannister,	Joanna Lannister
+Father In-Law: 		Rickard Stark,		Catelyn Stark
+Daughter In-Law:	Catelyn Stark,		Rickard Stark
+Brother In-Law: 	Tyrion Lannister,	Robert Baratheon
+Sister In-Law: 		Catelyn Stark,		Brandon Stark
+Cousin In-Law: 		Robert Baratheon,	Lancel Lannister
+Great Grandfather: 	Tytos Lannister,	Tommen Baratheon
+Great Grandchild: 	Tommen Baratheon,	Tytos Lannister
+Not Blood-Related: 	Rickard Stark,		Lysa Arryn

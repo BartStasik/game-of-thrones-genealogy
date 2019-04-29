@@ -11,7 +11,6 @@ Jaime Lannister,male
 Robert Baratheon,male
 Joffrey Baratheon,male
 Myrcella Baratheon,female
-Tommen Baratheon,male
 Aerys II Targaryen,male
 Rhaella Targaryen,female
 Aegon V Targaryen,male
@@ -27,7 +26,50 @@ Rhaenys Targaryen,female
 Aegon Targaryen,male
 Sandor Clegane,male
 Gregor Clegane,male
-
+Jorah Mormont,female
+Janos Slynt,male
+Ilyn Payne,male
+Barristan Selmy,male
+Loras Tyrell,male
+Renly Baratheon,male
+Stannis Baratheon,male
+Steffon Baratheon,male
+Cassana Baratheon,female
+Varys,male
+Margaery Tyrell,female
+Garlan Tyrell,male
+Willas Tyrell,male
+Mace Tyrell,male
+Maron Greyjoy,male
+Asha Greyjoy,female
+Theon Greyjoy,male
+Hodor,male
+Old Nan,female
+Luwin,male
+Mordane,female
+Jory Cassel,male
+Jon Umber,male
+Jon Arryn,male
+Robin Arryn,male
+Hoster Tully,male
+Catelyn Stark,female
+Lysa Arryn,female
+Edmure Tully,male
+Eddard Stark,male
+Wylla,female
+Jon Snow,male
+Rickon Stark,male
+Bran Stark,male
+Arya Stark,female
+Sansa Stark,male
+Robb Stark,male
+Lyanna Stark,female
+Brandon Stark,male
+Benjen Stark,male
+Rickard Stark,male
+Petyr Baelish,male
+Pycelle,male
+Walder Frey,male
 
 Dorna Lannister,spouse,Kevan Lannister
 Dorna Lannister,mother,Lancel Lannister
@@ -77,7 +119,65 @@ Elia Martell,mother,Aegon Targaryen
 Rhaegar Targaryen,father,Rhaenys Targaryen
 Rhaegar Targaryen,father,Aegon Targaryen
 Gregor Clegane,rivalry,Sandor Clegane
+Sandor Clegane,rivalry,Gregor Clegane
 Gregor Clegane,killed,Elia Martell
 Gregor Clegane,killed,Rhaenys Targaryen
 Gregor Clegane,killed,Aegon Targaryen
-
+Loras Tyrell,friendship,Renly Baratheon
+Renly Baratheon,friendship,Loras Tyrell
+Steffon Baratheon,father,Robert Baratheon
+Steffon Baratheon,father,Stannis Baratheon
+Steffon Baratheon,father,Renly Baratheon
+Steffon Baratheon,spouse,Cassana Baratheon
+Cassana Baratheon,mother,Robert Baratheon
+Cassana Baratheon,mother,Stannis Baratheon
+Cassana Baratheon,mother,Renly Baratheon
+Mace Tyrell,father,Willas Tyrell
+Mace Tyrell,father,Garlan Tyrell
+Mace Tyrell,father,Margaery Tyrell
+Mace Tyrell,father,Loras Tyrell
+Balon Greyjoy,parent,Asha Greyjoy
+Balon Greyjoy,parent,Maron Greyjoy
+Balon Greyjoy,parent,Rodrik Cassel
+Balon Greyjoy,parent,Theon Greyjoy
+Hodor,spouse,Old Nan
+Jon Arryn,father,Robin Arryn
+Hoster Tully,father,Catelyn Stark
+Hoster Tully,father,Lysa Arryn
+Hoster Tully,father,Edmure Tully
+Catelyn Stark,spouse,Eddard Stark
+Wylla,sexual relationship,Eddard Stark
+Eddard Stark,sexual relationship,Wylla
+Eddard Stark,father,Robb Stark
+Eddard Stark,father,Sansa Stark
+Eddard Stark,father,Arya Stark
+Eddard Stark,father,Bran Stark
+Eddard Stark,father,Rickon Stark
+Catelyn Stark,mother,Robb Stark
+Catelyn Stark,mother,Sansa Stark
+Catelyn Stark,mother,Arya Stark
+Catelyn Stark,mother,Bran Stark
+Catelyn Stark,mother,Rickon Stark
+Robb Stark,friendship,Jon Snow
+Jon Snow,friendship,Robb Stark
+Rickard Stark,father,Benjen Stark
+Rickard Stark,father,Brandon Stark
+Rickard Stark,father,Lyanna Stark
+Rickard Stark,father,Eddard Stark
+Walder Frey,spouse,Joyeuse Frey
+Arya Stark,friendship,Jon Snow
+Jon Snow,friendship,Arya Stark
+Eddard Stark,friendship,Robert Baratheon
+Robert Baratheon,friendship,Eddard Stark
+Jory Cassel,friendship,Eddard Stark
+Eddard Stark,friendship,Jory Cassel
+Arya Stark,likes,Jory Cassel
+Robb Stark,friendship,Theon Greyjoy
+Theon Greyjoy,friendship,Robb Stark
+Robert Baratheon,rivalry,Balon Greyjoy
+Balon Greyjoy,rivalry,Robert Baratheon
+Robert Baratheon,killed,Maron Greyjoy
+Robert Baratheon,killed,Rodrik Cassel
+Catelyn Stark,hates,Jon Snow
+Jon Snow,son,Lyanna Stark
+Jon Snow,son,Rhaegar Targaryen

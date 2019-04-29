@@ -148,7 +148,6 @@ Hoster Tully,father,Edmure Tully
 Catelyn Stark,spouse,Eddard Stark
 Wylla,sexual relationship,Eddard Stark
 Eddard Stark,sexual relationship,Wylla
-Eddard Stark,adoptive father,Jon Snow
 Eddard Stark,father,Robb Stark
 Eddard Stark,father,Sansa Stark
 Eddard Stark,father,Arya Stark

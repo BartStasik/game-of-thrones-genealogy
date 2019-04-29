@@ -8,8 +8,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.source.version>8</java.source.version>
-        <java.target.version>8</java.target.version>
+        <java.source.version>1.8</java.source.version>
+        <java.target.version>1.8</java.target.version>
         <min.maven.version>3.3.0</min.maven.version>
 
         <!-- Dependency Versions -->
@@ -24,6 +24,7 @@
         <dependency.plugin.version>3.1.1</dependency.plugin.version>
         <surefire.plugin.version>3.0.0-M3</surefire.plugin.version>
         <release.plugin.version>2.5.3</release.plugin.version>
+        <enforcer.plugin.version>3.0.0-M2</enforcer.plugin.version>
         <exec.plugin.version>1.6.0</exec.plugin.version>
     </properties>
 
@@ -108,6 +109,31 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surefire.plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${enforcer.plugin.version}</version>
+                    <configuration>
+                        <rules>
+                            <requireJavaVersion>
+                                <version>${java.source.version}</version>
+                            </requireJavaVersion>
+                            <requireMavenVersion>
+                                <version>${min.maven.version}</version>
+                            </requireMavenVersion>
+                        </rules>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>enforce-java</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <phase>compile</phase>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
