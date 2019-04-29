@@ -14,9 +14,9 @@ IMPORTANT: Must use Java 1.8, otherwise the JavaFX 8 GUI won't work as expected
 
 === Maven on Windows
 
-* Download `Binary zip archive`
+* Download `Binary zip archive` from https://maven.apache.org/
 * Unpack into a directory, e.g. `C:\Program Files\Apache Software Foundation\apache-maven-3.6.0`
-* Add `bin` folder into PATH
+* Add `apache-maven-3.6.0\bin` folder into PATH
 
 == Compiling and Building
 
