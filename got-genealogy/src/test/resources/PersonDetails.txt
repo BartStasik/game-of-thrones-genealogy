@@ -1,6 +1,6 @@
 Dorna Lannister,Life Status,Alive
-Dorna Lanister,Origin,Cornfield
-Dorna Lanister,Allegiance,House Swyft; House Lannister
+Dorna Lannister,Origin,Cornfield
+Dorna Lannister,Allegiance,House Swyft; House Lannister
 Dorna Lannister,Culture,Andal
 Dorna Lannister,House,Lannister
 

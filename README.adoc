@@ -47,3 +47,13 @@ Compile and build shorthand:
 ----
 mvn clean install && mvnDebug exec:java
 ----
+
+== Rights to media
+icon.png - Application icon
+https://commons.wikimedia.org/wiki/File:Game_of_Thrones_triple_slash_O.svg 
+
+MainTheme.mp3 - Background Music
+Ice and Fire - Ross Bugden 
+https://www.youtube.com/watch?v=kthxycmF25M 
+
+All other elements were created originally by memebrs of the group or edited by members of the group from content under no attribution license.

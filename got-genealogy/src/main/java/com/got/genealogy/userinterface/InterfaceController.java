@@ -15,6 +15,8 @@ import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 import java.net.URL;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class InterfaceController {
@@ -25,6 +27,7 @@ public class InterfaceController {
     String pathMusic;
     Media media;
     MediaPlayer player;
+    URL musicFile;
 
     int toggleAudio;
 
@@ -59,23 +62,39 @@ public class InterfaceController {
         toggleAudio++;
         if ((toggleAudio & 1) == 0) {
             volumeButton
-                    .setStyle("-fx-background-image: url('volume-mute.png')");
+                    .setStyle("-fx-background-image: url('images/volume-mute.png')");
             player.setVolume(0.0);
         } else {
             volumeButton
-                    .setStyle("-fx-background-image: url('volume-high.png')");
+                    .setStyle("-fx-background-image: url('images/volume-high.png')");
             player.setVolume(0.2);
         }
     }
 
+    @FXML
+    public void minimizeClicked(ActionEvent arg0) {
+        primaryStage = (Stage) ((Node) arg0.getSource()).getScene().getWindow();
+        primaryStage.setIconified(true);
+    }
+    
+    @FXML
+    public void closeClicked(ActionEvent arg0) {
+        Platform.exit();
+    }
 
     public void initialize() {
+        Alert musicAlert = new Alert(AlertType.ERROR);
+        musicAlert.setTitle("Error");
+        musicAlert.setHeaderText(null);
+        musicAlert.setContentText("Failed to load music!");
+
+        
         try {
-            URL musicFile = getClass()
-                    .getResource("/MainTheme.mp3");
+            musicFile = getClass()
+                    .getResource("/music/MainTheme.mp3");
             if (musicFile == null) {
+                musicAlert.showAndWait();
                 return;
-                //popup no music
             }
 
             pathMusic = musicFile.toURI().toString();
@@ -83,15 +102,14 @@ public class InterfaceController {
             toggleAudio = 1;
             fileChooser = new FileChooser();
 
-            media = new Media(pathMusic);
-            player = new MediaPlayer(media);
-            player.play();
-            player.setVolume(0.2);
-
-            player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
         } catch (URISyntaxException e) {
-            e.printStackTrace();
-            //popup
+            musicAlert.showAndWait();
         }
+        media = new Media(pathMusic);
+        player = new MediaPlayer(media);
+        player.play();
+        player.setVolume(0.2);
+        
+        player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
     }
 }

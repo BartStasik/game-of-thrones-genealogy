@@ -1,0 +1,167 @@
+.main-bg {
+	-fx-background-image: url('/images/dark-blue-bg.jpg');
+	-fx-background-size: cover;
+	-fx-background-position: center center;
+}
+.interface-bg {
+	-fx-background-image: url('/images/bg.jpg');
+	-fx-background-size: cover;
+	-fx-background-position: center center;
+}
+.buttons {
+    -fx-background-color: rgba(0,0,0,0.3);
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-border-insets: 5;
+    -fx-width:100%;
+}
+.buttons:pressed {
+    -fx-translate-y: 4px;
+}
+.control-button-close {
+    -fx-background-image: url('/images/close.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-style: none;
+    -fx-opacity: 70%;
+}
+.control-button-minimize {
+    -fx-background-image: url('/images/minimize.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-style: none;
+    -fx-opacity: 70%;
+}
+.control-button-minimize:hover {
+    -fx-opacity: 100%;
+}
+.control-button-close:hover {
+    -fx-opacity: 100%;
+}
+.h1 {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 48px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+    -fx-border-insets: 5;
+    -fx-background-color: rgba(0,0,0,0.3);
+    
+}
+.h2 {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 28px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #000000!important;
+}
+.h3 {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 48px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+    -fx-border-insets: 5;
+    -fx-background-color: rgba(255,255,0,0.3);
+    
+}
+.label {
+	-fx-font-family: "Cinzel";
+	-fx-text-fill: #000000!important;
+	-fx-font-size: 18px;
+}
+.characterName {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 30px;
+}
+.characterDetail {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 18px;
+}
+.list-view {
+    -fx-font-family: "Cinzel";
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+}
+.list-cell {
+    -fx-background-color: rgba(50,50,0,0.1);
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-width: 0.5;
+    -fx-border-color: black;
+}
+.list-cell:hover {
+    -fx-background-color: rgba(50,50,50,0.2);
+}
+.list-cell:selected {
+    -fx-background-color: rgba(50,50,50,0.3);
+}
+.scroll-bar{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: rgba(0,0,0,0);
+}
+.scroll-bar .thumb{
+    -fx-background-color: rgba(210,179,100,1);
+    -fx-border-color: transparent;
+    -fx-background-radius: 2.0em;
+    -fx-border-radius :2.0em;
+}
+.scroll-bar .thumb:hover{
+    -fx-background-color: rgba(220,189,110,1);
+}
+.scroll-bar .increment-button ,
+.scroll-bar .decrement-button {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-radius: 0.0em;
+    -fx-padding:0 15 0 0;
+}
+ .scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding:0;
+}
+.relationship{
+    -fx-font-family: "Cinzel";
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 29px;
+}
+.muteButton {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-width: 0;
+    -fx-background-image: url('/images/volume-high.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+.loadButton {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-width: 0;
+    -fx-text-fill: #ffffff;
+    -fx-background-image: url('/images/button-bg.jpg');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+.loadButton .text{
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 60px;
+    -fx-effect: dropshadow(gaussian, Black, 30, 0, 0, 0); 
+}
+.loadButtonCrack {
+    -fx-background-image: url('/images/button-bg-cracked.jpg');
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-width: 0;
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
