@@ -115,23 +115,22 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>${enforcer.plugin.version}</version>
-                    <configuration>
-                        <rules>
-                            <requireJavaVersion>
-                                <version>${java.source.version}</version>
-                            </requireJavaVersion>
-                            <requireMavenVersion>
-                                <version>${min.maven.version}</version>
-                            </requireMavenVersion>
-                        </rules>
-                    </configuration>
                     <executions>
                         <execution>
-                            <id>enforce-java</id>
+                            <id>enforce-versions</id>
                             <goals>
                                 <goal>enforce</goal>
                             </goals>
-                            <phase>compile</phase>
+                            <configuration>
+                                <rules>
+                                    <requireJavaVersion>
+                                        <version>${java.source.version}</version>
+                                    </requireJavaVersion>
+                                    <requireMavenVersion>
+                                        <version>${min.maven.version}</version>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>

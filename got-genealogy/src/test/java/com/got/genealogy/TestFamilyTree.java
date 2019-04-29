@@ -4,6 +4,7 @@ import com.got.genealogy.core.family.FamilyTree;
 import com.got.genealogy.core.family.person.Gender;
 import com.got.genealogy.core.family.person.Person;
 import com.got.genealogy.core.family.person.Relation;
+import com.got.genealogy.core.graph.property.Edge;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -32,6 +33,8 @@ public class TestFamilyTree {
         GraphUtils<Person, Relation> graphUtils = new GraphUtils<>();
         FamilyTree family = new FamilyTree("Stark");
         HashMap<String, Gender> names = new HashMap<>();
+        Relation defaultNull = new Relation("");
+        defaultNull.setLabel("______");
 
         // Based purely on example input
         // file, mentioned in the cw spec.
@@ -115,7 +118,7 @@ public class TestFamilyTree {
 
         // Both mother and father are
         // 6 characters long.
-        graphUtils.printGraph(family);
+        graphUtils.printGraph(family, defaultNull);
 
         System.out.println();
 
