@@ -37,7 +37,7 @@ public class MainLoader extends Application {
         error.setHeaderText(null);
         
         String javaVersion = Runtime.class.getPackage().getImplementationVersion();
-        if(!javaVersion.equals("1.8.0_212")){
+        if(!javaVersion.startsWith("1.8")){
             error.setContentText("Program failed to start."
                     + "\nPlease make sure you are using Java8");
             error.showAndWait();

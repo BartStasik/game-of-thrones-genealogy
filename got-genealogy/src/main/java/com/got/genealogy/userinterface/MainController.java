@@ -24,7 +24,7 @@ import java.util.Map;
 import static com.got.genealogy.core.processor.Genealogy.*;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeURL;
-import com.got.genealogy.core.processor.data.StringUtils;
+import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
 import javafx.application.Platform;
 import javafx.scene.Node;
 
@@ -225,22 +225,38 @@ public class MainController {
             return;
         }
         
-        String alleigance1 = character1Details.get("ALLEGIANCE")
-                .replace("; ", "\n");
+        String status1 = character1Details.get("LIFE STATUS");
+        if (status1.equals("")) {
+            status1 = "None";
+        }
+        String gender1 = character1Details.get("GENDER");
+        if (gender1.equals("")) {
+            gender1 = "None";
+        }
+        String origin1 = character1Details.get("ORIGIN");
+        if (origin1.equals("")) {
+            origin1 = "None";
+        }
+        String house1 = character1Details.get("HOUSE");
+        if (house1.equals("")) {
+            house1 = "None";
+        }
+        String culture1 = character1Details.get("CULTURE");
+        if (culture1.equals("")) {
+            culture1 = "None";
+        }
+        String alleigance1 = character1Details.get("ALLEGIANCE");
         if (alleigance1.equals("")) {
             alleigance1 = "None";
         }
-        character1Gender.setText(StringUtils.toTitleCase(character1Details
-                .get("GENDER")));
-        character1Status.setText(StringUtils.toTitleCase(character1Details
-                .get("LIFE STATUS")));
-        character1Origin.setText(StringUtils.toTitleCase(character1Details
-                .get("ORIGIN")));
-        character1House.setText(StringUtils.toTitleCase(character1Details
-                .get("HOUSE")));
-        character1Culture.setText(StringUtils.toTitleCase(character1Details
-                .get("CULTURE")));
-        character1Alliance.setText(StringUtils.toTitleCase(alleigance1));
+        alleigance1.replace("; ", "\n");
+        
+        character1Gender.setText(toTitleCase(gender1));
+        character1Status.setText(toTitleCase(status1));
+        character1Origin.setText(toTitleCase(origin1));
+        character1House.setText(toTitleCase(house1));
+        character1Culture.setText(toTitleCase(culture1));
+        character1Alliance.setText(toTitleCase(alleigance1));
     }
 
     void loadCharacterProfile2() {
@@ -261,24 +277,38 @@ public class MainController {
             error.showAndWait();
             return;
         }
-        
-        String alleigance2 = character2Details.get("ALLEGIANCE")
-                .replace("; ", "\n");
+        String status2 = character2Details.get("LIFE STATUS");
+        if (status2.equals("")) {
+            status2 = "None";
+        }
+        String gender2 = character2Details.get("GENDER");
+        if (gender2.equals("")) {
+            gender2 = "None";
+        }
+        String origin2 = character2Details.get("ORIGIN");
+        if (origin2.equals("")) {
+            origin2 = "None";
+        }
+        String house2 = character2Details.get("HOUSE");
+        if (house2.equals("")) {
+            house2 = "None";
+        }
+        String culture2 = character2Details.get("CULTURE");
+        if (culture2.equals("")) {
+            culture2 = "None";
+        }
+        String alleigance2 = character2Details.get("ALLEGIANCE");
         if (alleigance2.equals("")) {
             alleigance2 = "None";
         }
+        alleigance2.replace("; ", "\n");
         
-        character2Gender.setText(StringUtils.toTitleCase(character2Details
-                .get("GENDER")));
-        character2Status.setText(StringUtils.toTitleCase(character2Details
-                .get("LIFE STATUS")));
-        character2Origin.setText(StringUtils.toTitleCase(character2Details
-                .get("ORIGIN")));
-        character2House.setText(StringUtils.toTitleCase(character2Details
-                .get("HOUSE")));
-        character2Culture.setText(StringUtils.toTitleCase(character2Details
-                .get("CULTURE")));
-        character2Alliance.setText(StringUtils.toTitleCase(alleigance2));
+        character2Gender.setText(toTitleCase(gender2));
+        character2Status.setText(toTitleCase(status2));
+        character2Origin.setText(toTitleCase(origin2));
+        character2House.setText(toTitleCase(house2));
+        character2Culture.setText(toTitleCase(culture2));
+        character2Alliance.setText(toTitleCase(alleigance2));
     }
 
     // --------------------------- --------------------------- ---------------------------
