@@ -336,19 +336,19 @@ public class MainController {
         if(realtionsFileLoad == null){
             error.setContentText("Could not load the Relationships data file from system!");
             error.showAndWait();
+        } else {
+            info.setContentText("Sucessfully imported relations data file");
+            info.showAndWait();
         }
         
-        info.setContentText("Sucessfully imported relations data file");
-        info.showAndWait();
-
         boolean detailsFileLoad = loadPersonDetailsFile(gotDetails, "GOT");
         if(!detailsFileLoad){
             error.setContentText("Could not load the Characters details file from system!");
             error.showAndWait();
+        } else {
+            info.setContentText("Sucessfully imported characters details data file");
+            info.showAndWait();
         }
-        
-        info.setContentText("Sucessfully imported characters details data file");
-        info.showAndWait();
         
         loadCharacters("GOT");
         
