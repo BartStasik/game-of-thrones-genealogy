@@ -11,8 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Tooltip;
@@ -24,9 +23,13 @@ import java.util.Map;
 import static com.got.genealogy.core.processor.Genealogy.*;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeResource;
 import static com.got.genealogy.core.processor.data.FileHandler.decodeURL;
+import com.got.genealogy.core.processor.data.StringUtils;
 import static com.got.genealogy.core.processor.data.StringUtils.toTitleCase;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 
 public class MainController {
@@ -36,7 +39,7 @@ public class MainController {
     Alert error;
     Alert info;
 
-    private FileChooser fileChooser;
+    private FileChooser txtSave, gvSave;
 
     @FXML
     private Button loadButton;
@@ -181,7 +184,9 @@ public class MainController {
     @FXML
     void exportFamily(ActionEvent event) {
         // 1. File Chooser (showSaveDialog) - return path
-        File exportPath = fileChooser.showSaveDialog(primaryStage);
+        gvSave.getExtensionFilters().addAll(
+         new ExtensionFilter("Graphviz", "*.gv"));
+        File exportPath = gvSave.showSaveDialog(primaryStage);
         if (exportPath == null) {
             //cancel was pressed
             return;
@@ -200,8 +205,7 @@ public class MainController {
         // 3. Display filepath 
         info.setContentText((
                 "Family tree successfully exported to: "
-                + exportPathDecoded
-                + ".gv"));
+                + StringUtils.writeFileExtension(exportPathDecoded, ".gv")));
         info.showAndWait();
     }
 
@@ -323,8 +327,6 @@ public class MainController {
     // --------------------------- --------------------------- ---------------------------
     @FXML
     void loadDataBlocker(ActionEvent event) {
-        crack();
-        
         InputStream gotRelations = decodeResource("data/GenealogyTree.txt");
         InputStream gotDetails = decodeResource("data/PersonDetails.txt");
 
@@ -348,22 +350,27 @@ public class MainController {
         }
         
         loadCharacters("GOT");
+        
+        crack();
     }
     
     void crack() {
         anchorParent.getChildren().add(loadButtonCrack);
-        anchorParent.getChildren().remove(loadButton);
+        
         try {
-            Thread.sleep(2000);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         anchorParent.getChildren().remove(loadButtonCrack);
+        anchorParent.getChildren().remove(loadButton);
     }
 
     @FXML
     void exportSortedList(ActionEvent event) {
-        File exportListPath = fileChooser.showSaveDialog(primaryStage);
+        txtSave.getExtensionFilters().addAll(
+         new ExtensionFilter("TextFile", "*.txt"));
+        File exportListPath = txtSave.showSaveDialog(primaryStage);
         if (exportListPath == null) {
             //cancel pressed
             return;
@@ -379,7 +386,7 @@ public class MainController {
 
         exportSorted(exportPath, "GOT");
         info.setContentText("Sorted list successfully exported to: " 
-                + exportPath);
+                + StringUtils.writeFileExtension(exportPath, ".txt"));
         info.showAndWait();
     }
     
@@ -439,7 +446,8 @@ public class MainController {
         info.setTitle("Information");
         info.setHeaderText(null);
         
-        fileChooser = new FileChooser();
+        gvSave = new FileChooser();
+        txtSave = new FileChooser();
         
         Tooltip.install(allianceIcon1, new Tooltip("Alleigence"));
         Tooltip.install(cultureIcon1, new Tooltip("Culture"));
