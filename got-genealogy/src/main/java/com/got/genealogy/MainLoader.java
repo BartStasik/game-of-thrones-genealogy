@@ -77,27 +77,26 @@ public class MainLoader extends Application {
 
         Scene interfaceScene = new Scene(interfacePane);
         Scene mainScene = new Scene(mainPane);
-        
-        Image cursorImage = new Image(getClass()
-                .getResource("/images/cursor.png").toExternalForm());
-        
-        if (cursorImage == null) {
-            error.setContentText("Could not load custom cursor from " 
-                    + cursorImage);
+
+        InputStream gotIcon = decodeResource("images/icon.png");
+        InputStream cursorIcon = decodeResource("images/cursor.png");
+
+        if (cursorIcon == null) {
+            error.setContentText("Could not load custom cursor icon");
             error.showAndWait();
             return;
         }
-        
-        interfaceScene.setCursor(new ImageCursor(cursorImage));
-        mainScene.setCursor(new ImageCursor(cursorImage));
-
-        InputStream gotIcon = decodeResource("images/icon.png");
 
         if (gotIcon == null) {
             error.setContentText("Could not load application icon");
             error.showAndWait();
             return;
         }
+
+        Image cursorImage = new Image(cursorIcon);
+
+        interfaceScene.setCursor(new ImageCursor(cursorImage));
+        mainScene.setCursor(new ImageCursor(cursorImage));
 
         primaryStage.getIcons().add(new Image(gotIcon));
         primaryStage.setTitle("Game Of Thrones Genealogy");

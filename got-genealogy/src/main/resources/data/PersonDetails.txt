@@ -22,6 +22,12 @@ Tywin Lannister,Allegiance,House Lannister; House Baratheon of King's Landing; H
 Tywin Lannister,Culture,Andal
 Tywin Lannister,House,Lannister
 
+Tyrion Lannister,Life Status,Alive
+Tyrion Lannister,Origin,Casterly Rock
+Tyrion Lannister,Allegiance,House Lannister; House Targaryen
+Tyrion Lannister,Culture,Andal
+Tyrion Lannister,House,Lannister
+
 Joanna Lannister,Life Status,Dead
 Joanna Lannister,Origin
 Joanna Lannister,Allegiance,House Lannister
@@ -165,12 +171,6 @@ Gregor Clegane,Origin,Clegane's Keep
 Gregor Clegane,Allegiance,House Clegane; House Lannister; Queensguard; Kingsguard
 Gregor Clegane,Culture,Andal
 Gregor Clegane,House,Lannister
-
-Tyrion Lannister,Life Status,Alive
-Tyrion Lannister,Origin,Casterly Rock
-Tyrion Lannister,Allegiance,House Lannister; House Targaryen
-Tyrion Lannister,Culture,Andal
-Tyrion Lannister,House,Lannister
 
 Jorah Mormont,Life Status,Alive
 Jorah Mormont,Origin,Bear Island
@@ -412,12 +412,6 @@ Lyanna Stark,Allegiance,House Stark; House Targaryen
 Lyanna Stark,Culture,Northmen
 Lyanna Stark,House,Stark
 
-Bran Stark,Life Status,Alive
-Bran Stark,Origin,Womterfell
-Bran Stark,Allegiance,House Stark
-Bran Stark,Culture,Northmen
-Bran Stark,House,Stark
-
 Benjen Stark,Life Status,Dead
 Benjen Stark,Origin,Winterfell
 Benjen Stark,Allegiance,House Stark; Three-Eyed Raven; The Night's Watch
@@ -453,3 +447,9 @@ Walder Frey,Origin,The Twins
 Walder Frey,Allegiance,House Frey; House Tully
 Walder Frey,Culture,Andal
 Walder Frey,House,Frey
+
+Brandon Stark,Life Status,Dead
+Brandon Stark,Origin,Winterfell
+Brandon Stark,Allegiance,House Stark
+Brandon Stark,Culture,Northmen
+Brandon Stark,House,Stark
