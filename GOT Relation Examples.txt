@@ -38,3 +38,5 @@ Cousin In-Law: 		Robert Baratheon,	Lancel Lannister
 Great Grandfather: 	Tytos Lannister,	Tommen Baratheon
 Great Grandchild: 	Tommen Baratheon,	Tytos Lannister
 Not Blood-Related: 	Rickard Stark,		Lysa Arryn
+1st Ascendant Cousin: 		Joffrey Baratheon,		Lancel Lannister
+1st Descendant Cousin:		Lancel Lannister,		Joffrey Baratheon
