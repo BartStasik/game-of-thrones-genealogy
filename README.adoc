@@ -12,6 +12,8 @@ IMPORTANT: Must use Java 1.8, otherwise the JavaFX 8 GUI won't work as expected
 ** `mvn clean install` - compile
 ** `mvn exec:java` - build
 
+NOTE: The main class is `com.got.genealogy.MainLoader`
+
 === Maven on Windows
 
 * Download `Binary zip archive` from https://maven.apache.org/
