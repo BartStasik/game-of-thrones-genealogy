@@ -40,6 +40,9 @@ public class MainController {
 
     @FXML
     private Button loadButton;
+    
+    @FXML
+    private Button loadButtonCrack;
 
     @FXML
     private AnchorPane anchorParent;
@@ -345,20 +348,17 @@ public class MainController {
         }
         
         loadCharacters("GOT");
-   
-        anchorParent.getChildren().remove(loadButton);
-
     }
     
     void crack() {
-        loadButton.setStyle("-fx-background-image: url('/images/button-bg-cracked.jpg')");
-                //pause to show ice breaking
+        anchorParent.getChildren().add(loadButtonCrack);
+        anchorParent.getChildren().remove(loadButton);
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MainController.class.getName())
-                    .log(Level.SEVERE, null, ex);
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        anchorParent.getChildren().remove(loadButtonCrack);
     }
 
     @FXML
@@ -428,6 +428,9 @@ public class MainController {
     }
 
     public void initialize() {
+        
+        anchorParent.getChildren().remove(loadButtonCrack);
+        
         error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("Error");
         error.setHeaderText(null);
