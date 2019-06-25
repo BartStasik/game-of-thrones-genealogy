@@ -54,44 +54,130 @@ mvn clean install && mvnDebug exec:java
 ----
 
 == Rights and References to media
-icon.png - Application icon
+
+=== icon.png - Application icon
+
 https://commons.wikimedia.org/wiki/File:Game_of_Thrones_triple_slash_O.svg 
+
 Public Domain
 
-MainTheme.mp3 - Background Music
-Ice and Fire - Ross Bugden 
+=== MainTheme.mp3 - Background Music
+
+Ice and Fire - Ross Bugden
+
+
 https://www.youtube.com/watch?v=kthxycmF25M 
+
 Creative Commons Attribution 4.0 International License
 
-Cinzel.ttf - Custom font
+
+=== Cinzel.ttf - Custom Font
+
 https://fonts.google.com/specimen/Cinzel
+
 Open Font License
 
-arrow.png - Pointer to show relationship direction in GUI
+
+=== arrow.png - Relationship Pointer
+
 https://pixabay.com/vectors/arrow-bow-old-shoot-weapon-150966/
+
 Pixabay License - Free for commercial use - No attribution required
 
-button-bg.jpg - Load data button
+
+=== button-bg.jpg - Load Data Button
+
 https://pixabay.com/sk/photos/zmrzlina-ľadovec-mrazené-za-studena-2360363/
+
 Pixabay License - Free for commercial use - No attribution required
 
-bg.jpg - interface(menu) background
-Edited from the following files
-https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Old_Map_of_Westport%2C_CT_showing_Greens_Farms.jpg/800px-Old_Map_of_Westport%2C_CT_showing_Greens_Farms.jpg - George Penfield Jennings, 10 December 2011. Public domain in the United States.
-https://pxhere.com/en/photo/1442533 - Dorothe, 07/17 2018. Creative Commons CC0
-https://pixabay.com/sk/illustrations/kompas-sever-na-juh-východ-západ-3057603/ - jeffjacobs, 3 Janurary 2018 - Pixabay License - Free for commercial use - No attribution required
-https://www.flickr.com/photos/109657391@N02/11604318943 Faik Menteşe, March 12, 2013 - Attribution 2.0 Generic
-https://commons.wikimedia.org/wiki/File:Essos.jpg Leonardiou, 27 April 2017 -  Creative Commons Attribution-Share Alike 4.0 International. Text, colours and shapes were adapted into the final piece.
-https://commons.wikimedia.org/wiki/File:Braavos_lowres-1024x682.jpg Leonardiou, 27 April 2017 - Creative Commons Attribution-Share Alike 4.0 International. Buildings and textures were used from this piece.
-https://commons.wikimedia.org/wiki/File:Game_of_Thrones_World_Map_and_Cities.png awoiaf.westeros.org, 30 August 2017 - Creative Commons Attribution-Share Alike 4.0 International. Outline of land forms were used.
-https://wiki--travel.com/img/large-map-of-westeros-and-essos-31.html https://wiki--travel.com, unknown.  free to use, share or modify.
-https://wiki--travel.com/img/large-map-of-westeros-and-essos-3.html https://wiki--travel.com, unknown.  free to use, share or modify.
-https://wiki--travel.com/img/large-map-of-westeros-and-essos-9.html https://wiki--travel.com, unknown.  free to use, share or modify.
 
-cursor.png - custom cursor created using below as stencil for pixrl art
-https://www.flickr.com/photos/albioneurope/7310736352 Søren Niedziella, May 31, 2012. Attribution 2.0 Generic.
+=== bg.jpg - Menu Background
 
-logo.png
+
+==== Edited from the following files:
+
+
+https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Old_Map_of_Westport%2C_CT_showing_Greens_Farms.jpg/800px-Old_Map_of_Westport%2C_CT_showing_Greens_Farms.jpg 
+
+George Penfield Jennings, 10 December 2011. Public domain in the United States.
+
+
+https://pxhere.com/en/photo/1442533
+
+Dorothe, 07/17 2018. Creative Commons CC0
+
+
+https://pixabay.com/sk/illustrations/kompas-sever-na-juh-východ-západ-3057603/
+
+jeffjacobs, 3 Janurary 2018 - Pixabay License - Free for commercial use - No attribution required
+
+
+https://www.flickr.com/photos/109657391@N02/11604318943 
+
+Faik Menteşe, March 12, 2013 - Attribution 2.0 Generic
+
+
+https://commons.wikimedia.org/wiki/File:Essos.jpg Leonardiou, 27 April 2017 
+
+Creative Commons Attribution-Share Alike 4.0 International. 
+
+Text, colours and shapes were adapted into the final piece.
+
+
+https://commons.wikimedia.org/wiki/File:Braavos_lowres-1024x682.jpg 
+
+Leonardiou, 27 April 2017 - Creative Commons Attribution-Share Alike 4.0 International. 
+
+Buildings and textures were used from this piece.
+
+
+https://commons.wikimedia.org/wiki/File:Game_of_Thrones_World_Map_and_Cities.png awoiaf.westeros.org 
+
+30 August 2017 - Creative Commons Attribution-Share Alike 4.0 International. 
+
+Outline of land forms were used.
+
+
+https://wiki--travel.com/img/large-map-of-westeros-and-essos-31.html 
+
+https://wiki--travel.com, unknown. Free to use, share or modify.
+
+
+https://wiki--travel.com/img/large-map-of-westeros-and-essos-3.html 
+
+https://wiki--travel.com, unknown. Free to use, share or modify.
+
+
+https://wiki--travel.com/img/large-map-of-westeros-and-essos-9.html 
+
+https://wiki--travel.com, unknown. Free to use, share or modify.
+
+
+=== cursor.png - Custom Cursor
+
+==== Created, using the image below, as stencil for pixrl art
+
+https://www.flickr.com/photos/albioneurope/7310736352 
+
+Søren Niedziella, May 31, 2012. Attribution 2.0 Generic.
+
+
+=== logo.png
+
 Created using Cinzel Open Font
 
-All other graphics close.png, i-alliance.png, i-culture.png, i-gender.png, i-house.png, i-origin.png, i-status.png, main-bg.jpg, minimize.png, volume-high.png, volume-mute.png were all created from scratch using Photoshop.
+
+All other graphics were all created from scratch using Photoshop:
+
+* close.png
+* i-alliance.png
+* i-culture.png
+* i-gender.png
+* i-house.png
+* i-origin.png
+* i-status.png
+* main-bg.jpg
+* minimize.png
+* volume-high.png
+* volume-mute.png
